@@ -43,7 +43,7 @@ class InitAuthView extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  onPressed: () {},
+                  onPressed: () => context.push(Routes.signupView),
                   text: 'Sign up',
                   textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: AppColors.primaryColor,
