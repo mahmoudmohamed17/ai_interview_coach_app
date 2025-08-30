@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/views/auth_view/dont_have_an_account_widget.dart';
+import 'package:ai_interview_coach_app/views/auth_view/forgot_password_button.dart';
 import 'package:ai_interview_coach_app/views/auth_view/or_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_with_label.dart';
 import 'package:ai_interview_coach_app/views/auth_view/social_login_methods_widget.dart';
@@ -69,19 +70,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           controller: _passwordController,
         ),
         const SizedBox(height: 16),
-        Align(
+        const Align(
           alignment: Alignment.centerRight,
-          child: InkWell(
-            onTap: () {},
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
-            child: Text(
-              'Forgot password?',
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: AppColors.primaryColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
+          child: ForgotPasswordButton(),
         ),
         const SizedBox(height: 24),
         SizedBox(
