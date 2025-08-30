@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/views/auth_view/dont_have_an_account_widget.dart';
@@ -6,6 +7,7 @@ import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_
 import 'package:ai_interview_coach_app/views/auth_view/social_login_methods_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/text_form_field_with_label.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -85,7 +87,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         SizedBox(
           width: double.infinity,
           child: CustomButton(
-            onPressed: () {},
+            /// Change this later
+            onPressed: () => context.push(Routes.mainView),
             text: 'Log In',
             textStyle: Theme.of(
               context,

@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: GoogleFonts.poppins.toString()),
+      theme: ThemeData(
+        fontFamily: GoogleFonts.poppins.toString(),
+        useMaterial3: true,
+      ),
       routerConfig: AppRouting.router,
     );
   }
