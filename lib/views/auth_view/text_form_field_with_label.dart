@@ -32,6 +32,10 @@ class TextFormFieldWithLabel extends StatelessWidget {
             color: AppColors.secondaryColor,
             fontWeight: FontWeight.w400,
           ),
+          textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: AppColors.primaryColor,
+            fontWeight: FontWeight.w400,
+          ),
           borderRadius: 8,
           padding: 12,
         ),
