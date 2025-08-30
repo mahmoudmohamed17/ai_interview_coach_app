@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({
+class SocialAuthButton extends StatelessWidget {
+  const SocialAuthButton({
     super.key,
     required this.onPressed,
     required this.text,
+    required this.imgIcon,
     this.textStyle,
     this.backgrnColor = Colors.white,
     this.borderColor = Colors.transparent,
@@ -18,6 +19,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final TextStyle? textStyle;
+  final String imgIcon;
   final Color backgrnColor;
   final Color borderColor;
   final Color shadowColor;
@@ -28,7 +30,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return ElevatedButton.icon(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgrnColor,
@@ -42,7 +44,8 @@ class CustomButton extends StatelessWidget {
             : null,
         padding: EdgeInsets.all(borderPadding),
       ),
-      child: Text(text, style: textStyle),
+      icon: Image.asset(imgIcon, height: 24, width: 24),
+      label: Text(text, style: textStyle),
     );
   }
 }

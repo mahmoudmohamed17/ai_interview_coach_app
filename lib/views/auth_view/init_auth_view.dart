@@ -1,7 +1,9 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class InitAuthView extends StatelessWidget {
   const InitAuthView({super.key});
@@ -29,12 +31,11 @@ class InitAuthView extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  onPressed: () {},
+                  onPressed: () => context.push(Routes.loginView),
                   text: 'Log in',
                   textStyle: Theme.of(
                     context,
                   ).textTheme.labelLarge?.copyWith(color: Colors.white),
-
                   backgrnColor: AppColors.primaryColor,
                 ),
               ),
