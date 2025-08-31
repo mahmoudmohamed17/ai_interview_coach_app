@@ -1,11 +1,12 @@
-import 'dart:developer';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
+import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:ai_interview_coach_app/views/auth_view/login_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -14,14 +15,19 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthLoading) {
-          log('Auth Loading...');
-        }
         if (state is AuthLoggedIn) {
-          log('Loggen in!');
+          showToast(
+            context,
+            title: 'Logged in successfully!',
+            type: ToastificationType.success,
+          );
         }
         if (state is AuthError) {
-          log(state.message);
+          showToast(
+            context,
+            title: state.message,
+            type: ToastificationType.error,
+          );
         }
       },
       child: Scaffold(

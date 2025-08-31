@@ -88,9 +88,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             width: double.infinity,
             child: CustomButton(
               /// Change this later
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  cubit.logIn(
+                  await cubit.logIn(
                     email: _emailController.text,
                     password: _passwordController.text,
                   );

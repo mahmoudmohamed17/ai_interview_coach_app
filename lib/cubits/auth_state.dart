@@ -21,6 +21,15 @@ class AuthLoggedIn extends AuthState {
   List<Object?> get props => [user];
 }
 
+class AuthRegistered extends AuthState {
+  final User user;
+
+  const AuthRegistered({required this.user});
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class AuthError extends AuthState {
   final String message;
 

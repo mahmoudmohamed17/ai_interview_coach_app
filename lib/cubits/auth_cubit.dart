@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,8 +37,9 @@ class AuthCubit extends Cubit<AuthState> {
           'profile_pic': userData['profile_pic'],
         },
       );
-      emit(AuthLoggedIn(user: result.user!));
+      emit(AuthRegistered(user: result.user!));
     } catch (e) {
+      log(e.toString());
       emit(AuthError(message: e.toString()));
     }
   }
