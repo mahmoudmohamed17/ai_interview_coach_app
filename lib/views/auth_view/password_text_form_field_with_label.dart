@@ -28,6 +28,7 @@ class PasswordTextFormFieldWithLabel extends StatelessWidget {
         CustomPasswordTextFormField(
           controller: controller,
           hintText: 'Type your password',
+          label: label,
           borderColor: AppColors.borderColor,
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
             color: AppColors.secondaryColor,

@@ -52,12 +52,14 @@ class HomeView extends StatelessWidget {
             width: double.infinity,
             child: CustomButton(
               onPressed: () {},
-              text: 'Start Interview',
-              textStyle: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: Colors.white),
               backgrnColor: AppColors.primaryColor,
               borderRadius: 12,
+              child: Text(
+                'Start Interview',
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge?.copyWith(color: Colors.white),
+              ),
             ),
           ),
           const Spacer(),

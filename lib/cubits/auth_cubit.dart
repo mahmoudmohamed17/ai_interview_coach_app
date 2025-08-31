@@ -8,6 +8,7 @@ class AuthCubit extends Cubit<AuthState> {
   final SupabaseAuthService supabaseAuthService;
 
   Future<void> logIn({required String email, required String password}) async {
+    emit(AuthLoading());
     try {
       final result = await supabaseAuthService.logIn(
         email: email,
@@ -15,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(AuthLoggedIn(user: result.user!));
     } catch (e) {
-      emit(AuthError(message: e.toString()));
+      emit(const AuthError(message: 'Invalid email or password.'));
     }
   }
 
@@ -24,6 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     Map<String, dynamic>? userData,
   }) async {
+    emit(AuthLoading());
     try {
       final result = await supabaseAuthService.signUp(
         email: email,
@@ -40,6 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signInWithGoogle() async {
+    emit(AuthLoading());
     try {
       final result = await supabaseAuthService.signInWithGoogle();
       emit(AuthLoggedIn(user: result.user!));
@@ -49,6 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signOut() async {
+    emit(AuthLoading());
     try {
       await supabaseAuthService.signOut();
       emit(AuthLoggedOut());

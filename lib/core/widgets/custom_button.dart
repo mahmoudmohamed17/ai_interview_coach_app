@@ -4,8 +4,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.onPressed,
-    required this.text,
-    this.textStyle,
+    required this.child,
     this.backgrnColor = Colors.white,
     this.borderColor = Colors.transparent,
     this.borderWidth = 1.0,
@@ -16,8 +15,7 @@ class CustomButton extends StatelessWidget {
   });
 
   final VoidCallback onPressed;
-  final String text;
-  final TextStyle? textStyle;
+  final Widget child;
   final Color backgrnColor;
   final Color borderColor;
   final Color shadowColor;
@@ -42,7 +40,7 @@ class CustomButton extends StatelessWidget {
             : null,
         padding: EdgeInsets.all(borderPadding),
       ),
-      child: Text(text, style: textStyle),
+      child: child,
     );
   }
 }

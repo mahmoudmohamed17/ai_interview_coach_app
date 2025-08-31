@@ -5,6 +5,7 @@ class CustomPasswordTextFormField extends StatefulWidget {
     super.key,
     required this.controller,
     required this.hintText,
+    this.label,
     this.hintStyle,
     this.textStyle,
     this.fillColor = Colors.white,
@@ -17,6 +18,7 @@ class CustomPasswordTextFormField extends StatefulWidget {
 
   final TextEditingController controller;
   final String hintText;
+  final String? label;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final Color fillColor;
@@ -40,7 +42,7 @@ class _CustomPasswordTextFormFieldState
     return TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
-          return '${widget.hintText} is required';
+          return '${widget.label} is required';
         } else {
           return null;
         }

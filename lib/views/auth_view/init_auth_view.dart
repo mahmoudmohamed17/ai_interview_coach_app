@@ -32,11 +32,13 @@ class InitAuthView extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   onPressed: () => context.push(Routes.loginView),
-                  text: 'Log in',
-                  textStyle: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(color: Colors.white),
                   backgrnColor: AppColors.primaryColor,
+                  child: Text(
+                    'Log in',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -44,11 +46,13 @@ class InitAuthView extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   onPressed: () => context.push(Routes.signupView),
-                  text: 'Sign up',
-                  textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: AppColors.primaryColor,
-                  ),
                   borderColor: AppColors.primaryColor,
+                  child: Text(
+                    'Sign up',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
                 ),
               ),
             ],

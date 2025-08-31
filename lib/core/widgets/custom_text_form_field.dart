@@ -5,6 +5,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
+    this.label,
     this.hintStyle,
     this.textStyle,
     this.fillColor = Colors.white,
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
 
   final TextEditingController controller;
   final String hintText;
+  final String? label;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final Color fillColor;
@@ -31,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         if (value!.isEmpty) {
-          return '$hintText is required';
+          return '$label is required';
         } else {
           return null;
         }

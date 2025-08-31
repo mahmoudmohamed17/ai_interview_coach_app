@@ -1,6 +1,7 @@
-import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
+import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:ai_interview_coach_app/views/auth_view/dont_have_an_account_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/forgot_password_button.dart';
 import 'package:ai_interview_coach_app/views/auth_view/or_widget.dart';
@@ -8,7 +9,8 @@ import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_
 import 'package:ai_interview_coach_app/views/auth_view/social_login_methods_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/text_form_field_with_label.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -20,6 +22,8 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
   void initState() {
@@ -37,64 +41,98 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Sign in to your account',
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.w500,
+    final cubit = context.read<AuthCubit>();
+
+    return Form(
+      key: _formKey,
+      autovalidateMode: _autovalidateMode,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sign in to your account',
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Enter your email and password to log in',
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.secondaryColor,
-            fontWeight: FontWeight.w400,
+          const SizedBox(height: 8),
+          Text(
+            'Enter your email and password to log in',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: AppColors.secondaryColor,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        ),
-        const SizedBox(height: 24),
-        TextFormFieldWithLabel(
-          controller: _emailController,
-          label: 'Email',
-          labelStyle: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
-          hintText: 'Type your email',
-        ),
-        const SizedBox(height: 16),
-        PasswordTextFormFieldWithLabel(
-          label: 'Password',
-          controller: _passwordController,
-        ),
-        const SizedBox(height: 16),
-        const Align(
-          alignment: Alignment.centerRight,
-          child: ForgotPasswordButton(),
-        ),
-        const SizedBox(height: 24),
-        SizedBox(
-          width: double.infinity,
-          child: CustomButton(
-            /// Change this later
-            onPressed: () => context.push(Routes.mainView),
-            text: 'Log In',
-            textStyle: Theme.of(
+          const SizedBox(height: 24),
+          TextFormFieldWithLabel(
+            controller: _emailController,
+            label: 'Email',
+            labelStyle: Theme.of(
               context,
-            ).textTheme.labelLarge?.copyWith(color: Colors.white),
-            backgrnColor: AppColors.primaryColor,
-            borderRadius: 12,
+            ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
+            hintText: 'Type your email',
           ),
-        ),
-        const SizedBox(height: 24),
-        const OrWidget(),
-        const SizedBox(height: 24),
-        const SocailLoginMethodsWidget(),
-        const SizedBox(height: 64),
-        const DontHaveAnAccountWidget(),
-      ],
+          const SizedBox(height: 16),
+          PasswordTextFormFieldWithLabel(
+            label: 'Password',
+            controller: _passwordController,
+          ),
+          const SizedBox(height: 16),
+          const Align(
+            alignment: Alignment.centerRight,
+            child: ForgotPasswordButton(),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            child: CustomButton(
+              /// Change this later
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  cubit.logIn(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+                  setState(() {
+                    _autovalidateMode = AutovalidateMode.disabled;
+                  });
+                } else {
+                  setState(() {
+                    _autovalidateMode = AutovalidateMode.always;
+                  });
+                }
+              },
+              backgrnColor: AppColors.primaryColor,
+              borderRadius: 12,
+              child: BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  if (state is AuthLoading) {
+                    return const SpinKitThreeBounce(
+                      color: Colors.white,
+                      size: 20,
+                      duration: Duration(milliseconds: 500),
+                    );
+                  } else {
+                    return Text(
+                      'Log In',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
+          const OrWidget(),
+          const SizedBox(height: 24),
+          const SocailLoginMethodsWidget(),
+          const SizedBox(height: 64),
+          const DontHaveAnAccountWidget(),
+        ],
+      ),
     );
   }
 }

@@ -89,12 +89,14 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           width: double.infinity,
           child: CustomButton(
             onPressed: () {},
-            text: 'Register',
-            textStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: Colors.white),
             backgrnColor: AppColors.primaryColor,
             borderRadius: 12,
+            child: Text(
+              'Register',
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(color: Colors.white),
+            ),
           ),
         ),
         const SizedBox(height: 32),

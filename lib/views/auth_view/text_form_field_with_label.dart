@@ -27,6 +27,7 @@ class TextFormFieldWithLabel extends StatelessWidget {
         CustomTextFormField(
           controller: controller,
           hintText: hintText,
+          label: label,
           borderColor: AppColors.borderColor,
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
             color: AppColors.secondaryColor,
