@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/secret/app_secret.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -23,17 +23,31 @@ class SupabaseAuthService {
   Future<AuthResponse> signUp({
     required String email,
     required String password,
-    Map<String, dynamic>? userData,
+    UserDataModel? userDataModel,
   }) async {
     return await _client.signUp(
       email: email,
       password: password,
-      data: userData,
+      data: userDataModel?.toJson(),
     );
   }
 
   Future<void> signOut() async {
     await _client.signOut();
+  }
+
+  Future<UserResponse> updateUser({
+    String? email,
+    String? password,
+    UserDataModel? userDataModel,
+  }) async {
+    return await _client.updateUser(
+      UserAttributes(
+        email: email,
+        password: password,
+        data: userDataModel?.toJson(),
+      ),
+    );
   }
 
   Future<AuthResponse> signInWithGoogle() async {

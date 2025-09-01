@@ -30,6 +30,15 @@ class AuthRegistered extends AuthState {
   List<Object?> get props => [user];
 }
 
+class AuthUpdated extends AuthState {
+  final User user;
+
+  const AuthUpdated({required this.user});
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class AuthError extends AuthState {
   final String message;
 

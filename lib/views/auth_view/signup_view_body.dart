@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
@@ -26,7 +27,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   late TextEditingController _confirmPasswrodController;
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
-  String? _profilePic;
+  String? _profilePicture;
 
   @override
   void initState() {
@@ -73,7 +74,9 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           ),
           const SizedBox(height: 32),
           Align(
-            child: ImagePickingWidget(onTap: (image) => _profilePic = image),
+            child: ImagePickingWidget(
+              onTap: (image) => _profilePicture = image,
+            ),
           ),
           const SizedBox(height: 16),
           TextFormFieldWithLabel(
@@ -109,14 +112,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             child: CustomButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  await cubit.signUp(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    userData: {
-                      'full_name': _fullNameController.text,
-                      'pofile_pic': _profilePic,
-                    },
-                  );
                   if (_passwordController.text !=
                       _confirmPasswrodController.text) {
                     setState(() {
@@ -128,6 +123,15 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                       );
                     });
                   }
+                  await cubit.signUp(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    userDataModel: UserDataModel(
+                      fullName: _fullNameController.text,
+                      profilePicture:
+                          _profilePicture ?? 'Insert default image here',
+                    ),
+                  );
                   setState(() {
                     _autovalidateMode = AutovalidateMode.disabled;
                   });
