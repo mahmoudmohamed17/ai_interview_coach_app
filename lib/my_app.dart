@@ -1,9 +1,10 @@
 import 'package:ai_interview_coach_app/core/di/setup_locator.dart';
 import 'package:ai_interview_coach_app/core/routing/app_routing.dart';
+import 'package:ai_interview_coach_app/core/theme/app_theme.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,14 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt.get<AuthCubit>())],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: GoogleFonts.poppins.toString(),
-          useMaterial3: true,
+      providers: [
+        BlocProvider(create: (context) => getIt.get<AuthCubit>()),
+        BlocProvider(create: (context) => getIt.get<ThemeCubit>()),
+      ],
+      child: BlocBuilder<ThemeCubit, bool>(
+        builder: (context, state) => MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeAnimationCurve: Curves.fastOutSlowIn,
+          themeAnimationDuration: const Duration(milliseconds: 1500),
+          themeMode: state ? ThemeMode.dark : ThemeMode.light,
+          routerConfig: AppRouting.router,
         ),
-        routerConfig: AppRouting.router,
       ),
     );
   }

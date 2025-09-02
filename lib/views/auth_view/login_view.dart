@@ -1,5 +1,7 @@
+import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
+import 'package:ai_interview_coach_app/core/utilities/shared_prefs.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
@@ -22,6 +24,7 @@ class LoginView extends StatelessWidget {
             title: 'Logged in successfully!',
             type: ToastificationType.success,
           );
+          SharedPrefs.setBool(isUserAuthenticated, true);
           context.go(Routes.homeView);
         }
         if (state is AuthError) {
