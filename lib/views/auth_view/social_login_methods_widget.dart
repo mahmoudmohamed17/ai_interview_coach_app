@@ -20,7 +20,8 @@ class SocailLoginMethodsWidget extends StatelessWidget {
             textStyle: Theme.of(
               context,
             ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),
-            borderColor: AppColors.borderColor,
+            backgrnColor: Theme.of(context).colorScheme.surface,
+            borderColor: Theme.of(context).colorScheme.outline,
             borderRadius: 12,
           ),
         ),
@@ -33,7 +34,8 @@ class SocailLoginMethodsWidget extends StatelessWidget {
             textStyle: Theme.of(
               context,
             ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),
-            borderColor: AppColors.borderColor,
+            backgrnColor: Theme.of(context).colorScheme.surface,
+            borderColor: Theme.of(context).colorScheme.outline,
             borderRadius: 12,
           ),
         ),

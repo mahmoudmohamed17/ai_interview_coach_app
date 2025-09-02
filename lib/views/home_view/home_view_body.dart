@@ -1,4 +1,3 @@
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/views/home_view/home_view_app_bar.dart';
@@ -18,7 +17,7 @@ class HomeViewBody extends StatelessWidget {
         Text(
           'Welcome to NovaPrep',
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: AppColors.primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -26,38 +25,38 @@ class HomeViewBody extends StatelessWidget {
         Text(
           'Welcome Mahmoud!',
           textAlign: TextAlign.center,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           'Ready to ace your interview?',
           textAlign: TextAlign.center,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           'Your AI-powered partener for interview success',
           textAlign: TextAlign.center,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         const SizedBox(height: 24),
         SizedBox(
           width: double.infinity,
           child: CustomButton(
             onPressed: () {},
-            backgrnColor: AppColors.primaryColor,
+            backgrnColor: Theme.of(context).colorScheme.primary,
             borderRadius: 12,
             child: Text(
               'Start Interview',
-              style: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
           ),
         ),
@@ -65,4 +64,3 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 }
-

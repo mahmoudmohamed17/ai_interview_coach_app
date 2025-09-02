@@ -1,4 +1,3 @@
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_password_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -21,24 +20,25 @@ class PasswordTextFormFieldWithLabel extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
         CustomPasswordTextFormField(
           controller: controller,
           hintText: 'Type your password',
           label: label,
-          borderColor: AppColors.borderColor,
+          fillColor: Theme.of(context).colorScheme.surface,
+          borderColor: Theme.of(context).colorScheme.secondary,
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.secondaryColor,
+            color: Theme.of(context).colorScheme.secondary,
             fontWeight: FontWeight.w400,
           ),
           textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w400,
           ),
-          iconColor: AppColors.secondaryColor,
+          iconColor: Theme.of(context).colorScheme.secondary,
           borderRadius: 8,
           padding: 12,
         ),

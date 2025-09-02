@@ -1,5 +1,4 @@
 import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/core/widgets/image_picking_widget.dart';
@@ -60,7 +59,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           Text(
             'Sign up',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: AppColors.primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -68,7 +67,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           Text(
             'Create an account to continue',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: AppColors.secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -82,18 +81,18 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           TextFormFieldWithLabel(
             controller: _fullNameController,
             label: 'Full name',
-            labelStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
+            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             hintText: 'Type your full name',
           ),
           const SizedBox(height: 16),
           TextFormFieldWithLabel(
             controller: _emailController,
             label: 'Email',
-            labelStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
+            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             hintText: 'Type your email',
           ),
           const SizedBox(height: 16),
@@ -141,22 +140,22 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   });
                 }
               },
-              backgrnColor: AppColors.primaryColor,
+              backgrnColor: Theme.of(context).colorScheme.primary,
               borderRadius: 12,
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
                   if (state is AuthLoading) {
-                    return const SpinKitThreeBounce(
-                      color: Colors.white,
+                    return SpinKitThreeBounce(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 20,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                     );
                   } else {
                     return Text(
                       'Register',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     );
                   }
                 },

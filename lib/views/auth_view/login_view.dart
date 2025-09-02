@@ -1,6 +1,5 @@
 import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/shared_prefs.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
@@ -36,11 +35,11 @@ class LoginView extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => context.pop(),
-            icon: const Icon(Icons.arrow_back, color: AppColors.primaryColor),
+            icon: const Icon(Icons.arrow_back),
           ),
           forceMaterialTransparency: true,
         ),

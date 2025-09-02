@@ -1,5 +1,4 @@
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ class InitAuthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -24,7 +23,7 @@ class InitAuthView extends StatelessWidget {
                 'Welcome to NovaPrep',
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: AppColors.primaryColor,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 48),
@@ -32,12 +31,12 @@ class InitAuthView extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   onPressed: () => context.push(Routes.loginView),
-                  backgrnColor: AppColors.primaryColor,
+                  backgrnColor: Theme.of(context).colorScheme.primary,
                   child: Text(
                     'Log in',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                 ),
               ),
@@ -46,11 +45,11 @@ class InitAuthView extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   onPressed: () => context.push(Routes.signupView),
-                  borderColor: AppColors.primaryColor,
+                  borderColor: Theme.of(context).colorScheme.primary,
                   child: Text(
                     'Sign up',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.primaryColor,
+                      color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
                     ),
                   ),
                 ),

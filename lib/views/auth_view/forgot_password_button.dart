@@ -1,4 +1,3 @@
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
@@ -18,7 +17,7 @@ class ForgotPasswordButton extends StatelessWidget {
       child: Text(
         'Forgot password?',
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: AppColors.primaryColor,
+          color: Theme.of(context).colorScheme.primary,
           fontWeight: FontWeight.w600,
         ),
       ),

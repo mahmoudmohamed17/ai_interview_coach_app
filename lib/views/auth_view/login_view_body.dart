@@ -1,4 +1,3 @@
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
@@ -52,7 +51,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           Text(
             'Sign in to your account',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: AppColors.primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -60,7 +59,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           Text(
             'Enter your email and password to log in',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: AppColors.secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -68,9 +67,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           TextFormFieldWithLabel(
             controller: _emailController,
             label: 'Email',
-            labelStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: AppColors.secondaryColor),
+            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             hintText: 'Type your email',
           ),
           const SizedBox(height: 16),
@@ -103,22 +102,22 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   });
                 }
               },
-              backgrnColor: AppColors.primaryColor,
+              backgrnColor: Theme.of(context).colorScheme.primary,
               borderRadius: 12,
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
                   if (state is AuthLoading) {
-                    return const SpinKitThreeBounce(
-                      color: Colors.white,
+                    return SpinKitThreeBounce(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 20,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                     );
                   } else {
                     return Text(
                       'Log In',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     );
                   }
                 },

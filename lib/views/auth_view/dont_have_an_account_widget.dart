@@ -1,5 +1,4 @@
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +14,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
         Text(
           'Don\'t have an account?',
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: AppColors.secondaryColor,
+            color: Theme.of(context).colorScheme.secondary,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -31,7 +30,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
           child: Text(
             'Sign Up',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppColors.primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w500,
             ),
           ),

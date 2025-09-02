@@ -14,8 +14,11 @@ class HomeViewAppBar extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        boxShadow: const [
-          BoxShadow(color: AppColors.borderColor, offset: Offset(0, 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.outline,
+            offset: const Offset(0, 0.5),
+          ),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
