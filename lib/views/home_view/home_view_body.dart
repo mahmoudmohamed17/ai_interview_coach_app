@@ -1,6 +1,9 @@
-import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
-import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
+// import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
+// import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
+// import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
+import 'package:ai_interview_coach_app/views/home_view/home_view_advantages_section.dart';
 import 'package:ai_interview_coach_app/views/home_view/home_view_app_bar.dart';
+import 'package:ai_interview_coach_app/views/home_view/home_view_welcome_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -9,56 +12,17 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
-        const HomeViewAppBar(),
-        const SizedBox(height: 24),
-        Image.asset('assets/logo.jpg', height: context.width * 0.25),
-        const SizedBox(height: 24),
-        Text(
-          'Welcome to NovaPrep',
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-            fontWeight: FontWeight.w600,
-          ),
+      children: const [
+        HomeViewAppBar(),
+        SizedBox(height: 16),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: HomeViewWelcomeSection(),
         ),
-        const SizedBox(height: 16),
-        Text(
-          'Welcome Mahmoud!',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Ready to ace your interview?',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Your AI-powered partener for interview success',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        const SizedBox(height: 24),
-        SizedBox(
-          width: double.infinity,
-          child: CustomButton(
-            onPressed: () {},
-            backgrnColor: Theme.of(context).colorScheme.primary,
-            borderRadius: 12,
-            child: Text(
-              'Start Interview',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
+        SizedBox(height: 24),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: HomeViewAdvantagesSection(),
         ),
       ],
     );

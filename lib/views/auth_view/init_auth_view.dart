@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
@@ -18,10 +19,12 @@ class InitAuthView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset('assets/logo.jpg', height: context.width * 0.60),
+              Image.asset(AppAssets.logo, height: context.width * 0.50),
+              const SizedBox(height: 8),
               Text(
                 'Welcome to NovaPrep',
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
@@ -49,7 +52,9 @@ class InitAuthView extends StatelessWidget {
                   child: Text(
                     'Sign up',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onPrimaryFixedVariant,
                     ),
                   ),
                 ),
