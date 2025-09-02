@@ -1,5 +1,7 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({super.key});
@@ -18,7 +20,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => context.push(Routes.signupView),
           style: const ButtonStyle(
             visualDensity: VisualDensity(
               horizontal: VisualDensity.minimumDensity,

@@ -21,6 +21,7 @@ class SignupView extends StatelessWidget {
             title: 'Account created successfully!',
             type: ToastificationType.success,
           );
+          context.pop();
         }
         if (state is AuthError) {
           showToast(
