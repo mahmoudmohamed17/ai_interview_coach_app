@@ -1,9 +1,10 @@
 // import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 // import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 // import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
-import 'package:ai_interview_coach_app/views/home_view/home_view_advantages_section.dart';
+import 'package:ai_interview_coach_app/views/home_view/advantages_section.dart';
 import 'package:ai_interview_coach_app/views/home_view/home_view_app_bar.dart';
-import 'package:ai_interview_coach_app/views/home_view/home_view_welcome_section.dart';
+import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_section.dart';
+import 'package:ai_interview_coach_app/views/home_view/welcome_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -17,13 +18,19 @@ class HomeViewBody extends StatelessWidget {
         SizedBox(height: 16),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
-          child: HomeViewWelcomeSection(),
+          child: WelcomeSection(),
         ),
         SizedBox(height: 24),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
-          child: HomeViewAdvantagesSection(),
+          child: AdvantagesSection(),
         ),
+        SizedBox(height: 24),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: RecentPracticeSessionsSection(),
+        ),
+        SizedBox(height: 48),
       ],
     );
   }

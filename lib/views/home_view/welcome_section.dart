@@ -3,8 +3,8 @@ import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class HomeViewWelcomeSection extends StatelessWidget {
-  const HomeViewWelcomeSection({super.key});
+class WelcomeSection extends StatelessWidget {
+  const WelcomeSection({super.key});
 
   @override
   Widget build(BuildContext context) {

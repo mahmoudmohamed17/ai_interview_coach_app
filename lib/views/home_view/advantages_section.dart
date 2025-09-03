@@ -4,8 +4,8 @@ import 'package:ai_interview_coach_app/views/home_view/advantage_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomeViewAdvantagesSection extends StatelessWidget {
-  const HomeViewAdvantagesSection({super.key});
+class AdvantagesSection extends StatelessWidget {
+  const AdvantagesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

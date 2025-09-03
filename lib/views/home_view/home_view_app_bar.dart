@@ -20,17 +20,17 @@ class HomeViewAppBar extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const SizedBox(width: 4),
           Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: () {},
               customBorder: const CircleBorder(),
               child: const Padding(
-                padding: EdgeInsets.all(2.0),
+                padding: EdgeInsets.all(4.0),
                 child: CircleAvatar(
                   radius: 24,
                   backgroundImage: AssetImage('assets/user_picture.png'),
@@ -38,6 +38,7 @@ class HomeViewAppBar extends StatelessWidget {
               ),
             ),
           ),
+          const Spacer(),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 500),
             transitionBuilder: (child, animation) =>
