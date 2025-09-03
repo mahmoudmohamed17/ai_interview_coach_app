@@ -1,6 +1,8 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeViewAppBar extends StatelessWidget {
   const HomeViewAppBar({super.key});
@@ -27,7 +29,7 @@ class HomeViewAppBar extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => context.push(Routes.profileView),
               customBorder: const CircleBorder(),
               child: const Padding(
                 padding: EdgeInsets.all(4.0),
