@@ -20,7 +20,6 @@ class InterviewSummaryWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainer,
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.all(12),
