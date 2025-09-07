@@ -19,7 +19,7 @@ class InitAuthView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(AppAssets.logo, height: context.width * 0.50),
+              Image.asset(AppAssets.imagesLogo, height: context.width * 0.50),
               const SizedBox(height: 8),
               Text(
                 'Welcome to NovaPrep',

@@ -6,6 +6,7 @@ import 'package:ai_interview_coach_app/views/auth_view/login_view.dart';
 import 'package:ai_interview_coach_app/views/auth_view/signup_view.dart';
 import 'package:ai_interview_coach_app/views/home_view/home_view.dart';
 import 'package:ai_interview_coach_app/views/profile_view/profile_view.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/interview_setup_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouting {
@@ -30,6 +31,10 @@ class AppRouting {
       GoRoute(
         path: Routes.profileView,
         builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
+        path: Routes.interviewSetupView,
+        builder: (context, state) => const InterviewSetupView(),
       ),
     ],
   );

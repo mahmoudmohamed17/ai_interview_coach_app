@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class HomeViewAppBar extends StatelessWidget {
                 padding: EdgeInsets.all(2.0),
                 child: CircleAvatar(
                   radius: 24,
-                  backgroundImage: AssetImage('assets/user_picture.png'),
+                  backgroundImage: AssetImage(AppAssets.imagesUserPicture),
                 ),
               ),
             ),

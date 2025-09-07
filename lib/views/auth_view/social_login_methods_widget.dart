@@ -17,7 +17,7 @@ class SocailLoginMethodsWidget extends StatelessWidget {
           child: SocialAuthButton(
             onPressed: () {},
             text: 'Continue with Google',
-            imgIcon: AppAssets.google,
+            imgIcon: AppAssets.iconsGoogle,
             textStyle: Theme.of(
               context,
             ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),
@@ -31,7 +31,7 @@ class SocailLoginMethodsWidget extends StatelessWidget {
           child: SocialAuthButton(
             onPressed: () {},
             text: 'Continue with Facebook',
-            imgIcon: AppAssets.facebook,
+            imgIcon: AppAssets.iconsFacebook,
             textStyle: Theme.of(
               context,
             ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),

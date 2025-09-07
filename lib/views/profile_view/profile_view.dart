@@ -19,7 +19,7 @@ class ProfileView extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(AppAssets.userPicture),
+                  image: AssetImage(AppAssets.imagesUserPicture),
                 ),
               ),
               height: 120,

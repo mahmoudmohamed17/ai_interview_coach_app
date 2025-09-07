@@ -1,7 +1,9 @@
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({super.key});
@@ -11,7 +13,7 @@ class WelcomeSection extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(AppAssets.logo, height: context.width * 0.30),
+        Image.asset(AppAssets.imagesLogo, height: context.width * 0.30),
         Text(
           'Welcome to NovaPrep',
           textAlign: TextAlign.center,
@@ -30,7 +32,7 @@ class WelcomeSection extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         CustomButton(
-          onPressed: () {},
+          onPressed: () => context.push(Routes.interviewSetupView),
           backgrnColor: Theme.of(context).colorScheme.primary,
           borderRadius: 12,
           child: Text(
