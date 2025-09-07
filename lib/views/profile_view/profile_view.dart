@@ -1,4 +1,6 @@
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
+import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
+import 'package:ai_interview_coach_app/test_gemini.dart';
 import 'package:ai_interview_coach_app/views/profile_view/profile_view_app_bar.dart';
 import 'package:ai_interview_coach_app/views/profile_view/user_personal_info_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,23 @@ class ProfileView extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             const UserPersonalInfoWidget(),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              child: CustomButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const TestGemini()),
+                ),
+                backgrnColor: Theme.of(context).colorScheme.primary,
+                borderRadius: 12,
+                child: Text(
+                  'Test Gemini',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

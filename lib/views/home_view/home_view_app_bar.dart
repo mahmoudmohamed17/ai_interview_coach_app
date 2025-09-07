@@ -32,7 +32,7 @@ class HomeViewAppBar extends StatelessWidget {
               onTap: () => context.push(Routes.profileView),
               customBorder: const CircleBorder(),
               child: const Padding(
-                padding: EdgeInsets.all(4.0),
+                padding: EdgeInsets.all(2.0),
                 child: CircleAvatar(
                   radius: 24,
                   backgroundImage: AssetImage('assets/user_picture.png'),

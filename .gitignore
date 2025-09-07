@@ -33,6 +33,7 @@ migrate_working_dir/
 .pub/
 /build/
 lib/core/secret/app_secret.dart
+lib/test_gemini.dart
 
 # Symbolication related
 app.*.symbols
