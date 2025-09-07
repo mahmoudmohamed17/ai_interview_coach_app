@@ -3,21 +3,26 @@ import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class InterviewTopicItem extends StatelessWidget {
-  const InterviewTopicItem({super.key, required this.model});
-
+  const InterviewTopicItem({
+    super.key,
+    required this.model,
+    required this.isActive,
+  });
   final InterviewTopicModel model;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 250),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: isActive
+            ? Theme.of(context).colorScheme.secondaryContainer
+            : Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(color: Theme.of(context).colorScheme.outline),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.all(6),
-      alignment: Alignment.center,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         spacing: 6,
@@ -31,7 +36,9 @@ class InterviewTopicItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: isActive
+                      ? Theme.of(context).colorScheme.onSecondaryContainer
+                      : Theme.of(context).colorScheme.onPrimaryContainer,
                   fontWeight: FontWeight.w600,
                 ),
               ),

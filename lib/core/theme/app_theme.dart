@@ -9,7 +9,7 @@ class AppTheme {
         .copyWith(
           primary: AppColors.primaryColor, // Primary color
           onPrimary: Colors.white,
-          onPrimaryFixedVariant: AppColors.primaryColor, // For specail button
+          onPrimaryFixedVariant: AppColors.primaryColor, // For special buttons
           secondary: AppColors.secondaryColor, // Helper color
           onSecondary: Colors.black,
           surface: Colors.white, // Scaffold color

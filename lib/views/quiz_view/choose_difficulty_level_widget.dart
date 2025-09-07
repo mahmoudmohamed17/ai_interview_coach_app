@@ -1,20 +1,19 @@
-import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
-import 'package:ai_interview_coach_app/views/quiz_view/interview_topic_item.dart';
+import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/interview_difficulty_level_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SelectInterviewTopicWidget extends StatefulWidget {
-  const SelectInterviewTopicWidget({super.key, this.onSelected});
-  final Function(InterviewTopicModel)? onSelected;
+class ChooseDifficultyLevelWidget extends StatefulWidget {
+  const ChooseDifficultyLevelWidget({super.key, this.onSelected});
+  final Function(InterviewDifficultyLevelModel)? onSelected;
 
   @override
-  State<SelectInterviewTopicWidget> createState() =>
-      _SelectInterviewTopicWidgetState();
+  State<ChooseDifficultyLevelWidget> createState() =>
+      _ChooseDifficultyLevelWidgetState();
 }
 
-class _SelectInterviewTopicWidgetState
-    extends State<SelectInterviewTopicWidget> {
+class _ChooseDifficultyLevelWidgetState
+    extends State<ChooseDifficultyLevelWidget> {
   int _activeIndex = -1;
 
   @override
@@ -39,12 +38,12 @@ class _SelectInterviewTopicWidgetState
             spacing: 10,
             children: [
               const Icon(
-                FontAwesomeIcons.bookOpen,
-                color: AppColors.blueIconColor,
+                FontAwesomeIcons.bullseye,
+                color: Colors.orangeAccent,
                 size: 18,
               ),
               Text(
-                'Select Interview Topic',
+                'Choose Difficulty Level',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w600,
@@ -54,21 +53,20 @@ class _SelectInterviewTopicWidgetState
           ),
           GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              childAspectRatio: 3.5,
+              childAspectRatio: 4,
             ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: interviewTopics.length,
+            itemCount: difficultyLevels.length,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () => setState(() {
                 _activeIndex = index;
-                widget.onSelected?.call(interviewTopics[index]);
+                widget.onSelected?.call(difficultyLevels[index]);
               }),
-              child: InterviewTopicItem(
-                model: interviewTopics[index],
+              child: InterviewDifficultyLevelItem(
+                model: difficultyLevels[index],
                 isActive: index == _activeIndex,
               ),
             ),
