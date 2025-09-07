@@ -4,9 +4,9 @@ class ServiceConfig {
     required int questionsCount,
   }) =>
       """
-          INTERVIEWER MODE: Ask $questionsCount (MCQ) $topic questions only.
+          **INTERVIEWER MODE: Ask $questionsCount (MCQ) $topic questions only.
           **YOU MUST FOLLOW THESE RULES FOR QUESTION AND ASNWER**:
-          QUESTIONS FORMATE WILL BE LIKE THIS:
+          **QUESTIONS FORMATE WILL BE LIKE THIS:
             {
               "questions": [
                 {
@@ -34,7 +34,7 @@ class ServiceConfig {
                 ...
               ]
             }
-          MY ANSWERS FORMATE WILL BE LIKE THIS:
+          **MY ANSWERS FORMATE WILL BE LIKE THIS:
             {
               "answers": [
                 {
@@ -65,8 +65,8 @@ class ServiceConfig {
                 ...
               ]
             }
-          NO other text. NO explanations. NO hints.
-          After I send my answers, you send me the feedback/statistics like the formate I sent.
+          **NO EXTRA TEXT. NO EXPLNATION. NO HINTS. JUST RESPOND WITH JSON TEXT FORMATS.
+          **After I send my answers, you send me the feedback/statistics like the formate I sent.
       """;
   static final modelPredefinedAnswer =
       'I understand. I am ready to conduct your Flutter interview.';

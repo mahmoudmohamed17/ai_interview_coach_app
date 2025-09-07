@@ -28,11 +28,11 @@ class FeedbackModel {
 
   factory FeedbackModel.fromJson(Map<String, dynamic> json) {
     return FeedbackModel(
-      score: json['score']?.toDouble() ?? 0.0,
-      overview: json['overview'] ?? '',
-      technicalKnowledge: json['technical_knowledge']?.toDouble() ?? 0.0,
-      problemSolving: json['problem_solving']?.toDouble() ?? 0.0,
-      bestPractices: json['best_practices']?.toDouble() ?? 0.0,
+      score: json['results']['score']?.toDouble() ?? 0.0,
+      overview: json['results']['overview'] ?? '',
+      technicalKnowledge: json['performance_breakdown']['technical_knowledge']?.toDouble() ?? 0.0,
+      problemSolving: json['performance_breakdown']['problem_solving']?.toDouble() ?? 0.0,
+      bestPractices: json['performance_breakdown']['best_practices']?.toDouble() ?? 0.0,
       suggestionsForImprovement: List<String>.from(json['suggestions_for_improvement'] ?? []),
     );
   }

@@ -1,16 +1,16 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'package:ai_interview_coach_app/ai/config/service_config.dart';
 import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
+import 'package:ai_interview_coach_app/ai/utilities/clean_bot_response.dart';
+import 'package:ai_interview_coach_app/ai/utilities/update_bot_chat.dart';
 import 'package:ai_interview_coach_app/core/secret/app_secret.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 class GeminiService {
   final _client = Gemini.instance;
 
-  final List<Content> chat = [];
+  List<Content> chat = [];
 
   static void init() => Gemini.init(apiKey: AppSecret.geminiApiKey);
 
@@ -20,31 +20,12 @@ class GeminiService {
   }) async {
     try {
       if (chat.isEmpty) {
-        chat.addAll([
-          Content(
-            parts: [
-              Part.text(
-                ServiceConfig.systemPrompt(
-                  topic: topic,
-                  questionsCount: questionsCount,
-                ),
-              ),
-            ],
-            role: 'user',
-          ),
-          Content(
-            parts: [Part.text(ServiceConfig.modelPredefinedAnswer)],
-            role: 'model',
-          ),
-        ]);
+        updateBotChat(chat: chat, topic: topic, questionsCount: questionsCount);
       }
       final botResponse = await _client.chat(chat);
       if (botResponse?.content != null) {
         chat.add(botResponse!.content!);
-        final cleanResponse = botResponse.output!
-            .replaceAll(RegExp(r"```[a-zA-Z]*"), "")
-            .trim();
-        final Map<String, dynamic> result = jsonDecode(cleanResponse);
+        final result = cleanBotResponse(botResponse.output!);
         final questions = (result['questions'] as List)
             .map((item) => QuestionModel.fromJson(item))
             .toList();
@@ -65,13 +46,13 @@ class GeminiService {
       final Map<String, dynamic> anwersJson = {
         "answers": answers.map((item) => item.toJson()).toList(),
       };
-      final botResponse = await _client.chat([
+      chat.add(
         Content(parts: [Part.text(anwersJson.toString())], role: 'user'),
-      ]);
+      );
+      final botResponse = await _client.chat(chat);
       if (botResponse?.content != null) {
         chat.add(botResponse!.content!);
-        final Map<String, dynamic> result = jsonDecode(botResponse.output!);
-        return FeedbackModel.fromJson(result);
+        return FeedbackModel.fromJson(cleanBotResponse(botResponse.output!));
       } else {
         return FeedbackModel.fromJson({});
       }
