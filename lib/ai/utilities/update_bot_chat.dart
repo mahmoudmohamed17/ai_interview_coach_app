@@ -5,6 +5,7 @@ void updateBotChat({
   required List<Content> chat,
   required String topic,
   required int questionsCount,
+  required String difficultyLevel,
 }) {
   chat.addAll([
     Content(
@@ -13,6 +14,7 @@ void updateBotChat({
           ServiceConfig.systemPrompt(
             topic: topic,
             questionsCount: questionsCount,
+            difficultyLevel: difficultyLevel,
           ),
         ),
       ],

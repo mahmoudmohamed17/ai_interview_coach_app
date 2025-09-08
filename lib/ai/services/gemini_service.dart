@@ -17,10 +17,16 @@ class GeminiService {
   Future<List<QuestionModel>> getQuestions({
     required String topic,
     required int questionsCount,
+    required String difficultyLevel,
   }) async {
     try {
       if (chat.isEmpty) {
-        updateBotChat(chat: chat, topic: topic, questionsCount: questionsCount);
+        updateBotChat(
+          chat: chat,
+          topic: topic,
+          questionsCount: questionsCount,
+          difficultyLevel: difficultyLevel,
+        );
       }
       final botResponse = await _client.chat(chat);
       if (botResponse?.content != null) {

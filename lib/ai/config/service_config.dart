@@ -2,39 +2,42 @@ class ServiceConfig {
   static String systemPrompt({
     required String topic,
     required int questionsCount,
+    required String difficultyLevel,
   }) =>
       """
-          **INTERVIEWER MODE: Ask $questionsCount (MCQ) $topic questions only.
-          **YOU MUST FOLLOW THESE RULES FOR QUESTION AND ASNWER**:
-          **QUESTIONS FORMATE WILL BE LIKE THIS:
+          **INTERVIEWER MODE**:
+          Ask me $questionsCount (MCQ) about $topic.
+          The questions have to be at $difficultyLevel level.
+          **You MUST follow these rules for questions and answers**:
+          *Questions formate will be like this:
             {
               "questions": [
                 {
                   "id": 1,
                   "question": "What is Flutter setState()?",
                   "choices": [
-                    "A. Bla Bla",
-                    "B. Bla Bla",
-                    "C. Bla Bla",
-                    "D. Bla Bla",
+                    "A. Bla Bla Bla",
+                    "B. Bla Bla Bla",
+                    "C. Bla Bla Bla",
+                    "D. Bla Bla Bla",
                   ],
-                  "correct_choice": "Bla",
+                  "correct_choice": "C",
                 },
                 {
                   "id": 2,
                   "question": "What is Hero Animation in Flutter?",
                   "choices": [
-                    "A. Bla Bla",
-                    "B. Bla Bla",
-                    "C. Bla Bla",
-                    "D. Bla Bla",
+                    "A. Bla Bla Bla",
+                    "B. Bla Bla Bla",
+                    "C. Bla Bla Bla",
+                    "D. Bla Bla Bla",
                   ],
-                  "correct_choice": "Bla",
+                  "correct_choice": "B",
                 },
                 ...
               ]
             }
-          **MY ANSWERS FORMATE WILL BE LIKE THIS:
+          *My answers formate will be like this:
             {
               "answers": [
                 {
@@ -48,7 +51,7 @@ class ServiceConfig {
                 ...
               ]
             }
-          **AFTER MY ANSWER YOU HAVE TO PROVIDE THESE STATISTICS FOR ME:
+          **After my answer you HAVE to provide these statistics for me:
             {
               "results": {
                 "score": 89.0,
@@ -65,7 +68,7 @@ class ServiceConfig {
                 ...
               ]
             }
-          **NO EXTRA TEXT. NO EXPLNATION. NO HINTS. JUST RESPOND WITH JSON TEXT FORMATS.
+          **No extra text. No explanation. No hints. Just respond with JSON formate I provide.
           **After I send my answers, you send me the feedback/statistics like the formate I sent.
       """;
   static final modelPredefinedAnswer =
