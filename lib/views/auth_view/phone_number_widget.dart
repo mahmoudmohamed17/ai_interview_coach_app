@@ -41,7 +41,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  vertical: 13.0,
+                  vertical: 12.0,
                   horizontal: 6.0,
                 ),
                 alignment: Alignment.center,
@@ -83,6 +83,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w400,
                 ),
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Type your phone number',
                   hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(

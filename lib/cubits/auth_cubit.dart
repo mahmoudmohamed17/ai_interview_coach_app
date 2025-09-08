@@ -17,6 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+      log('User meta data: ${result.user!.userMetadata}');
       emit(AuthLoggedIn(user: result.user!));
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));

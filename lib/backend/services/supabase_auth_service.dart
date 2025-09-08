@@ -16,7 +16,6 @@ class SupabaseAuthService {
       email: email,
       password: password,
     );
-    log('Normal user: $user');
     return user;
   }
 

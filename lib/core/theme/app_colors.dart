@@ -11,4 +11,5 @@ class AppColors {
   static const Color orangeIconColor = Color(0xffD08801);
   static const Color orangeTintIconColor = Color(0xffFEF9C2);
   static const Color purpleTextColor = Color(0xff9810FA);
+  static const Color redBtnColor = Color(0xffD4183D);
 }
