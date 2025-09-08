@@ -5,7 +5,10 @@ import 'package:ai_interview_coach_app/core/widgets/image_picking_widget.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:ai_interview_coach_app/views/auth_view/already_have_an_account_widget.dart';
+import 'package:ai_interview_coach_app/views/auth_view/bio_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_with_label.dart';
+import 'package:ai_interview_coach_app/views/auth_view/phone_number_widget.dart';
+import 'package:ai_interview_coach_app/views/auth_view/signup_view_body_label.dart';
 import 'package:ai_interview_coach_app/views/auth_view/text_form_field_with_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,10 +26,14 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   late TextEditingController _fullNameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  late TextEditingController _confirmPasswrodController;
+  late TextEditingController _confirmPasswordController;
+  late TextEditingController _bioController;
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+
   String? _profilePicture;
+  String? _phoneNumber;
 
   @override
   void initState() {
@@ -34,7 +41,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     _fullNameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    _confirmPasswrodController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+    _bioController = TextEditingController();
   }
 
   @override
@@ -42,7 +50,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     _fullNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _confirmPasswrodController.dispose();
+    _confirmPasswordController.dispose();
+    _bioController.dispose();
     super.dispose();
   }
 
@@ -56,27 +65,15 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Sign up',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Create an account to continue',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+          const SignupViewBodyLabel(),
           const SizedBox(height: 32),
           Align(
             child: ImagePickingWidget(
-              onTap: (image) => _profilePicture = image,
+              onTap: (value) => _profilePicture = value,
             ),
           ),
+          const SizedBox(height: 16),
+          BioWidget(controller: _bioController),
           const SizedBox(height: 16),
           TextFormFieldWithLabel(
             controller: _fullNameController,
@@ -96,6 +93,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             hintText: 'Type your email',
           ),
           const SizedBox(height: 16),
+          PhoneNumberWidget(onCompleted: (value) => _phoneNumber = value),
+          const SizedBox(height: 16),
           PasswordTextFormFieldWithLabel(
             label: 'Password',
             controller: _passwordController,
@@ -103,42 +102,14 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           const SizedBox(height: 16),
           PasswordTextFormFieldWithLabel(
             label: 'Confirm password',
-            controller: _confirmPasswrodController,
+            controller: _confirmPasswordController,
           ),
           const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
             child: CustomButton(
               onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  if (_passwordController.text !=
-                      _confirmPasswrodController.text) {
-                    setState(() {
-                      _autovalidateMode = AutovalidateMode.always;
-                      showToast(
-                        context,
-                        title: 'Passwords must be matched!',
-                        type: ToastificationType.warning,
-                      );
-                    });
-                  }
-                  await cubit.signUp(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    userDataModel: UserDataModel(
-                      fullName: _fullNameController.text,
-                      profilePicture:
-                          _profilePicture ?? 'Insert default image here',
-                    ),
-                  );
-                  setState(() {
-                    _autovalidateMode = AutovalidateMode.disabled;
-                  });
-                } else {
-                  setState(() {
-                    _autovalidateMode = AutovalidateMode.always;
-                  });
-                }
+                await _handleSignup(context, cubit);
               },
               backgrnColor: Theme.of(context).colorScheme.primary,
               borderRadius: 12,
@@ -167,5 +138,37 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         ],
       ),
     );
+  }
+
+  Future<void> _handleSignup(BuildContext context, AuthCubit cubit) async {
+    if (_formKey.currentState!.validate()) {
+      if (_passwordController.text != _confirmPasswordController.text) {
+        setState(() {
+          _autovalidateMode = AutovalidateMode.always;
+          showToast(
+            context,
+            title: 'Passwords must be matched!',
+            type: ToastificationType.warning,
+          );
+        });
+      }
+      await cubit.signUp(
+        email: _emailController.text,
+        password: _passwordController.text,
+        userDataModel: UserDataModel(
+          fullName: _fullNameController.text,
+          profilePicture: _profilePicture ?? 'Insert default image here',
+          bio: _bioController.text,
+          phoneNumber: _phoneNumber ?? '+201111111111',
+        ),
+      );
+      setState(() {
+        _autovalidateMode = AutovalidateMode.disabled;
+      });
+    } else {
+      setState(() {
+        _autovalidateMode = AutovalidateMode.always;
+      });
+    }
   }
 }

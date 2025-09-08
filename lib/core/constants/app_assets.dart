@@ -4,6 +4,8 @@ class AppAssets {
   
   static const String iconsCyberSecurity = "assets/icons/cyber_security.png";
 
+  static const String iconsEgypt = "assets/icons/egypt.png";
+
   static const String iconsFacebook = "assets/icons/facebook.png";
 
   static const String iconsFlutter = "assets/icons/flutter.png";
@@ -21,6 +23,10 @@ class AppAssets {
   static const String iconsPython = "assets/icons/python.png";
 
   static const String iconsReact = "assets/icons/react.png";
+
+  static const String iconsSaudiArabia = "assets/icons/saudi_arabia.png";
+
+  static const String iconsUsa = "assets/icons/usa.png";
 
   static const String imagesLogo = "assets/images/logo.png";
 

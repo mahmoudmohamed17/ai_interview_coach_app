@@ -68,7 +68,7 @@ class _CustomPasswordTextFormFieldState
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.borderRadius),
+          borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius)),
           borderSide: BorderSide(
             color: widget.borderColor,
             width: widget.borderWidth,

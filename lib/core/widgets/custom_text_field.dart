@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    this.label,
     this.hintStyle,
     this.textStyle,
     this.fillColor = Colors.white,
@@ -14,11 +13,11 @@ class CustomTextFormField extends StatelessWidget {
     this.padding = 16.0,
     this.borderRadius = 24.0,
     this.borderWidth = 1.0,
+    this.maxLines = 1,
   });
 
   final TextEditingController controller;
   final String hintText;
-  final String? label;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final Color fillColor;
@@ -27,19 +26,14 @@ class CustomTextFormField extends StatelessWidget {
   final double padding;
   final double borderRadius;
   final double borderWidth;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return '$label is required';
-        } else {
-          return null;
-        }
-      },
+    return TextField(
       controller: controller,
       style: textStyle,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle,

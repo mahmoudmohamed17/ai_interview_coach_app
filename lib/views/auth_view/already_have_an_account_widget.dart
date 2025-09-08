@@ -31,7 +31,7 @@ class AlreadyHaveAnAccountWidget extends StatelessWidget {
             'Log In',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),

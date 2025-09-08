@@ -1,20 +1,10 @@
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
-import 'package:ai_interview_coach_app/core/widgets/custom_text_form_field.dart';
+import 'package:ai_interview_coach_app/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class TextFormFieldWithLabel extends StatelessWidget {
-  const TextFormFieldWithLabel({
-    super.key,
-    required this.controller,
-    required this.label,
-    required this.hintText,
-    this.labelStyle,
-  });
-
+class BioWidget extends StatelessWidget {
+  const BioWidget({super.key, required this.controller});
   final TextEditingController controller;
-  final String label;
-  final String hintText;
-  final TextStyle? labelStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +13,28 @@ class TextFormFieldWithLabel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 6,
       children: [
-        Text(label, style: labelStyle),
-        CustomTextFormField(
+        Text(
+          'Bio',
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        CustomTextField(
           controller: controller,
-          hintText: hintText,
-          label: label,
+          hintText: 'Tell us more about you!',
           fillColor: Theme.of(context).colorScheme.surface,
           borderColor: AppColors.borderColor,
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Theme.of(context).colorScheme.secondary,
+            color: AppColors.secondaryColor,
             fontWeight: FontWeight.w400,
           ),
           textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
+            color: AppColors.primaryColor,
             fontWeight: FontWeight.w400,
           ),
-          borderRadius: 8,
-          padding: 12,
+          borderRadius: 32,
+          maxLines: 3,
         ),
       ],
     );
