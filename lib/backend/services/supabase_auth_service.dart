@@ -7,6 +7,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class SupabaseAuthService {
   final _client = Supabase.instance.client.auth;
   User? get currentUser => _client.currentUser;
+  UserDataModel? get currentUserModel =>
+      UserDataModel.formJson(_client.currentUser!.userMetadata!);
 
   Future<AuthResponse> logIn({
     required String email,

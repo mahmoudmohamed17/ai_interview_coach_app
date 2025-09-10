@@ -1,5 +1,6 @@
-import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
+import 'package:ai_interview_coach_app/core/utilities/handle_user_profile_picture.dart';
+import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,8 @@ class HomeViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ThemeCubit>();
+    final themCubit = context.read<ThemeCubit>();
+    final authCubit = context.watch<AuthCubit>();
 
     return Container(
       width: double.infinity,
@@ -32,11 +34,13 @@ class HomeViewAppBar extends StatelessWidget {
             child: InkWell(
               onTap: () => context.push(Routes.profileView),
               customBorder: const CircleBorder(),
-              child: const Padding(
-                padding: EdgeInsets.all(2.0),
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
                 child: CircleAvatar(
                   radius: 24,
-                  backgroundImage: AssetImage(AppAssets.imagesUserPicture),
+                  backgroundImage: handleUserProfilePicture(
+                    authCubit.currentUserModel.profilePicture,
+                  ),
                 ),
               ),
             ),
@@ -47,11 +51,11 @@ class HomeViewAppBar extends StatelessWidget {
             transitionBuilder: (child, animation) =>
                 RotationTransition(turns: animation, child: child),
             child: IconButton(
-              key: ValueKey(cubit.state),
+              key: ValueKey(themCubit.state),
               onPressed: () async {
-                await cubit.changeTheme();
+                await themCubit.changeTheme();
               },
-              icon: Icon(cubit.state ? Icons.dark_mode : Icons.light_mode),
+              icon: Icon(themCubit.state ? Icons.dark_mode : Icons.light_mode),
             ),
           ),
         ],

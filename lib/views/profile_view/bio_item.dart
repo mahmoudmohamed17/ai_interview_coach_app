@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BioItem extends StatelessWidget {
-  const BioItem({super.key});
+  const BioItem({super.key, required this.bio});
+  final String bio;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class BioItem extends StatelessWidget {
           ],
         ),
         Text(
-          'Full-stack developer passionate about creating amazing user experiences. Experienced in React, Node.js, and cloud technologies.',
+          bio,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Theme.of(context).colorScheme.secondary,
           ),

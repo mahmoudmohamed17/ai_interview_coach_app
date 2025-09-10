@@ -41,7 +41,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  vertical: 12.0,
+                  vertical: 13.0,
                   horizontal: 6.0,
                 ),
                 alignment: Alignment.center,
@@ -59,11 +59,13 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                     item = value;
                   }),
                   dropdownColor: Theme.of(context).colorScheme.surface,
-                  value: countriesCodes[1],
+                  value: countriesCodes.first,
                   padding: EdgeInsets.zero,
                   selectedItemBuilder: (context) {
                     return countriesCodes.map((country) {
-                      return CountryCodeItem(model: item ?? countriesCodes[1]);
+                      return CountryCodeItem(
+                        model: item ?? countriesCodes.first,
+                      );
                     }).toList();
                   },
                   underline: const SizedBox.shrink(),

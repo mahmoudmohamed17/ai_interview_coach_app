@@ -13,10 +13,10 @@ class UserDataModel {
 
   factory UserDataModel.formJson(Map<String, dynamic> json) {
     return UserDataModel(
-      fullName: json['raw_user_meta_data']['full_name'],
-      profilePicture: json['raw_user_meta_data']['profile_picture'],
-      bio: json['raw_user_meta_data']['bio'],
-      phoneNumber: json['raw_user_meta_data']['phone_number'],
+      fullName: json['full_name'],
+      profilePicture: json['profile_picture'],
+      bio: json['bio'],
+      phoneNumber: json['phone_number'],
     );
   }
 

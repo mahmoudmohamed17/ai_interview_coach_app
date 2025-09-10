@@ -15,7 +15,7 @@ class CountryCodeItem extends StatelessWidget {
         Image.asset(model.flag, height: 20, width: 20),
         Text(
           model.dialCode,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),

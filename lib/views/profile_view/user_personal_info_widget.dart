@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/backend/models/personal_info_model.dart';
+import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/views/profile_view/bio_item.dart';
 import 'package:ai_interview_coach_app/views/profile_view/joined_date_widget.dart';
 import 'package:ai_interview_coach_app/views/profile_view/personal_info_item.dart';
@@ -6,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserPersonalInfoWidget extends StatelessWidget {
-  const UserPersonalInfoWidget({super.key});
+  const UserPersonalInfoWidget({super.key, required this.authCubit});
+  final AuthCubit authCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +16,20 @@ class UserPersonalInfoWidget extends StatelessWidget {
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidUser,
         label: 'Full name',
-        value: 'Mahmoud Mohamed',
+        value: authCubit.currentUserModel.fullName,
       ),
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidEnvelope,
         label: 'Email',
-        value: 'mahmoud123@gmail.com',
+        value: authCubit.currentUser.email!,
       ),
       PersonalInfoModel(
         icon: FontAwesomeIcons.phone,
         label: 'Phone number',
-        value: '+201127243403',
+        value: authCubit.currentUserModel.phoneNumber,
       ),
     ];
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -41,8 +44,8 @@ class UserPersonalInfoWidget extends StatelessWidget {
         spacing: 16,
         children: [
           ...items.map((item) => PersonalInfoItem(model: item)),
-          const BioItem(),
-          const JoinedDateWidget(),
+          BioItem(bio: authCubit.currentUserModel.bio),
+          JoinedDateWidget(joinedData: authCubit.currentUser.createdAt),
         ],
       ),
     );

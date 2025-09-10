@@ -3,12 +3,16 @@ import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show AuthApiException;
+import 'package:supabase_flutter/supabase_flutter.dart'
+    show AuthApiException, User;
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.supabaseAuthService) : super(AuthInitial());
 
   final SupabaseAuthService supabaseAuthService;
+
+  User get currentUser => supabaseAuthService.currentUser!;
+  UserDataModel get currentUserModel => supabaseAuthService.currentUserModel!;
 
   Future<void> logIn({required String email, required String password}) async {
     emit(AuthLoading());
@@ -17,7 +21,6 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      log('User meta data: ${result.user!.userMetadata}');
       emit(AuthLoggedIn(user: result.user!));
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
@@ -43,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
     } catch (e) {
-      emit(const AuthError(message: 'Something went wrong.'));
+      emit(const AuthError(message: 'Something went wrong'));
     }
   }
 
