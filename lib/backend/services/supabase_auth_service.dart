@@ -6,19 +6,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuthService {
   final _client = Supabase.instance.client.auth;
-  User? get currentUser => _client.currentUser;
-  UserDataModel? get currentUserModel =>
-      UserDataModel.formJson(_client.currentUser!.userMetadata!);
 
   Future<AuthResponse> logIn({
     required String email,
     required String password,
   }) async {
-    final user = await _client.signInWithPassword(
-      email: email,
-      password: password,
-    );
-    return user;
+    return await _client.signInWithPassword(email: email, password: password);
   }
 
   Future<AuthResponse> signUp({
@@ -33,7 +26,7 @@ class SupabaseAuthService {
     );
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     await _client.signOut();
   }
 

@@ -11,12 +11,12 @@ class UserDataModel {
     required this.phoneNumber,
   });
 
-  factory UserDataModel.formJson(Map<String, dynamic> json) {
+  factory UserDataModel.formJson(Map<String, dynamic>? json) {
     return UserDataModel(
-      fullName: json['full_name'],
-      profilePicture: json['profile_picture'],
-      bio: json['bio'],
-      phoneNumber: json['phone_number'],
+      fullName: json?['full_name'] ?? '',
+      profilePicture: json?['profile_picture'] ?? '',
+      bio: json?['bio'] ?? '',
+      phoneNumber: json?['phone_number'] ?? '',
     );
   }
 

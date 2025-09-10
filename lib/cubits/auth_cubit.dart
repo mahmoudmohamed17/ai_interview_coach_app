@@ -11,8 +11,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   final SupabaseAuthService supabaseAuthService;
 
-  User get currentUser => supabaseAuthService.currentUser!;
-  UserDataModel get currentUserModel => supabaseAuthService.currentUserModel!;
+  User? user;
+  UserDataModel? userModel;
 
   Future<void> logIn({required String email, required String password}) async {
     emit(AuthLoading());
@@ -21,7 +21,9 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      emit(AuthLoggedIn(user: result.user!));
+      user = result.user;
+      userModel = UserDataModel.formJson(result.user!.userMetadata);
+      emit(AuthLoggedIn());
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
     } catch (e) {
@@ -42,7 +44,9 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         userDataModel: userDataModel,
       );
-      emit(AuthRegistered(user: result.user!));
+      user = result.user;
+      userModel = UserDataModel.formJson(result.user!.userMetadata);
+      emit(AuthRegistered());
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
     } catch (e) {
@@ -53,8 +57,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signInWithGoogle() async {
     emit(AuthLoading());
     try {
-      final result = await supabaseAuthService.signInWithGoogle();
-      emit(AuthLoggedIn(user: result.user!));
+      await supabaseAuthService.signInWithGoogle();
+      emit(AuthLoggedIn());
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
     } catch (e) {
@@ -62,10 +66,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     emit(AuthLoading());
     try {
-      await supabaseAuthService.signOut();
+      await supabaseAuthService.logOut();
       emit(AuthLoggedOut());
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
@@ -86,7 +90,9 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         userDataModel: userDataModel,
       );
-      emit(AuthUpdated(user: result.user!));
+      user = result.user;
+      userModel = UserDataModel.formJson(result.user!.userMetadata);
+      emit(AuthUpdated());
     } on AuthApiException catch (e) {
       emit(AuthError(message: e.message));
     } catch (e) {

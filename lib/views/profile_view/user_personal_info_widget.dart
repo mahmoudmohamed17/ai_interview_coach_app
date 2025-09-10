@@ -16,17 +16,17 @@ class UserPersonalInfoWidget extends StatelessWidget {
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidUser,
         label: 'Full name',
-        value: authCubit.currentUserModel.fullName,
+        value: authCubit.userModel!.fullName,
       ),
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidEnvelope,
         label: 'Email',
-        value: authCubit.currentUser.email!,
+        value: authCubit.user!.email!,
       ),
       PersonalInfoModel(
         icon: FontAwesomeIcons.phone,
         label: 'Phone number',
-        value: authCubit.currentUserModel.phoneNumber,
+        value: authCubit.userModel!.phoneNumber,
       ),
     ];
 
@@ -44,8 +44,8 @@ class UserPersonalInfoWidget extends StatelessWidget {
         spacing: 16,
         children: [
           ...items.map((item) => PersonalInfoItem(model: item)),
-          BioItem(bio: authCubit.currentUserModel.bio),
-          JoinedDateWidget(joinedData: authCubit.currentUser.createdAt),
+          BioItem(bio: authCubit.userModel!.bio),
+          JoinedDateWidget(joinedData: authCubit.user!.createdAt),
         ],
       ),
     );

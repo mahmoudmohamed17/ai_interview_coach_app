@@ -39,7 +39,7 @@ class HomeViewAppBar extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 24,
                   backgroundImage: handleUserProfilePicture(
-                    authCubit.currentUserModel.profilePicture,
+                    authCubit.userModel!.profilePicture,
                   ),
                 ),
               ),
