@@ -45,7 +45,11 @@ class _ImagePickingWidgetState extends State<ImagePickingWidget> {
                 color: Colors.grey,
               ),
             )
-          : CircleAvatar(radius: 75, backgroundImage: FileImage(_imageFile!)),
+          : CircleAvatar(
+              radius: 75,
+              backgroundImage: FileImage(_imageFile!),
+              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+            ),
     );
   }
 }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.controller,
-    required this.hintText,
+    this.controller,
+    this.onFieldSubmitted,
+    this.hintText,
     this.label,
+    this.initialValue,
     this.hintStyle,
     this.textStyle,
     this.fillColor = Colors.white,
@@ -16,9 +18,11 @@ class CustomTextFormField extends StatelessWidget {
     this.borderWidth = 1.0,
   });
 
-  final TextEditingController controller;
-  final String hintText;
+  final TextEditingController? controller;
+  final Function(String)? onFieldSubmitted;
+  final String? hintText;
   final String? label;
+  final String? initialValue;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final Color fillColor;
@@ -40,6 +44,8 @@ class CustomTextFormField extends StatelessWidget {
       },
       controller: controller,
       style: textStyle,
+      initialValue: initialValue,
+      onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle,

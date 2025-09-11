@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +19,7 @@ class ProfileViewAppBar extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Row(
         children: [
           IconButton(
@@ -36,7 +37,7 @@ class ProfileViewAppBar extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () => context.push(Routes.editProfileView),
             style: ElevatedButton.styleFrom(
               visualDensity: const VisualDensity(
                 vertical: VisualDensity.minimumDensity,

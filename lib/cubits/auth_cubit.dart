@@ -7,12 +7,21 @@ import 'package:supabase_flutter/supabase_flutter.dart'
     show AuthApiException, User;
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.supabaseAuthService) : super(AuthInitial());
+  AuthCubit(this.supabaseAuthService) : super(AuthInitial()) {
+    fetchUserData();
+  }
 
   final SupabaseAuthService supabaseAuthService;
 
   User? user;
   UserDataModel? userModel;
+
+  void fetchUserData() {
+    emit(AuthLoading());
+    user ??= supabaseAuthService.currentUser;
+    userModel ??= UserDataModel.formJson(user?.userMetadata);
+    emit(AuthLoggedIn());
+  }
 
   Future<void> logIn({required String email, required String password}) async {
     emit(AuthLoading());

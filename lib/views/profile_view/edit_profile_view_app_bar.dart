@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class InterviewSteupViewAppBar extends StatelessWidget {
-  const InterviewSteupViewAppBar({super.key});
+class EditProfileViewAppBar extends StatelessWidget {
+  const EditProfileViewAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class InterviewSteupViewAppBar extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
           IconButton(
@@ -25,15 +25,23 @@ class InterviewSteupViewAppBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             icon: const Icon(Icons.arrow_back),
           ),
-          const SizedBox(width: 8),
+          const Spacer(),
           Text(
-            'Interview Setup',
+            'Edit Profile',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(width: 8),
+          Opacity(
+            opacity: 0,
+            child: IconButton(
+              onPressed: () => context.pop(),
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.arrow_back),
+            ),
+          ),
+          const Spacer(),
         ],
       ),
     );

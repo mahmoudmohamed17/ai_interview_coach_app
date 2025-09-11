@@ -1,32 +1,36 @@
 import 'package:ai_interview_coach_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-class TextFormFieldWithLabel extends StatelessWidget {
-  const TextFormFieldWithLabel({
+class EditUserFieldWithLabel extends StatelessWidget {
+  const EditUserFieldWithLabel({
     super.key,
-    required this.controller,
+    required this.initialValue,
     required this.label,
     required this.hintText,
-    this.labelStyle,
+    this.onFieldSubmitted,
   });
-
-  final TextEditingController controller;
+  final String initialValue;
   final String label;
   final String hintText;
-  final TextStyle? labelStyle;
+  final Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 6,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 6,
       children: [
-        Text(label, style: labelStyle),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
         CustomTextFormField(
-          controller: controller,
+          initialValue: initialValue,
           hintText: hintText,
-          label: label,
+          onFieldSubmitted: onFieldSubmitted,
           fillColor: Theme.of(context).colorScheme.surface,
           borderColor: Theme.of(context).colorScheme.outline,
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
