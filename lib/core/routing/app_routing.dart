@@ -9,6 +9,7 @@ import 'package:ai_interview_coach_app/views/home_view/home_view.dart';
 import 'package:ai_interview_coach_app/views/profile_view/edit_profile_view.dart';
 import 'package:ai_interview_coach_app/views/profile_view/profile_view.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_setup_view.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/quiz_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouting {
@@ -44,6 +45,10 @@ class AppRouting {
       GoRoute(
         path: Routes.interviewSetupView,
         builder: (context, state) => const InterviewSetupView(),
+      ),
+      GoRoute(
+        path: Routes.quizView,
+        builder: (context, state) => const QuizView(),
       ),
     ],
   );

@@ -1,10 +1,12 @@
 import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class InterviewSummaryWidget extends StatelessWidget {
   const InterviewSummaryWidget({
@@ -127,7 +129,7 @@ class InterviewSummaryWidget extends StatelessWidget {
           SizedBox(
             width: context.width,
             child: CustomButton(
-              onPressed: () {},
+              onPressed: () => context.push(Routes.quizView),
               backgrnColor: Theme.of(context).colorScheme.primary,
               borderRadius: 12,
               child: Text(
