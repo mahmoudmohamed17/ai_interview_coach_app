@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/shared_prefs.dart';
@@ -35,7 +36,10 @@ class AppRouting {
       ),
       GoRoute(
         path: Routes.editProfileView,
-        builder: (context, state) => const EditProfileView(),
+        builder: (context, state) {
+          final userModel = state.extra as UserDataModel;
+          return EditProfileView(userModel: userModel);
+        },
       ),
       GoRoute(
         path: Routes.interviewSetupView,

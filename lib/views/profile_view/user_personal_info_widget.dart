@@ -12,11 +12,13 @@ class UserPersonalInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userModel = authCubit.userModel;
+
     final items = [
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidUser,
         label: 'Full name',
-        value: authCubit.userModel!.fullName,
+        value: userModel!.fullName,
       ),
       PersonalInfoModel(
         icon: FontAwesomeIcons.solidEnvelope,
@@ -26,7 +28,7 @@ class UserPersonalInfoWidget extends StatelessWidget {
       PersonalInfoModel(
         icon: FontAwesomeIcons.phone,
         label: 'Phone number',
-        value: authCubit.userModel!.phoneNumber,
+        value: '${userModel.countryCode}${userModel.phoneNumber}',
       ),
     ];
 

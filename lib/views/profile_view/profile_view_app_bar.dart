@@ -1,10 +1,12 @@
+import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileViewAppBar extends StatelessWidget {
-  const ProfileViewAppBar({super.key});
+  const ProfileViewAppBar({super.key, required this.userModel});
+  final UserDataModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,8 @@ class ProfileViewAppBar extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton.icon(
-            onPressed: () => context.push(Routes.editProfileView),
+            onPressed: () =>
+                context.push(Routes.editProfileView, extra: userModel),
             style: ElevatedButton.styleFrom(
               visualDensity: const VisualDensity(
                 vertical: VisualDensity.minimumDensity,
