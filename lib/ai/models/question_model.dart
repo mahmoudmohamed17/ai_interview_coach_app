@@ -43,3 +43,32 @@ class QuestionModel {
     );
   }
 }
+
+// Dummy data:
+
+final dummyQuestions = [
+  QuestionModel(
+    id: 1,
+    question: "What is the capital of France?",
+    choices: ["London", "Berlin", "Paris", "Madrid"],
+    correctChoice: "Paris",
+  ),
+  QuestionModel(
+    id: 2,
+    question: "Which programming language is Flutter built with?",
+    choices: ["Java", "Dart", "Python", "C++"],
+    correctChoice: "Dart",
+  ),
+  QuestionModel(
+    id: 3,
+    question: "What is 2 + 2?",
+    choices: ["3", "4", "5", "6"],
+    correctChoice: "4",
+  ),
+  QuestionModel(
+    id: 4,
+    question: "What is 2 + 2?",
+    choices: ["3", "4", "5", "6"],
+    correctChoice: "4",
+  ),
+];

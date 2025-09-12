@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ai_interview_coach_app/views/quiz_view/answers_item_widget.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/question_item_widget.dart';
 import 'package:flutter/material.dart';
