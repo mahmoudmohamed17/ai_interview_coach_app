@@ -3,20 +3,31 @@ import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
 import 'package:flutter/material.dart';
 
-class PhoneNumberWidget extends StatefulWidget {
-  const PhoneNumberWidget({super.key, this.onCompleted});
+class EditableUserPhoneNumber extends StatefulWidget {
+  const EditableUserPhoneNumber({
+    super.key,
+    this.onCompleted,
+    required this.phoneNumber,
+    required this.countryCode,
+  });
   final Function(String, String)? onCompleted;
+  final String phoneNumber;
+  final String countryCode;
 
   @override
-  State<PhoneNumberWidget> createState() => _PhoneNumberWidgetState();
+  State<EditableUserPhoneNumber> createState() =>
+      _EditableUserPhoneNumberState();
 }
 
-class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
+class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
   CountryCodeModel? item;
 
   @override
   void initState() {
     super.initState();
+    item = countriesCodes
+        .where((item) => item.dialCode == widget.countryCode)
+        .single;
   }
 
   @override
@@ -64,7 +75,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                     item = value;
                   }),
                   dropdownColor: Theme.of(context).colorScheme.surface,
-                  value: countriesCodes.first,
+                  value: item,
                   padding: EdgeInsets.zero,
                   selectedItemBuilder: (context) {
                     return countriesCodes.map((country) {
@@ -80,8 +91,8 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
             ),
             Expanded(
               flex: 2,
-              child: TextField(
-                onSubmitted: (value) {
+              child: TextFormField(
+                onFieldSubmitted: (value) {
                   if (item != null) {
                     widget.onCompleted?.call(item!.dialCode, value);
                   }
@@ -90,6 +101,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w400,
                 ),
+                initialValue: widget.phoneNumber,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Type your phone number',

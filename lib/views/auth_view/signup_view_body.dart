@@ -34,6 +34,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
   String? _profilePicture;
   String? _phoneNumber;
+  String? _countryCode;
 
   @override
   void initState() {
@@ -93,7 +94,12 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             hintText: 'Type your email',
           ),
           const SizedBox(height: 16),
-          PhoneNumberWidget(onCompleted: (value) => _phoneNumber = value),
+          PhoneNumberWidget(
+            onCompleted: (code, phoneNumber) => {
+              _countryCode = code,
+              _phoneNumber = phoneNumber,
+            },
+          ),
           const SizedBox(height: 16),
           PasswordTextFormFieldWithLabel(
             label: 'Password',
@@ -160,6 +166,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           profilePicture: _profilePicture ?? 'Insert default image here',
           bio: _bioController.text,
           phoneNumber: _phoneNumber ?? '+201111111111',
+          countryCode: _countryCode ?? '+20',
         ),
       );
       setState(() {

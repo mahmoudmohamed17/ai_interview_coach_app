@@ -1,35 +1,32 @@
 import 'package:ai_interview_coach_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-class EditUserFieldWithLabel extends StatelessWidget {
-  const EditUserFieldWithLabel({
+class EditUserBioWidget extends StatelessWidget {
+  const EditUserBioWidget({
     super.key,
     required this.initialValue,
-    required this.label,
-    required this.hintText,
     this.onChanged,
   });
   final String initialValue;
-  final String label;
-  final String hintText;
   final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 6,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 6,
       children: [
         Text(
-          label,
+          'Bio',
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.w600,
           ),
         ),
         CustomTextFormField(
           initialValue: initialValue,
-          hintText: hintText,
+          hintText: 'Edit your bio',
           onChanged: onChanged,
           fillColor: Theme.of(context).colorScheme.surface,
           borderColor: Theme.of(context).colorScheme.outline,
@@ -41,8 +38,9 @@ class EditUserFieldWithLabel extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w400,
           ),
-          borderRadius: 8,
+          borderRadius: 32,
           padding: 12,
+          maxLines: 3,
         ),
       ],
     );

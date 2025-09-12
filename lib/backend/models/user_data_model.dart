@@ -2,13 +2,15 @@ class UserDataModel {
   final String fullName;
   final String profilePicture;
   final String bio;
-  final String phoneNumber;
+  final String phoneNumber; // without the country code
+  final String countryCode;
 
   UserDataModel({
     required this.fullName,
     required this.profilePicture,
     required this.bio,
     required this.phoneNumber,
+    required this.countryCode,
   });
 
   factory UserDataModel.formJson(Map<String, dynamic>? json) {
@@ -16,7 +18,8 @@ class UserDataModel {
       fullName: json?['full_name'] ?? '',
       profilePicture: json?['profile_picture'] ?? '',
       bio: json?['bio'] ?? '',
-      phoneNumber: json?['phone_number'] ?? '',
+      phoneNumber: json?['dial_info']['phone_number'] ?? '',
+      countryCode: json?['dial_info']['country_code'] ?? '',
     );
   }
 
@@ -25,7 +28,7 @@ class UserDataModel {
       'full_name': fullName,
       'profile_picture': profilePicture,
       'bio': bio,
-      'phone_number': phoneNumber,
+      'dial_info': {'phone_number': phoneNumber, 'country_code': countryCode},
     };
   }
 
@@ -34,12 +37,14 @@ class UserDataModel {
     String? profilePicture,
     String? bio,
     String? phoneNumber,
+    String? countryCode,
   }) {
     return UserDataModel(
       fullName: fullName ?? this.fullName,
       profilePicture: profilePicture ?? this.profilePicture,
       bio: bio ?? this.bio,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      countryCode: countryCode ?? this.countryCode,
     );
   }
 }

@@ -5,6 +5,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     this.controller,
     this.onFieldSubmitted,
+    this.onChanged,
     this.hintText,
     this.label,
     this.initialValue,
@@ -16,10 +17,12 @@ class CustomTextFormField extends StatelessWidget {
     this.padding = 16.0,
     this.borderRadius = 24.0,
     this.borderWidth = 1.0,
+    this.maxLines,
   });
 
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
+  final Function(String)? onChanged;
   final String? hintText;
   final String? label;
   final String? initialValue;
@@ -31,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
   final double padding;
   final double borderRadius;
   final double borderWidth;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,8 @@ class CustomTextFormField extends StatelessWidget {
       style: textStyle,
       initialValue: initialValue,
       onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle,
@@ -53,6 +59,7 @@ class CustomTextFormField extends StatelessWidget {
         contentPadding: EdgeInsets.all(padding),
         filled: true,
         prefixIcon: prefixIcon,
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           borderSide: BorderSide(color: borderColor, width: borderWidth),
