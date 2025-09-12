@@ -67,9 +67,11 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: EditableUserPhoneNumber(
-            onCompleted: (code, phoneNumber) => setState(() {
-              _phoneNumber = phoneNumber;
-              _countryCode = code;
+            onNumberChanged: (value) => setState(() {
+              _phoneNumber = value;
+            }),
+            onCodeChanged: (value) => setState(() {
+              _countryCode = value;
             }),
             phoneNumber: widget.userModel.phoneNumber,
             countryCode: widget.userModel.countryCode,

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:ai_interview_coach_app/backend/models/country_code_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
@@ -6,11 +7,14 @@ import 'package:flutter/material.dart';
 class EditableUserPhoneNumber extends StatefulWidget {
   const EditableUserPhoneNumber({
     super.key,
-    this.onCompleted,
+    this.onNumberChanged,
+    this.onCodeChanged,
     required this.phoneNumber,
     required this.countryCode,
   });
-  final Function(String, String)? onCompleted;
+
+  final Function(String)? onNumberChanged;
+  final Function(String)? onCodeChanged;
   final String phoneNumber;
   final String countryCode;
 
@@ -25,9 +29,11 @@ class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
   @override
   void initState() {
     super.initState();
-    item = countriesCodes
-        .where((item) => item.dialCode == widget.countryCode)
-        .single;
+    item = countriesCodes.firstWhere(
+      (item) => item.dialCode == widget.countryCode,
+      orElse: () => countriesCodes.first,
+    );
+    log('Item code: ${item!.dialCode}');
   }
 
   @override
@@ -73,17 +79,11 @@ class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
                       .toList(),
                   onChanged: (value) => setState(() {
                     item = value;
+                    widget.onCodeChanged?.call(item!.dialCode);
                   }),
-                  dropdownColor: Theme.of(context).colorScheme.surface,
                   value: item,
+                  dropdownColor: Theme.of(context).colorScheme.surface,
                   padding: EdgeInsets.zero,
-                  selectedItemBuilder: (context) {
-                    return countriesCodes.map((country) {
-                      return CountryCodeItem(
-                        model: item ?? countriesCodes.first,
-                      );
-                    }).toList();
-                  },
                   underline: const SizedBox.shrink(),
                   isDense: true,
                 ),
@@ -94,7 +94,7 @@ class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
               child: TextFormField(
                 onFieldSubmitted: (value) {
                   if (item != null) {
-                    widget.onCompleted?.call(item!.dialCode, value);
+                    widget.onNumberChanged?.call(value);
                   }
                 },
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(

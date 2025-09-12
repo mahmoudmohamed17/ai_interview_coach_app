@@ -29,7 +29,7 @@ class ProfileView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final cubit = context.read<AuthCubit>();
+        final cubit = context.watch<AuthCubit>();
 
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
