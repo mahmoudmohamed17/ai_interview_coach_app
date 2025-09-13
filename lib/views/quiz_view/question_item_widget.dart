@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class QuestionItemWidget extends StatelessWidget {
-  const QuestionItemWidget({super.key});
+  const QuestionItemWidget({
+    super.key,
+    required this.id,
+    required this.remainingQuestions,
+    required this.question,
+  });
+  final int id;
+  final int remainingQuestions;
+  final String question;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +20,6 @@ class QuestionItemWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 12,
@@ -21,32 +28,35 @@ class QuestionItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Question 1',
+                'Question $id',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.outline,
+              Opacity(
+                opacity: remainingQuestions == 0 ? 0 : 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                ),
-                padding: const EdgeInsets.all(4),
-                child: Text(
-                  '7 remaining',
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.w600,
+                  padding: const EdgeInsets.all(4),
+                  child: Text(
+                    '$remainingQuestions remaining',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
           Text(
-            'What is Flutter and what are its main advantages?',
+            question,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
