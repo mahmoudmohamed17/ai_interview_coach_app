@@ -18,13 +18,13 @@ class QuizProgressIndicatorWidget extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(24)),
           ),
         ),
-        Positioned(
-          left: 0,
+        Align(
+          alignment: Alignment.centerLeft,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
             height: 4,
-            width: context.width * barPercentage - 48,
+            width: context.width * barPercentage,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.all(Radius.circular(24)),

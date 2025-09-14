@@ -14,7 +14,7 @@ class QuestionAndAnswersWidget extends StatelessWidget {
   final QuestionModel questionModel;
   final int remainingQuestions;
   final String? selectedAnswer;
-  final Function(String)? onAnswerSelected;
+  final Function(String answer)? onAnswerSelected;
 
   @override
   Widget build(BuildContext context) {

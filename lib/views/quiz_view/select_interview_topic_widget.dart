@@ -4,18 +4,14 @@ import 'package:ai_interview_coach_app/views/quiz_view/interview_topic_item.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SelectInterviewTopicWidget extends StatefulWidget {
-  const SelectInterviewTopicWidget({super.key, this.onSelected});
-  final Function(InterviewTopicModel)? onSelected;
-
-  @override
-  State<SelectInterviewTopicWidget> createState() =>
-      _SelectInterviewTopicWidgetState();
-}
-
-class _SelectInterviewTopicWidgetState
-    extends State<SelectInterviewTopicWidget> {
-  int _activeIndex = -1;
+class SelectInterviewTopicWidget extends StatelessWidget {
+  const SelectInterviewTopicWidget({
+    super.key,
+    this.onSelected,
+    required this.activeIndex,
+  });
+  final Function(InterviewTopicModel model, int index)? onSelected;
+  final int activeIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +59,10 @@ class _SelectInterviewTopicWidgetState
             physics: const NeverScrollableScrollPhysics(),
             itemCount: interviewTopics.length,
             itemBuilder: (context, index) => GestureDetector(
-              onTap: () => setState(() {
-                _activeIndex = index;
-                widget.onSelected?.call(interviewTopics[index]);
-              }),
+              onTap: () => onSelected?.call(interviewTopics[index], index),
               child: InterviewTopicItem(
                 model: interviewTopics[index],
-                isActive: index == _activeIndex,
+                isActive: index == activeIndex,
               ),
             ),
           ),

@@ -7,9 +7,13 @@ class QuizNavigationButtons extends StatelessWidget {
     super.key,
     required this.pageController,
     required this.currentIndex,
+    required this.answeredQuestions,
+    required this.totalQuestions,
   });
   final PageController pageController;
   final int currentIndex;
+  final int answeredQuestions;
+  final int totalQuestions;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class QuizNavigationButtons extends StatelessWidget {
           ),
         ),
         Text(
-          '${currentIndex + 1} of 4 answered',
+          '$answeredQuestions of $totalQuestions answered',
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: Theme.of(context).colorScheme.secondary,
           ),

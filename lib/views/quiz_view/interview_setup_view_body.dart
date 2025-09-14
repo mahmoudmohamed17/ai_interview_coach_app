@@ -14,8 +14,10 @@ class InterviewSetupViewBody extends StatefulWidget {
 }
 
 class _InterviewSetupViewBodyState extends State<InterviewSetupViewBody> {
-  InterviewTopicModel? topic;
-  InterviewDifficultyLevelModel? level;
+  InterviewTopicModel? _topic;
+  InterviewDifficultyLevelModel? _level;
+  int _topicIndex = -1;
+  int _levelIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +26,23 @@ class _InterviewSetupViewBodyState extends State<InterviewSetupViewBody> {
         const InterviewSteupViewAppBar(),
         const SizedBox(height: 24),
         SelectInterviewTopicWidget(
-          onSelected: (value) => setState(() {
-            topic = value;
+          activeIndex: _topicIndex,
+          onSelected: (model, index) => setState(() {
+            _topic = model;
+            _topicIndex = index;
           }),
         ),
         const SizedBox(height: 24),
         ChooseDifficultyLevelWidget(
-          onSelected: (value) => setState(() {
-            level = value;
+          activeIndex: _levelIndex,
+          onSelected: (model, index) => setState(() {
+            _level = model;
+            _levelIndex = index;
           }),
         ),
         const SizedBox(height: 24),
-        if (topic != null && level != null)
-          InterviewSummaryWidget(topic: topic!, level: level!),
+        if (_topic != null && _level != null)
+          InterviewSummaryWidget(topic: _topic!, level: _level!),
         const SizedBox(height: 24),
       ],
     );

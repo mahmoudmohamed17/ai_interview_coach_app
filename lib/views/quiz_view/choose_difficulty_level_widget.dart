@@ -3,18 +3,14 @@ import 'package:ai_interview_coach_app/views/quiz_view/interview_difficulty_leve
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ChooseDifficultyLevelWidget extends StatefulWidget {
-  const ChooseDifficultyLevelWidget({super.key, this.onSelected});
-  final Function(InterviewDifficultyLevelModel)? onSelected;
-
-  @override
-  State<ChooseDifficultyLevelWidget> createState() =>
-      _ChooseDifficultyLevelWidgetState();
-}
-
-class _ChooseDifficultyLevelWidgetState
-    extends State<ChooseDifficultyLevelWidget> {
-  int _activeIndex = -1;
+class ChooseDifficultyLevelWidget extends StatelessWidget {
+  const ChooseDifficultyLevelWidget({
+    super.key,
+    this.onSelected,
+    required this.activeIndex,
+  });
+  final Function(InterviewDifficultyLevelModel model, int index)? onSelected;
+  final int activeIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +57,10 @@ class _ChooseDifficultyLevelWidgetState
             physics: const NeverScrollableScrollPhysics(),
             itemCount: difficultyLevels.length,
             itemBuilder: (context, index) => GestureDetector(
-              onTap: () => setState(() {
-                _activeIndex = index;
-                widget.onSelected?.call(difficultyLevels[index]);
-              }),
+              onTap: () => onSelected?.call(difficultyLevels[index], index),
               child: InterviewDifficultyLevelItem(
                 model: difficultyLevels[index],
-                isActive: index == _activeIndex,
+                isActive: index == activeIndex,
               ),
             ),
           ),

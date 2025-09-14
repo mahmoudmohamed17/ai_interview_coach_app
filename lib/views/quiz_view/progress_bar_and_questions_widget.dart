@@ -17,7 +17,7 @@ class _ProgressBarAndQuestionsWidgetState
   late PageController _pageController;
   double _barPercentage = 0.0;
   int _currentIndex = 0;
-  Map<int, String> selectedAnswers = {};
+  final Map<int, String> _selectedAnswers = {};
 
   @override
   void initState() {
@@ -38,15 +38,14 @@ class _ProgressBarAndQuestionsWidgetState
   }
 
   void _updateProgress(int questionIndex) {
-    _barPercentage = double.parse(
-      ((questionIndex + 1) / dummyQuestions.length).toStringAsFixed(1),
-    );
+    final rawPrecentage = (questionIndex + 1) / dummyQuestions.length;
+    _barPercentage = (rawPrecentage * 10).floor() / 10;
     _barPercentage = _barPercentage.clamp(0.0, 1.0);
   }
 
   void _onAnswerSelected(int questionIndex, String answer) {
     setState(() {
-      selectedAnswers[questionIndex] = answer;
+      _selectedAnswers[questionIndex] = answer;
     });
   }
 
@@ -72,16 +71,19 @@ class _ProgressBarAndQuestionsWidgetState
               itemBuilder: (context, index) => QuestionAndAnswersWidget(
                 questionModel: dummyQuestions[index],
                 remainingQuestions: dummyQuestions.length - (index + 1),
-                selectedAnswer: selectedAnswers[index],
+                selectedAnswer: _selectedAnswers[index],
                 onAnswerSelected: (answer) => _onAnswerSelected(index, answer),
               ),
             ),
           ),
+          const SizedBox(height: 32),
           QuizNavigationButtons(
             pageController: _pageController,
             currentIndex: _currentIndex,
+            answeredQuestions: _selectedAnswers.length,
+            totalQuestions: dummyQuestions.length,
           ),
-          const SizedBox(height: 64),
+          const SizedBox(height: 48),
         ],
       ),
     );
