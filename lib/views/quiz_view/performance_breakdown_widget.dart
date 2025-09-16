@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/backend/models/performance_breakdown_model.dart';
+import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class PerformanceBreakdownWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 18,
+        spacing: 12,
         children: [
           Text(
             'Performance Breakdown',
@@ -33,8 +34,7 @@ class PerformanceBreakdownWidget extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          
-          // Spread Operator
+          const SizedBox(height: 2),
           ...items.map(
             (item) => _buildPerformanceItem(
               context,
@@ -47,7 +47,7 @@ class PerformanceBreakdownWidget extends StatelessWidget {
     );
   }
 
-  Row _buildPerformanceItem(
+  Widget _buildPerformanceItem(
     BuildContext context, {
     required String label,
     required double score,
@@ -69,6 +69,8 @@ class PerformanceBreakdownWidget extends StatelessWidget {
             border: Border.all(color: generateColor(score)),
           ),
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          width: context.width * 0.12,
+          alignment: Alignment.center,
           child: Text(
             '${score.toStringAsFixed(0)}%',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(

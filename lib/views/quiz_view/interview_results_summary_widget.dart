@@ -18,7 +18,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 18,
+        spacing: 12,
         children: [
           /// Header
           Text(
@@ -28,6 +28,8 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+
+          const SizedBox(height: 2),
 
           /// Topic and Difficulty
           Row(
@@ -67,7 +69,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
     );
   }
 
-  Column _buildSummaryItem(
+  Widget _buildSummaryItem(
     BuildContext context, {
     required String label,
     required IconData icon,
@@ -111,7 +113,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
     );
   }
 
-  Column _buildDifficultyItem(BuildContext context) {
+  Widget _buildDifficultyItem(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       spacing: 8,

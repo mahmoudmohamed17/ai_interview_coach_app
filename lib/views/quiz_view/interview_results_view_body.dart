@@ -1,3 +1,5 @@
+import 'package:ai_interview_coach_app/views/quiz_view/improvement_suggestions_widget.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/interview_result_action_buttons.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_results_summary_widget.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_score_widget.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/inteview_results_view_app_bar.dart';
@@ -18,6 +20,14 @@ class InterviewResultsViewBody extends StatelessWidget {
         InterviewResultsSummaryWidget(),
         SizedBox(height: 24),
         PerformanceBreakdownWidget(),
+        SizedBox(height: 24),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: InterviewResultsActionButtons(),
+        ),
+        SizedBox(height: 16),
+        ImprovementSuggestionsWidget(),
+        SizedBox(height: 16),
       ],
     );
   }
