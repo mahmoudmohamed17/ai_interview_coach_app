@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'package:ai_interview_coach_app/backend/models/country_code_model.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
 import 'package:flutter/material.dart';
 
-class EditableUserPhoneNumber extends StatefulWidget {
-  const EditableUserPhoneNumber({
+class EditableUserPhoneNumberWidget extends StatefulWidget {
+  const EditableUserPhoneNumberWidget({
     super.key,
     this.onNumberChanged,
     this.onCodeChanged,
@@ -19,11 +18,12 @@ class EditableUserPhoneNumber extends StatefulWidget {
   final String countryCode;
 
   @override
-  State<EditableUserPhoneNumber> createState() =>
-      _EditableUserPhoneNumberState();
+  State<EditableUserPhoneNumberWidget> createState() =>
+      _EditableUserPhoneNumberWidgetState();
 }
 
-class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
+class _EditableUserPhoneNumberWidgetState
+    extends State<EditableUserPhoneNumberWidget> {
   CountryCodeModel? item;
 
   @override
@@ -98,7 +98,7 @@ class _EditableUserPhoneNumberState extends State<EditableUserPhoneNumber> {
                   }
                 },
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: AppColors.primaryColor,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w400,
                 ),
                 initialValue: widget.phoneNumber,

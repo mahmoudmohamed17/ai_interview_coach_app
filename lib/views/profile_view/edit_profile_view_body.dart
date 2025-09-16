@@ -6,7 +6,7 @@ import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:ai_interview_coach_app/views/profile_view/edit_profile_view_app_bar.dart';
 import 'package:ai_interview_coach_app/views/profile_view/edit_user_bio_widget.dart';
 import 'package:ai_interview_coach_app/views/profile_view/edit_user_field_with_label.dart';
-import 'package:ai_interview_coach_app/views/profile_view/editable_user_phone_number.dart';
+import 'package:ai_interview_coach_app/views/profile_view/editable_user_phone_number_widget.dart';
 import 'package:ai_interview_coach_app/views/profile_view/editable_user_profile_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +66,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
         const SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: EditableUserPhoneNumber(
+          child: EditableUserPhoneNumberWidget(
             onNumberChanged: (value) => setState(() {
               _phoneNumber = value;
             }),

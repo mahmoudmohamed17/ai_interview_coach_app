@@ -157,18 +157,19 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             type: ToastificationType.warning,
           );
         });
+      } else {
+        await cubit.signUp(
+          email: _emailController.text,
+          password: _passwordController.text,
+          userDataModel: UserDataModel(
+            fullName: _fullNameController.text,
+            profilePicture: _profilePicture ?? 'Insert default image here',
+            bio: _bioController.text,
+            phoneNumber: _phoneNumber ?? '+201111111111',
+            countryCode: _countryCode ?? '+20',
+          ),
+        );
       }
-      await cubit.signUp(
-        email: _emailController.text,
-        password: _passwordController.text,
-        userDataModel: UserDataModel(
-          fullName: _fullNameController.text,
-          profilePicture: _profilePicture ?? 'Insert default image here',
-          bio: _bioController.text,
-          phoneNumber: _phoneNumber ?? '+201111111111',
-          countryCode: _countryCode ?? '+20',
-        ),
-      );
       setState(() {
         _autovalidateMode = AutovalidateMode.disabled;
       });

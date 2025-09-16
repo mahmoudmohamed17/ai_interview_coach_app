@@ -19,7 +19,7 @@ class CustomLogoutDialog extends StatelessWidget {
         return LoadingOverlay(
           isLoading: state is AuthLoading,
           child: AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
             icon: const CircleAvatar(
               backgroundColor: AppColors.redBtnColor,
               radius: 24,

@@ -18,9 +18,15 @@ class AuthCubit extends Cubit<AuthState> {
 
   void fetchUserData() {
     emit(AuthLoading());
-    user ??= supabaseAuthService.currentUser;
-    userModel ??= UserDataModel.formJson(user?.userMetadata);
-    emit(AuthLoggedIn());
+    try {
+      user ??= supabaseAuthService.currentUser;
+      userModel ??= UserDataModel.formJson(user?.userMetadata);
+      emit(AuthLoggedIn());
+    } on AuthApiException catch (e) {
+      emit(AuthError(message: e.message));
+    } catch (e) {
+      emit(AuthError(message: e.toString()));
+    }
   }
 
   Future<void> logIn({required String email, required String password}) async {

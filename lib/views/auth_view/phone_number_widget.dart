@@ -1,5 +1,4 @@
 import 'package:ai_interview_coach_app/backend/models/country_code_model.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +86,7 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
                   }
                 },
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: AppColors.primaryColor,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w400,
                 ),
                 keyboardType: TextInputType.phone,

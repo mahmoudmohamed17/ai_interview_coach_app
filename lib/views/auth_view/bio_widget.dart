@@ -30,7 +30,7 @@ class BioWidget extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
           textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.primaryColor,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w400,
           ),
           borderRadius: 32,

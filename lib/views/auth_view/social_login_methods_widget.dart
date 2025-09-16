@@ -18,9 +18,9 @@ class SocailLoginMethodsWidget extends StatelessWidget {
             onPressed: () {},
             text: 'Continue with Google',
             imgIcon: AppAssets.iconsGoogle,
-            textStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),
+            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             backgrnColor: Theme.of(context).colorScheme.surface,
             borderColor: Theme.of(context).colorScheme.outline,
             borderRadius: 12,
@@ -32,9 +32,9 @@ class SocailLoginMethodsWidget extends StatelessWidget {
             onPressed: () {},
             text: 'Continue with Facebook',
             imgIcon: AppAssets.iconsFacebook,
-            textStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: AppColors.primaryColor),
+            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             backgrnColor: Theme.of(context).colorScheme.surface,
             borderColor: Theme.of(context).colorScheme.outline,
             borderRadius: 12,
