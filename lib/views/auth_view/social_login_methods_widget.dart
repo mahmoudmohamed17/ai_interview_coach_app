@@ -1,5 +1,4 @@
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
-import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/auth_view/social_auth_button.dart';
 import 'package:flutter/material.dart';
 
