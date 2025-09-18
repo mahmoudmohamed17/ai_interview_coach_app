@@ -1,9 +1,9 @@
-import 'package:ai_interview_coach_app/backend/models/advantage_model.dart';
+import 'package:ai_interview_coach_app/backend/models/advantage_item_model.dart';
 import 'package:flutter/material.dart';
 
 class AdvantageItem extends StatelessWidget {
   const AdvantageItem({super.key, required this.model});
-  final AdvantageModel model;
+  final AdvantageItemModel model;
 
   @override
   Widget build(BuildContext context) {

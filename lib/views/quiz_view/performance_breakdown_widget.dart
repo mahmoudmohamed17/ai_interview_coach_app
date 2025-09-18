@@ -1,4 +1,4 @@
-import 'package:ai_interview_coach_app/backend/models/performance_item_model.dart';
+import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +9,10 @@ class PerformanceBreakdownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = const [
-      PerformanceItemModel(label: 'Technical Knowledge', score: 85),
-      PerformanceItemModel(label: 'Problem Solving', score: 82),
-      PerformanceItemModel(label: 'Communication', score: 71),
-      PerformanceItemModel(label: 'Best Practices', score: 93),
+      PerformanceBreackdownModel(category: 'Technical Knowledge', score: 85),
+      PerformanceBreackdownModel(category: 'Problem Solving', score: 82),
+      PerformanceBreackdownModel(category: 'Communication', score: 71),
+      PerformanceBreackdownModel(category: 'Best Practices', score: 93),
     ];
     return Container(
       decoration: BoxDecoration(
@@ -38,8 +38,8 @@ class PerformanceBreakdownWidget extends StatelessWidget {
           ...items.map(
             (item) => _buildPerformanceItem(
               context,
-              label: item.label,
-              score: item.score,
+              category: item.category!,
+              score: item.score!,
             ),
           ),
         ],
@@ -49,14 +49,14 @@ class PerformanceBreakdownWidget extends StatelessWidget {
 
   Widget _buildPerformanceItem(
     BuildContext context, {
-    required String label,
+    required String category,
     required double score,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          label,
+          category,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w500,

@@ -1,6 +1,5 @@
-import 'package:ai_interview_coach_app/backend/models/statistics_model.dart';
+import 'package:ai_interview_coach_app/backend/models/statistics_item_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
-import 'package:ai_interview_coach_app/views/home_view/statistics_item.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsSection extends StatelessWidget {
@@ -8,23 +7,24 @@ class StatisticsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      StatisticsModel(
-        title: '127',
-        subTitle: 'Questions Practiced',
+    final items = const [
+      StatisticsItemModel(
+        score: '127',
+        category: 'Questions Practiced',
         color: AppColors.blueIconColor,
       ),
-      StatisticsModel(
-        title: '89%',
-        subTitle: 'Average Score',
+      StatisticsItemModel(
+        score: '89%',
+        category: 'Average Score',
         color: AppColors.greenIconColor,
       ),
-      StatisticsModel(
-        title: '12',
-        subTitle: 'Skills Improved',
+      StatisticsItemModel(
+        score: '12',
+        category: 'Skills Improved',
         color: AppColors.purpleTextColor,
       ),
     ];
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainer,
@@ -35,9 +35,39 @@ class StatisticsSection extends StatelessWidget {
         spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: items
-            .map((item) => Expanded(child: StatisticsItem(model: item)))
+            .map(
+              (item) =>
+                  Expanded(child: _buildStatisticsItem(context, model: item)),
+            )
             .toList(),
       ),
+    );
+  }
+
+  Widget _buildStatisticsItem(
+    BuildContext context, {
+    required StatisticsItemModel model,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 4,
+      children: [
+        Text(
+          model.score,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: model.color,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          model.category,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }
