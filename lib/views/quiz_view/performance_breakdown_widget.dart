@@ -1,4 +1,4 @@
-import 'package:ai_interview_coach_app/backend/models/performance_breakdown_model.dart';
+import 'package:ai_interview_coach_app/backend/models/performance_item_model.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +8,11 @@ class PerformanceBreakdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      PerformanceBreakdownModel(label: 'Technical Knowledge', score: 85),
-      PerformanceBreakdownModel(label: 'Problem Solving', score: 82),
-      PerformanceBreakdownModel(label: 'Communication', score: 71),
-      PerformanceBreakdownModel(label: 'Best Practices', score: 93),
+    final items = const [
+      PerformanceItemModel(label: 'Technical Knowledge', score: 85),
+      PerformanceItemModel(label: 'Problem Solving', score: 82),
+      PerformanceItemModel(label: 'Communication', score: 71),
+      PerformanceItemModel(label: 'Best Practices', score: 93),
     ];
     return Container(
       decoration: BoxDecoration(

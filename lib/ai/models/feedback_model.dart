@@ -6,7 +6,7 @@ class FeedbackModel {
   final double bestPractices;
   final List<String> suggestionsForImprovement;
 
-  FeedbackModel({
+  const FeedbackModel({
     required this.score,
     required this.overview,
     required this.technicalKnowledge,
@@ -30,10 +30,16 @@ class FeedbackModel {
     return FeedbackModel(
       score: json['results']['score']?.toDouble() ?? 0.0,
       overview: json['results']['overview'] ?? '',
-      technicalKnowledge: json['performance_breakdown']['technical_knowledge']?.toDouble() ?? 0.0,
-      problemSolving: json['performance_breakdown']['problem_solving']?.toDouble() ?? 0.0,
-      bestPractices: json['performance_breakdown']['best_practices']?.toDouble() ?? 0.0,
-      suggestionsForImprovement: List<String>.from(json['suggestions_for_improvement'] ?? []),
+      technicalKnowledge:
+          json['performance_breakdown']['technical_knowledge']?.toDouble() ??
+          0.0,
+      problemSolving:
+          json['performance_breakdown']['problem_solving']?.toDouble() ?? 0.0,
+      bestPractices:
+          json['performance_breakdown']['best_practices']?.toDouble() ?? 0.0,
+      suggestionsForImprovement: List<String>.from(
+        json['suggestions_for_improvement'] ?? [],
+      ),
     );
   }
 
@@ -51,7 +57,8 @@ class FeedbackModel {
       technicalKnowledge: technicalKnowledge ?? this.technicalKnowledge,
       problemSolving: problemSolving ?? this.problemSolving,
       bestPractices: bestPractices ?? this.bestPractices,
-      suggestionsForImprovement: suggestionsForImprovement ?? this.suggestionsForImprovement,
+      suggestionsForImprovement:
+          suggestionsForImprovement ?? this.suggestionsForImprovement,
     );
   }
 }

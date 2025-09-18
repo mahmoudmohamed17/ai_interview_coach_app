@@ -4,7 +4,7 @@ class QuestionModel {
   final List<String> choices;
   final String correctChoice;
 
-  QuestionModel({
+  const QuestionModel({
     required this.id,
     required this.question,
     required this.choices,
@@ -46,7 +46,7 @@ class QuestionModel {
 
 // Dummy data:
 
-final dummyQuestions = [
+final dummyQuestions = const [
   QuestionModel(
     id: 1,
     question:

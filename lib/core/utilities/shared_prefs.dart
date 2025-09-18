@@ -14,7 +14,7 @@ class SharedPrefs {
   static String getString(String key) {
     return instance.getString(key) ?? '';
   }
-  
+
   static Future<void> setInt(String key, int value) async {
     await instance.setInt(key, value);
   }

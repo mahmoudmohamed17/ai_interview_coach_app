@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 
-class PersonalInfoModel {
-  final IconData icon;
+class UserPersonalInfoModel {
   final String label;
   final String value;
+  final IconData icon;
 
-  PersonalInfoModel({
-    required this.icon,
+  const UserPersonalInfoModel({
     required this.label,
     required this.value,
+    required this.icon,
   });
 }

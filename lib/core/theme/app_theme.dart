@@ -22,7 +22,9 @@ class AppTheme {
           tertiaryContainer: const Color(0xffECEEF2), // Labels/Badges color
           onTertiaryContainer: Colors.black,
           surfaceContainer: const Color(0xffF3F6FF), // Custom containers color
-          surfaceBright: const Color(0xffF0FDF4), // Special for the interview results page
+          surfaceBright: const Color(
+            0xffF0FDF4,
+          ), // Special for the interview results page
           surfaceContainerHigh: const Color(
             0xffF3F3F5,
           ), // Custom text fields color
