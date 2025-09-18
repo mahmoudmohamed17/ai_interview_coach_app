@@ -1,11 +1,11 @@
 class PerformanceBreackdownModel {
-  String? id;
-  String? createdAt;
-  String? quizId;
-  String? category;
-  double? score;
+  final String? id;
+  final String? createdAt;
+  final String? quizId;
+  final String? category;
+  final double? score;
 
-  PerformanceBreackdownModel({
+  const PerformanceBreackdownModel({
     this.id,
     this.createdAt,
     this.quizId,

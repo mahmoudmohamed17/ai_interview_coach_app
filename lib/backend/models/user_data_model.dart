@@ -1,11 +1,18 @@
+import 'package:ai_interview_coach_app/views/home_view/home_view.dart';
+import 'package:ai_interview_coach_app/views/profile_view/profile_view.dart';
+import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
+import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
+
+/// Used to store the user data that shows @[HomeView] and [ProfileView]
+/// Basically deals with the [AuthCubit] and [SupabaseAuthService]
 class UserDataModel {
   final String fullName;
   final String profilePicture;
   final String bio;
-  final String phoneNumber; // without the country code
+  final String phoneNumber;
   final String countryCode;
 
-  UserDataModel({
+  const UserDataModel({
     required this.fullName,
     required this.profilePicture,
     required this.bio,

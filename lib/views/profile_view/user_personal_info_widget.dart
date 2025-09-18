@@ -1,4 +1,4 @@
-import 'package:ai_interview_coach_app/backend/models/user_personal_info_model.dart';
+import 'package:ai_interview_coach_app/backend/models/user_personal_info_item_model.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/views/profile_view/bio_item.dart';
 import 'package:ai_interview_coach_app/views/profile_view/joined_date_widget.dart';
@@ -15,17 +15,17 @@ class UserPersonalInfoWidget extends StatelessWidget {
     final userModel = authCubit.userModel;
 
     final items = [
-      UserPersonalInfoModel(
+      UserPersonalInfoItemModel(
         icon: FontAwesomeIcons.solidUser,
         label: 'Full name',
         value: userModel!.fullName,
       ),
-      UserPersonalInfoModel(
+      UserPersonalInfoItemModel(
         icon: FontAwesomeIcons.solidEnvelope,
         label: 'Email',
         value: authCubit.user!.email!,
       ),
-      UserPersonalInfoModel(
+      UserPersonalInfoItemModel(
         icon: FontAwesomeIcons.phone,
         label: 'Phone number',
         value: '${userModel.countryCode}${userModel.phoneNumber}',

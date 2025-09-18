@@ -1,10 +1,15 @@
 class SuggestionModel {
-  String? createdAt;
-  String? quizId;
-  String? suggestion;
-  String? id;
+  final String? createdAt;
+  final String? quizId;
+  final String? suggestion;
+  final String? id;
 
-  SuggestionModel({this.createdAt, this.quizId, this.suggestion, this.id});
+  const SuggestionModel({
+    this.createdAt,
+    this.quizId,
+    this.suggestion,
+    this.id,
+  });
 
   @override
   String toString() {

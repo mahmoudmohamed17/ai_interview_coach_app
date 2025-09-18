@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/backend/models/country_code_model.dart';
+import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,12 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
   void initState() {
     super.initState();
   }
+
+  final countriesCodes = const [
+    CountryCodeModel(dialCode: '+966', flag: AppAssets.iconsSaudiArabia),
+    CountryCodeModel(dialCode: '+20', flag: AppAssets.iconsEgypt),
+    CountryCodeModel(dialCode: '+1', flag: AppAssets.iconsUsa),
+  ];
 
   @override
   Widget build(BuildContext context) {

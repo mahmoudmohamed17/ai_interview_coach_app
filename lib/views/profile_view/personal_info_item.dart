@@ -1,9 +1,9 @@
-import 'package:ai_interview_coach_app/backend/models/user_personal_info_model.dart';
+import 'package:ai_interview_coach_app/backend/models/user_personal_info_item_model.dart';
 import 'package:flutter/material.dart';
 
 class PersonalInfoItem extends StatelessWidget {
   const PersonalInfoItem({super.key, required this.model});
-  final UserPersonalInfoModel model;
+  final UserPersonalInfoItemModel model;
 
   @override
   Widget build(BuildContext context) {

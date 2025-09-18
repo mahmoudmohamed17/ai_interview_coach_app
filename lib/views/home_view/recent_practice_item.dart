@@ -1,4 +1,4 @@
-import 'package:ai_interview_coach_app/backend/models/recent_practice_model.dart';
+import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
@@ -8,10 +8,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class RecentPracticeItem extends StatelessWidget {
   const RecentPracticeItem({super.key, required this.model});
 
-  final RecentPracticeModel model;
+  final QuizSessionModel model;
 
   @override
   Widget build(BuildContext context) {
+    final color = generateColor(model.score!);
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -42,7 +44,7 @@ class RecentPracticeItem extends StatelessWidget {
               spacing: 4,
               children: [
                 Text(
-                  model.practiceTitle,
+                  model.topic!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -51,7 +53,7 @@ class RecentPracticeItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Yesterday • ${model.questionsNumber} questions',
+                  'Yesterday • ${model.totalQuestions} questions',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -63,15 +65,15 @@ class RecentPracticeItem extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              border: Border.all(color: generateColor(model.score)),
+              border: Border.all(color: color),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             padding: const EdgeInsets.all(4.0),
             child: Text(
-              '${model.score.round()}% Score',
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: generateColor(model.score),
-              ),
+              '${model.score!.round()}% Score',
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(color: color),
             ),
           ),
         ],

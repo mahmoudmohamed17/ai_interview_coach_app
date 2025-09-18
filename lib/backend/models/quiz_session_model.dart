@@ -1,3 +1,7 @@
+import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_section.dart';
+
+/// Used to display the recent quizzes info the user took
+/// Model used @[RecentPracticeSessionsSection]
 class QuizSessionModel {
   final String? id;
   final String? userId;
