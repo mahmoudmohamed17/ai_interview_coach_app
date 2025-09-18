@@ -77,47 +77,12 @@ class SupabaseDatabaseService {
   /// Like how manay questions solved, average score and the skills improved
   /// Need to extract all these data first, make the instance and then return it!
   Future<UserStatisticsModel> getRecentUserStatistics(String userId) async {
-    // Get the quizzes of the user first
-    final results = await _client
-        .from('quiz_sessions')
-        .select()
-        .eq('user_id', userId);
-    final quizzes = results
-        .map((item) => QuizSessionModel.fromJson(item))
-        .toList();
-
-    // Check if the user hasn't take any quiz yet
-    if (quizzes.isEmpty) {
-      return const UserStatisticsModel(
-        totalQuestions: 0,
-        averageScore: 0.0,
-        skillsImproved: 0,
-      );
-    }
-
-    // Calculate total questions solved and scores
-    double totalScore = 0.0;
-    int totalQuestions = 0;
-    for (var item in quizzes) {
-      totalScore += item.score ?? 0.0;
-      totalQuestions += item.totalQuestions ?? 0;
-    }
-    final avgScore = totalScore / quizzes.length;
-
-    // Get the skills improved form performance_breakdown table
-    final breakdownResults = await _client
-        .from('performance_breakdown')
-        .select('category')
-        .inFilter('quiz_id', quizzes.map((q) => q.id!).toList());
-    final skillsImproved = breakdownResults
-        .map((item) => item['category'])
-        .toSet()
-        .length;
-        
-    return UserStatisticsModel(
-      totalQuestions: totalQuestions,
-      averageScore: avgScore,
-      skillsImproved: skillsImproved,
+    final response = await _client.rpc(
+      'get_user_statistics',
+      params: {'user_id': userId},
     );
+    final data = response as Map<String, dynamic>;
+    final model = UserStatisticsModel.fromJson(data);
+    return model;
   }
 }
