@@ -53,14 +53,14 @@ class StatisticsSection extends StatelessWidget {
       spacing: 4,
       children: [
         Text(
-          model.score,
+          model.score!,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             color: model.color,
             fontWeight: FontWeight.w700,
           ),
         ),
         Text(
-          model.category,
+          model.category!,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: Theme.of(context).colorScheme.secondary,
