@@ -1,7 +1,9 @@
+import 'package:ai_interview_coach_app/ai/services/gemini_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/practice_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -14,6 +16,7 @@ void setupLocator() {
   getIt.registerLazySingleton<SupabaseDatabaseService>(
     () => SupabaseDatabaseService(),
   );
+  getIt.registerLazySingleton<GeminiService>(() => GeminiService());
 
   // Cubits
   getIt.registerLazySingleton<AuthCubit>(() => AuthCubit(getIt()));
@@ -24,4 +27,5 @@ void setupLocator() {
   getIt.registerLazySingleton<UserStatsCubit>(
     () => UserStatsCubit(getIt(), getIt()),
   );
+  getIt.registerLazySingleton<QuizCubit>(() => QuizCubit(getIt()));
 }

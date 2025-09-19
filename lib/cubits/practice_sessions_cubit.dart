@@ -32,6 +32,7 @@ class PracticeSessionsCubit extends Cubit<PracticeSessionsState> {
     }
   }
 
+  /// Adding a quiz session to the database and return it
   Future<void> addQuizSession({
     String? topic,
     int? totalQuestions,
@@ -39,6 +40,7 @@ class PracticeSessionsCubit extends Cubit<PracticeSessionsState> {
     double? score,
     String? overview,
     String? difficulty,
+    String? timeSpent,
   }) async {
     // To prevent show the loading indicator when adding new item; as this's unnecessary
     emit(PracticeSessionsRefreshing(_sessions));
@@ -52,6 +54,7 @@ class PracticeSessionsCubit extends Cubit<PracticeSessionsState> {
         overview: overview,
         difficulty: difficulty,
         createdAt: DateTime.now(),
+        timeSpent: timeSpent,
       );
       final result = await supabaseDatabaseService.addQuizSession(model);
       _sessions.add(result);

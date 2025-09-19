@@ -7,6 +7,7 @@ class QuizSessionModel {
   final String? id;
   final String? userId;
   final DateTime? createdAt;
+  final String? timeSpent;
   final String? topic;
   final int? totalQuestions;
   final int? answeredQuestions;
@@ -18,6 +19,7 @@ class QuizSessionModel {
     this.id,
     this.userId,
     this.createdAt,
+    this.timeSpent,
     this.topic,
     this.totalQuestions,
     this.answeredQuestions,
@@ -36,6 +38,7 @@ class QuizSessionModel {
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
       createdAt: json['created_at'] as DateTime?,
+      timeSpent: json['time_spent'] as String?,
       topic: json['topic'] as String?,
       totalQuestions: json['total_questions'] as int?,
       answeredQuestions: json['answered_questions'] as int?,
@@ -49,6 +52,7 @@ class QuizSessionModel {
     'id': id,
     'user_id': userId,
     'created_at': createdAt?.toIso8601String(),
+    'time_spent': createdAt?.toIso8601String(),
     'topic': topic,
     'total_questions': totalQuestions,
     'answered_questions': answeredQuestions,
@@ -61,6 +65,7 @@ class QuizSessionModel {
     String? id,
     String? userId,
     DateTime? createdAt,
+    String? timeSpent,
     String? topic,
     int? totalQuestions,
     int? answeredQuestions,
@@ -72,6 +77,7 @@ class QuizSessionModel {
       id: id ?? this.id,
       userId: userId ?? this.userId,
       createdAt: createdAt ?? this.createdAt,
+      timeSpent: timeSpent ?? this.timeSpent,
       topic: topic ?? this.topic,
       totalQuestions: totalQuestions ?? this.totalQuestions,
       answeredQuestions: answeredQuestions ?? this.answeredQuestions,
