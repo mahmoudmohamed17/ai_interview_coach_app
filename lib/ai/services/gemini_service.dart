@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
+import 'package:ai_interview_coach_app/ai/models/quiz_config_model.dart';
 import 'package:ai_interview_coach_app/ai/utilities/clean_bot_response.dart';
 import 'package:ai_interview_coach_app/ai/utilities/update_bot_chat.dart';
 import 'package:ai_interview_coach_app/core/secret/app_secret.dart';
@@ -15,18 +16,11 @@ class GeminiService {
   static void init() => Gemini.init(apiKey: AppSecret.geminiApiKey);
 
   Future<List<QuestionModel>> getQuestions({
-    required String topic,
-    required int questionsCount,
-    required String difficultyLevel,
+    required QuizConfigModel quizConfigModel,
   }) async {
     try {
       if (chat.isEmpty) {
-        updateBotChat(
-          chat: chat,
-          topic: topic,
-          questionsCount: questionsCount,
-          difficultyLevel: difficultyLevel,
-        );
+        updateBotChat(chat: chat, quizConfigModel: quizConfigModel);
       }
       final botResponse = await _client.chat(chat);
       if (botResponse?.content != null) {

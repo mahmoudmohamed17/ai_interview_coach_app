@@ -1,27 +1,20 @@
-import 'package:ai_interview_coach_app/ai/config/service_config.dart';
+import 'package:ai_interview_coach_app/ai/config/gemini_service_config.dart';
+import 'package:ai_interview_coach_app/ai/models/quiz_config_model.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
-void updateBotChat({
+Future<void> updateBotChat({
   required List<Content> chat,
-  required String topic,
-  required int questionsCount,
-  required String difficultyLevel,
-}) {
+  required QuizConfigModel quizConfigModel,
+}) async {
+  final systemPrompt = await GeminiServiceConfig.systemPrompt(
+    topic: quizConfigModel.topic,
+    questionsCount: quizConfigModel.questionsCount,
+    difficultyLevel: quizConfigModel.difficultyLevel,
+  );
   chat.addAll([
+    Content(parts: [Part.text(systemPrompt)], role: 'user'),
     Content(
-      parts: [
-        Part.text(
-          ServiceConfig.systemPrompt(
-            topic: topic,
-            questionsCount: questionsCount,
-            difficultyLevel: difficultyLevel,
-          ),
-        ),
-      ],
-      role: 'user',
-    ),
-    Content(
-      parts: [Part.text(ServiceConfig.modelPredefinedAnswer)],
+      parts: [Part.text(GeminiServiceConfig.modelPredefinedAnswer)],
       role: 'model',
     ),
   ]);

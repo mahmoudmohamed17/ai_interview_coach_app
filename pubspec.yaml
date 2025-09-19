@@ -34,6 +34,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/prompts/
 flutter_assets:
   assets_path: 
     - assets/images/
