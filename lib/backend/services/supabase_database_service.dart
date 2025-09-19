@@ -74,14 +74,18 @@ class SupabaseDatabaseService {
   }
 
   /// To get the user's statistics about his recent progress
-  /// Like how manay questions solved, average score and the skills improved
-  /// Need to extract all these data first, make the instance and then return it!
+  /// Like how many questions solved, average score and the skills improved.
+  /// Using a single Remote Procedure Call (RCP) form Supabase; we got the
+  /// needed value to create the instance.
   Future<UserStatisticsModel> getRecentUserStatistics(String userId) async {
     final response = await _client.rpc(
       'get_user_statistics',
       params: {'user_id': userId},
     );
     final data = response as Map<String, dynamic>;
+    if (data.isEmpty) {
+      return const UserStatisticsModel.empty();
+    }
     final model = UserStatisticsModel.fromJson(data);
     return model;
   }

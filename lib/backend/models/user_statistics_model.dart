@@ -15,6 +15,11 @@ class UserStatisticsModel {
     required this.skillsImproved,
   });
 
+  const UserStatisticsModel.empty()
+    : questionsPracticed = 0,
+      averageScore = 0.0,
+      skillsImproved = 0;
+
   Map<String, dynamic> toJson() {
     return {
       'questions_practiced': questionsPracticed,
