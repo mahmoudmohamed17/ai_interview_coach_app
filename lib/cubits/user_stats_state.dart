@@ -14,7 +14,7 @@ final class UserStatsLoading extends UserStatsState {
 
 final class UserStatsFilled extends UserStatsState {
   final UserStatisticsModel statsModel;
-  
+
   const UserStatsFilled({required this.statsModel});
 }
 

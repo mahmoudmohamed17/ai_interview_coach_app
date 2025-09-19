@@ -21,11 +21,7 @@ class UserStatsCubit extends Cubit<UserStatsState> {
       _statsModel = await supabaseDatabaseService.getRecentUserStatistics(
         supabaseAuthService.currentUser!.id,
       );
-      emit(
-        _statsModel.isEmpty
-            ? const UserStatsInitial()
-            : UserStatsFilled(statsModel: _statsModel),
-      );
+      emit(UserStatsFilled(statsModel: _statsModel));
     } catch (e) {
       emit(UserStatsError(message: e.toString()));
     }

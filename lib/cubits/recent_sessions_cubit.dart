@@ -1,11 +1,11 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
-import 'package:ai_interview_coach_app/cubits/practice_sessions_state.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PracticeSessionsCubit extends Cubit<PracticeSessionsState> {
-  PracticeSessionsCubit(this.supabaseDatabaseService, this.supabaseAuthService)
+class RecentSessionsCubit extends Cubit<RecentSessionsState> {
+  RecentSessionsCubit(this.supabaseDatabaseService, this.supabaseAuthService)
     : super(const PracticeSessionsInitial()) {
     fetchSessions();
   }

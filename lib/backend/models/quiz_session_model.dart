@@ -1,8 +1,8 @@
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_section.dart';
-import 'package:ai_interview_coach_app/cubits/practice_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 
 /// Used to display the recent quizzes info the user took
-/// Model used @[RecentPracticeSessionsSection] and [PracticeSessionsCubit]
+/// Model used @[RecentPracticeSessionsSection] and [RecentSessionsCubit]
 class QuizSessionModel {
   final String? id;
   final String? userId;
