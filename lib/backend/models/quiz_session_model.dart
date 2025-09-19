@@ -1,11 +1,12 @@
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_section.dart';
+import 'package:ai_interview_coach_app/cubits/practice_sessions_cubit.dart';
 
 /// Used to display the recent quizzes info the user took
-/// Model used @[RecentPracticeSessionsSection]
+/// Model used @[RecentPracticeSessionsSection] and [PracticeSessionsCubit]
 class QuizSessionModel {
   final String? id;
   final String? userId;
-  final String? createdAt;
+  final DateTime? createdAt;
   final String? topic;
   final int? totalQuestions;
   final int? answeredQuestions;
@@ -34,7 +35,7 @@ class QuizSessionModel {
     return QuizSessionModel(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
-      createdAt: json['created_at'] as String?,
+      createdAt: json['created_at'] as DateTime?,
       topic: json['topic'] as String?,
       totalQuestions: json['total_questions'] as int?,
       answeredQuestions: json['answered_questions'] as int?,
@@ -47,7 +48,7 @@ class QuizSessionModel {
   Map<String, dynamic> toJson() => {
     'id': id,
     'user_id': userId,
-    'created_at': createdAt,
+    'created_at': createdAt?.toIso8601String(),
     'topic': topic,
     'total_questions': totalQuestions,
     'answered_questions': answeredQuestions,
@@ -59,7 +60,7 @@ class QuizSessionModel {
   QuizSessionModel copyWith({
     String? id,
     String? userId,
-    String? createdAt,
+    DateTime? createdAt,
     String? topic,
     int? totalQuestions,
     int? answeredQuestions,

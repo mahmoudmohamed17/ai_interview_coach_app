@@ -1,6 +1,9 @@
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
+import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/practice_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -8,8 +11,17 @@ final getIt = GetIt.instance;
 void setupLocator() {
   // Services
   getIt.registerLazySingleton<SupabaseAuthService>(() => SupabaseAuthService());
+  getIt.registerLazySingleton<SupabaseDatabaseService>(
+    () => SupabaseDatabaseService(),
+  );
 
   // Cubits
   getIt.registerLazySingleton<AuthCubit>(() => AuthCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit());
+  getIt.registerLazySingleton<PracticeSessionsCubit>(
+    () => PracticeSessionsCubit(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<UserStatsCubit>(
+    () => UserStatsCubit(getIt(), getIt()),
+  );
 }

@@ -8,8 +8,13 @@ class SupabaseDatabaseService {
   final _client = Supabase.instance.client;
 
   /// For [quiz_sessions] table
-  Future<void> addQuizSession(QuizSessionModel model) async {
-    await _client.from('quiz_sessions').insert(model.toJson());
+  Future<QuizSessionModel> addQuizSession(QuizSessionModel model) async {
+    final result = await _client
+        .from('quiz_sessions')
+        .insert(model.toJson())
+        .select()
+        .single();
+    return QuizSessionModel.fromJson(result);
   }
 
   Future<List<QuizSessionModel>> getQuizSessions(String userId) async {

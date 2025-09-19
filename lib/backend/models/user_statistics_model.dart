@@ -1,11 +1,12 @@
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
 import 'package:ai_interview_coach_app/backend/models/statistics_item_model.dart';
+import 'package:equatable/equatable.dart';
 
 /// This class helps to extract the pure data from [getRecentUserStatistics()] method
 /// @[SupabaseDatabaseService], and then use [StatisticsItemModel] to display the
 /// the data at the desired format
-class UserStatisticsModel {
-  final int questionsPracticed; // questions_practiced
+class UserStatisticsModel extends Equatable {
+  final int questionsPracticed;
   final double averageScore;
   final int skillsImproved;
 
@@ -52,4 +53,9 @@ class UserStatisticsModel {
   String toString() {
     return 'UserStatisticsModel{questionsPracticed: $questionsPracticed, averageScore: $averageScore, skillsImproved: $skillsImproved}';
   }
+
+  @override
+  List<Object?> get props => [questionsPracticed, averageScore, skillsImproved];
+
+  bool get isEmpty => this == const UserStatisticsModel.empty();
 }

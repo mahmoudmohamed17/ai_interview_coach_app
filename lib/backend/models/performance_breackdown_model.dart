@@ -1,6 +1,6 @@
 class PerformanceBreackdownModel {
   final String? id;
-  final String? createdAt;
+  final DateTime? createdAt;
   final String? quizId;
   final String? category;
   final double? score;
@@ -21,7 +21,7 @@ class PerformanceBreackdownModel {
   factory PerformanceBreackdownModel.fromJson(Map<String, dynamic> json) {
     return PerformanceBreackdownModel(
       id: json['id'] as String?,
-      createdAt: json['created_at'] as String?,
+      createdAt: json['created_at'] as DateTime?,
       quizId: json['quiz_id'] as String?,
       category: json['category'] as String?,
       score: (json['score'] as num?)?.toDouble(),
@@ -30,7 +30,7 @@ class PerformanceBreackdownModel {
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'created_at': createdAt,
+    'created_at': createdAt?.toIso8601String(),
     'quiz_id': quizId,
     'category': category,
     'score': score,
@@ -38,7 +38,7 @@ class PerformanceBreackdownModel {
 
   PerformanceBreackdownModel copyWith({
     String? id,
-    String? createdAt,
+    DateTime? createdAt,
     String? quizId,
     String? category,
     double? score,
