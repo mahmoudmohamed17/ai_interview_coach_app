@@ -30,7 +30,7 @@ class RecentPracticeSessionsSection extends StatelessWidget {
 
   Widget _buildLoadingState(BuildContext context) {
     return SpinKitThreeBounce(
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.onSurface,
       size: 20,
       duration: const Duration(milliseconds: 500),
     );

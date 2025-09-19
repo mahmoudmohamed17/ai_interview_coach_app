@@ -85,7 +85,7 @@ class SupabaseDatabaseService {
   Future<UserStatisticsModel> getRecentUserStatistics(String userId) async {
     final response = await _client.rpc(
       'get_user_statistics',
-      params: {'user_id': userId},
+      params: {'p_user_id': userId},
     );
     final data = response as Map<String, dynamic>;
     if (data.isEmpty) {

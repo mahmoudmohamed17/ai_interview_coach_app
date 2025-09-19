@@ -30,7 +30,7 @@ class StatisticsSection extends StatelessWidget {
 
   Widget _buildLoadingState(BuildContext context) {
     return SpinKitThreeBounce(
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.onSurface,
       size: 20,
       duration: const Duration(milliseconds: 500),
     );
@@ -70,8 +70,8 @@ class StatisticsSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Something went wrong.',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            'Something went wrong',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
