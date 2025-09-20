@@ -43,4 +43,8 @@ class QuizCubit extends Cubit<QuizStates> {
       emit(QuizFailed(message: e.toString()));
     }
   }
+
+  void clearChat() {
+    geminiService.clearChat();
+  }
 }

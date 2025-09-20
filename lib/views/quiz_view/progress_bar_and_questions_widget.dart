@@ -39,7 +39,7 @@ class _ProgressBarAndQuestionsWidgetState
   }
 
   void _updateProgress(int questionIndex) {
-    final rawPrecentage = (questionIndex + 1) / dummyQuestions.length;
+    final rawPrecentage = (questionIndex + 1) / widget.questions.length;
     _barPercentage = (rawPrecentage * 10).floor() / 10;
     _barPercentage = _barPercentage.clamp(0.0, 1.0);
   }
@@ -68,10 +68,10 @@ class _ProgressBarAndQuestionsWidgetState
           Expanded(
             child: PageView.builder(
               controller: _pageController,
-              itemCount: dummyQuestions.length,
+              itemCount: widget.questions.length,
               itemBuilder: (context, index) => QuestionAndAnswersWidget(
-                questionModel: dummyQuestions[index],
-                remainingQuestions: dummyQuestions.length - (index + 1),
+                questionModel: widget.questions[index],
+                remainingQuestions: widget.questions.length - (index + 1),
                 selectedAnswer: _selectedAnswers[index],
                 onAnswerSelected: (answer) => _onAnswerSelected(index, answer),
               ),
@@ -82,7 +82,7 @@ class _ProgressBarAndQuestionsWidgetState
             pageController: _pageController,
             currentIndex: _currentIndex,
             answeredQuestions: _selectedAnswers.length,
-            totalQuestions: dummyQuestions.length,
+            totalQuestions: widget.questions.length,
           ),
           const SizedBox(height: 48),
         ],

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ai_interview_coach_app/backend/models/country_code_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/views/auth_view/country_code_item.dart';
@@ -34,7 +33,6 @@ class _EditableUserPhoneNumberWidgetState
       (item) => item.dialCode == widget.countryCode,
       orElse: () => countriesCodes.first,
     );
-    log('Item code: ${item!.dialCode}');
   }
 
   final countriesCodes = const [

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ai_interview_coach_app/core/utilities/handle_user_profile_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,9 +43,9 @@ class _EditableUserProfilePictureState
       children: [
         CircleAvatar(
           radius: 75,
-          backgroundImage: _imageFile != null
-              ? FileImage(_imageFile!)
-              : FileImage(File(widget.userPicture)),
+          backgroundImage: _imageFile == null
+              ? handleUserProfilePicture(widget.userPicture)
+              : FileImage(_imageFile!),
           backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
         ),
         Positioned(

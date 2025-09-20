@@ -56,6 +56,7 @@ class QuizViewAppBar extends StatelessWidget {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing: 12,
         children: [
           Text(
             'Are you sure to terminate this session?',
@@ -65,44 +66,49 @@ class QuizViewAppBar extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 16,
             children: [
-              TextButton(
-                onPressed: () => context.go(Routes.homeView),
-                style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    AppColors.redBtnColor,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+              Expanded(
+                child: TextButton(
+                  onPressed: () => context.go(Routes.homeView),
+                  style: const ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      AppColors.redBtnColor,
+                    ),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
                     ),
                   ),
-                ),
-                child: Text(
-                  'Leave',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                  child: Text(
+                    'Leave',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                  ),
                 ),
               ),
-              TextButton(
-                onPressed: () => context.pop(),
-                style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    AppColors.greenIconColor,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+              Expanded(
+                child: TextButton(
+                  onPressed: () => context.pop(),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.primary,
+                    ),
+                    shape: const WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
                     ),
                   ),
-                ),
-                child: Text(
-                  'Cancel',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                  child: Text(
+                    'Stay',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
                 ),
               ),
             ],
