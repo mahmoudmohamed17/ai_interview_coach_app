@@ -1,19 +1,31 @@
+import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:flutter/material.dart';
 
 class PerformanceBreakdownWidget extends StatelessWidget {
-  const PerformanceBreakdownWidget({super.key});
+  const PerformanceBreakdownWidget({super.key, required this.feedback});
+
+  final FeedbackModel feedback;
 
   @override
   Widget build(BuildContext context) {
-    final items = const [
-      PerformanceBreackdownModel(category: 'Technical Knowledge', score: 85),
-      PerformanceBreackdownModel(category: 'Problem Solving', score: 82),
-      PerformanceBreackdownModel(category: 'Communication', score: 71),
-      PerformanceBreackdownModel(category: 'Best Practices', score: 93),
+    final items = [
+      PerformanceBreackdownModel(
+        category: 'Technical Knowledge',
+        score: feedback.technicalKnowledge,
+      ),
+      PerformanceBreackdownModel(
+        category: 'Problem Solving',
+        score: feedback.problemSolving,
+      ),
+      PerformanceBreackdownModel(
+        category: 'Best Practices',
+        score: feedback.bestPractices,
+      ),
     ];
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,

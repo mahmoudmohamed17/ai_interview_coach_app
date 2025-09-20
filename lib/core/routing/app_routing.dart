@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
@@ -58,8 +59,8 @@ class AppRouting {
       GoRoute(
         path: Routes.interviewResultsView,
         builder: (context, state) {
-          final data = state.extra as Object;
-          return InterviewResultsView(data: data);
+          final feedback = state.extra as FeedbackModel;
+          return InterviewResultsView(feedback: feedback);
         },
       ),
     ],

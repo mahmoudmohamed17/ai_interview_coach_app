@@ -1,8 +1,10 @@
+import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class InterviewScoreWidget extends StatelessWidget {
-  const InterviewScoreWidget({super.key});
+  const InterviewScoreWidget({super.key, required this.feedback});
+  final FeedbackModel feedback;
 
   @override
   Widget build(BuildContext context) {

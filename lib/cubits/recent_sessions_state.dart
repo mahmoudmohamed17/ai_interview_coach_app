@@ -1,4 +1,6 @@
+import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/backend/models/suggestion_model.dart';
 
 abstract class RecentSessionsState {
   const RecentSessionsState();
@@ -16,6 +18,26 @@ final class PracticeSessionsFilled extends RecentSessionsState {
   final List<QuizSessionModel> currentSessions;
 
   const PracticeSessionsFilled({required this.currentSessions});
+}
+
+final class PracticeSessionLoading extends RecentSessionsState {}
+
+final class PracticeSessionLoaded extends RecentSessionsState {
+  final List<PerformanceBreackdownModel> performanceModel;
+  final List<SuggestionModel> suggestions;
+
+  PracticeSessionLoaded({
+    required this.performanceModel,
+    required this.suggestions,
+  });
+}
+
+final class PracticeSessionAdded extends RecentSessionsState {}
+
+final class PracticeSessionError extends RecentSessionsState {
+  final String message;
+
+  PracticeSessionError({required this.message});
 }
 
 final class PracticeSessionsError extends RecentSessionsState {

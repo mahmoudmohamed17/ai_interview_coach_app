@@ -1,5 +1,7 @@
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
+import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InterviewResultsSummaryWidget extends StatelessWidget {
@@ -7,6 +9,8 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quizCubit = context.read<QuizCubit>();
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -39,7 +43,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
                 context,
                 label: 'Topic',
                 icon: FontAwesomeIcons.bookOpen,
-                labelValue: 'System Design',
+                labelValue: quizCubit.getTopic ?? '',
               ),
               _buildDifficultyItem(context),
             ],
@@ -54,13 +58,14 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
                 context,
                 label: 'Time Spent',
                 icon: FontAwesomeIcons.clock,
-                labelValue: '7m 21s',
+                labelValue: quizCubit.getTimeSpent ?? '',
               ),
               _buildSummaryItem(
                 context,
                 label: 'Questions Answered',
                 icon: FontAwesomeIcons.circleCheck,
-                labelValue: '7/8',
+                labelValue:
+                    '${quizCubit.getAnsweredQuestions}/${quizCubit.getQuestionsCount}',
               ),
             ],
           ),
@@ -143,7 +148,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(4),
           child: Text(
-            'Beginner',
+            context.read<QuizCubit>().getDifficultyLevel ?? '',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,

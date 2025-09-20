@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ImprovementSuggestionsWidget extends StatelessWidget {
-  const ImprovementSuggestionsWidget({super.key});
+  const ImprovementSuggestionsWidget({super.key, required this.suggestions});
+
+  final List<String> suggestions;
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      'Review fundamental concepts in system design',
-      'Practice more complex problem-solving scenarios',
-      'Work on explaining technical concepts clearly',
-      'Study real-world application examples',
-    ];
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -32,7 +28,7 @@ class ImprovementSuggestionsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          ...items.map((item) => _buildItem(context, label: item)),
+          ...suggestions.map((item) => _buildItem(context, label: item)),
         ],
       ),
     );

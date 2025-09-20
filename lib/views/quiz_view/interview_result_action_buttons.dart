@@ -1,5 +1,7 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class InterviewResultsActionButtons extends StatelessWidget {
   const InterviewResultsActionButtons({super.key});
@@ -12,7 +14,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
         Expanded(
           child: _buildButton(
             context,
-            onPressed: () {},
+            onPressed: () => context.go(Routes.homeView),
             label: 'Back to Home',
             icon: FontAwesomeIcons.house,
             backgrnColor: Theme.of(context).colorScheme.surface,
@@ -43,7 +45,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
     Color? borderColor,
   }) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgrnColor,
         padding: const EdgeInsets.symmetric(horizontal: 12),

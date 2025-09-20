@@ -1,4 +1,6 @@
+import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/backend/models/suggestion_model.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
@@ -61,6 +63,39 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
       emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
       emit(PracticeSessionsError(message: e.toString()));
+    }
+  }
+
+  Future<void> addPracticeSessionData({
+    required List<PerformanceBreackdownModel> performanceModels,
+    required List<SuggestionModel> suggestions,
+  }) async {
+    emit(PracticeSessionLoading());
+    try {
+      await supabaseDatabaseService.addPerformanceBreackdownItems(
+        performanceModels,
+      );
+      await supabaseDatabaseService.addSuggestions(suggestions);
+      emit(PracticeSessionAdded());
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
+    }
+  }
+
+  Future<void> getPracticeSessionData(String quizId) async {
+    emit(PracticeSessionLoading());
+    try {
+      final performanceModel = await supabaseDatabaseService
+          .getPerformanceBreakdownItems(quizId);
+      final suggestions = await supabaseDatabaseService.getSuggestions(quizId);
+      emit(
+        PracticeSessionLoaded(
+          performanceModel: performanceModel,
+          suggestions: suggestions,
+        ),
+      );
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
     }
   }
 }
