@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:ai_interview_coach_app/core/di/setup_locator.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
@@ -15,23 +12,18 @@ class InterviewSetupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt.get<QuizCubit>(),
-      child: BlocListener<QuizCubit, QuizStates>(
-        listener: (context, state) {
-          if (state is QuizLoaded) {
-            log('Questions: ${state.questions.map((item) => item.toString())}');
-            context.read<QuizCubit>().clearChat();
-            context.push(Routes.quizView, extra: state.questions);
-          }
-          if (state is QuizFailed) {
-            showToast(context, title: 'Error prepearing the interview');
-          }
-        },
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: const SafeArea(child: InterviewSetupViewBody()),
-        ),
+    return BlocListener<QuizCubit, QuizStates>(
+      listener: (context, state) {
+        if (state is QuizLoaded) {
+          context.push(Routes.quizView, extra: state.questions);
+        }
+        if (state is QuizFailed) {
+          showToast(context, title: 'Error prepearing the interview');
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: const SafeArea(child: InterviewSetupViewBody()),
       ),
     );
   }

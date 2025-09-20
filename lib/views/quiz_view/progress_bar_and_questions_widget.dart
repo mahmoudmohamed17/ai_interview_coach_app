@@ -81,7 +81,7 @@ class _ProgressBarAndQuestionsWidgetState
           QuizNavigationButtons(
             pageController: _pageController,
             currentIndex: _currentIndex,
-            answeredQuestions: _selectedAnswers.length,
+            selectedAnswers: _selectedAnswers,
             totalQuestions: widget.questions.length,
           ),
           const SizedBox(height: 48),

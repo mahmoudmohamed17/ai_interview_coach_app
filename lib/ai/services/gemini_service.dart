@@ -56,6 +56,8 @@ class GeminiService {
     required List<AnswerModel> answers,
   }) async {
     try {
+      log('AI Chat: $chat');
+
       final Map<String, dynamic> anwersJson = {
         "answers": answers.map((item) => item.toJson()).toList(),
       };

@@ -42,6 +42,10 @@ class InterviewSummaryWidget extends StatelessWidget {
             width: context.width,
             child: CustomButton(
               onPressed: () async {
+                quizCubit.setTopic = topicModel.topic;
+                quizCubit.setDifficultyLevel = levelModel.level;
+                quizCubit.setQuestionsCount = levelModel.questionsNumber;
+                
                 await quizCubit.fetchQuestions(
                   topic: topicModel.topic,
                   questionsCount: levelModel.questionsNumber,

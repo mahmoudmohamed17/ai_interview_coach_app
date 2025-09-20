@@ -5,6 +5,7 @@ import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/timer_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -28,4 +29,5 @@ void setupLocator() {
     () => UserStatsCubit(getIt(), getIt()),
   );
   getIt.registerLazySingleton<QuizCubit>(() => QuizCubit(getIt()));
+  getIt.registerLazySingleton<TimerCubit>(() => TimerCubit());
 }

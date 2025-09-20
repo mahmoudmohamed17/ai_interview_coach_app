@@ -2,7 +2,8 @@ import 'package:ai_interview_coach_app/views/quiz_view/interview_results_view_bo
 import 'package:flutter/material.dart';
 
 class InterviewResultsView extends StatelessWidget {
-  const InterviewResultsView({super.key});
+  const InterviewResultsView({super.key, required this.data});
+  final Object data;
 
   @override
   Widget build(BuildContext context) {

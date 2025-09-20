@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/core/di/setup_locator.dart';
 import 'package:ai_interview_coach_app/core/routing/app_routing.dart';
 import 'package:ai_interview_coach_app/core/theme/app_theme.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/theme_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => getIt.get<AuthCubit>()),
         BlocProvider(create: (context) => getIt.get<ThemeCubit>()),
+        BlocProvider(create: (context) => getIt.get<QuizCubit>()),
         BlocProvider(create: (context) => getIt.get<RecentSessionsCubit>()),
         BlocProvider(create: (context) => getIt.get<UserStatsCubit>()),
       ],

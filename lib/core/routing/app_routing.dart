@@ -57,7 +57,10 @@ class AppRouting {
       ),
       GoRoute(
         path: Routes.interviewResultsView,
-        builder: (context, state) => const InterviewResultsView(),
+        builder: (context, state) {
+          final data = state.extra as Object;
+          return InterviewResultsView(data: data);
+        },
       ),
     ],
   );

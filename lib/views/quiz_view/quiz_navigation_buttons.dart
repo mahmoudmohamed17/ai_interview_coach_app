@@ -1,24 +1,27 @@
-import 'package:ai_interview_coach_app/core/routing/routes.dart';
+import 'package:ai_interview_coach_app/cubits/timer_cubit.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/custom_quiz_icon_button.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/custom_quiz_submit_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 
 class QuizNavigationButtons extends StatelessWidget {
   const QuizNavigationButtons({
     super.key,
     required this.pageController,
     required this.currentIndex,
-    required this.answeredQuestions,
+    required this.selectedAnswers,
     required this.totalQuestions,
   });
   final PageController pageController;
   final int currentIndex;
-  final int answeredQuestions;
+  final Map<int, String> selectedAnswers;
   final int totalQuestions;
 
   @override
   Widget build(BuildContext context) {
+    final timerCubit = context.read<TimerCubit>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       spacing: 8,
@@ -46,16 +49,23 @@ class QuizNavigationButtons extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            '$answeredQuestions of $totalQuestions answered',
+            '${selectedAnswers.length} of $totalQuestions answered',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),
         CustomQuizIconButton(
-          onPressed: () {
+          onPressed: () async {
             if (currentIndex == totalQuestions - 1) {
-              context.push(Routes.interviewResultsView);
+              timerCubit.pauseTimer();
+              showDialog(
+                context: context,
+                builder: (context) => CustomQuizSubmitDialog(
+                  timerCubit: timerCubit,
+                  selectedAnswers: selectedAnswers,
+                ),
+              );
             } else {
               pageController.animateToPage(
                 currentIndex + 1,
