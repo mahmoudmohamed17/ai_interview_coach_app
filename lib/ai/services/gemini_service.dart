@@ -1,10 +1,10 @@
 import 'dart:developer';
+import 'package:ai_interview_coach_app/ai/config/gemini_service_config.dart';
 import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/ai/models/quiz_config_model.dart';
 import 'package:ai_interview_coach_app/ai/utilities/clean_bot_response.dart';
-import 'package:ai_interview_coach_app/ai/utilities/update_bot_chat.dart';
 import 'package:ai_interview_coach_app/core/secret/app_secret.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
@@ -20,9 +20,22 @@ class GeminiService {
   }) async {
     try {
       if (chat.isEmpty) {
-        updateBotChat(chat: chat, quizConfigModel: quizConfigModel);
+        final systemPrompt = await GeminiServiceConfig.systemPrompt(
+          topic: quizConfigModel.topic,
+          questionsCount: quizConfigModel.questionsCount,
+          difficultyLevel: quizConfigModel.difficultyLevel,
+        );
+        chat.addAll([
+          Content(parts: [Part.text(systemPrompt)], role: 'user'),
+          Content(
+            parts: [Part.text(GeminiServiceConfig.modelPredefinedAnswer)],
+            role: 'model',
+          ),
+        ]);
       }
+
       final botResponse = await _client.chat(chat);
+
       if (botResponse?.content != null) {
         chat.add(botResponse!.content!);
         final result = cleanBotResponse(botResponse.output!);
@@ -46,10 +59,13 @@ class GeminiService {
       final Map<String, dynamic> anwersJson = {
         "answers": answers.map((item) => item.toJson()).toList(),
       };
+
       chat.add(
         Content(parts: [Part.text(anwersJson.toString())], role: 'user'),
       );
+
       final botResponse = await _client.chat(chat);
+
       if (botResponse?.content != null) {
         chat.add(botResponse!.content!);
         return FeedbackModel.fromJson(cleanBotResponse(botResponse.output!));

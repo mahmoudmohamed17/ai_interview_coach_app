@@ -3,12 +3,12 @@ import 'package:ai_interview_coach_app/views/quiz_view/choose_difficulty_level_w
 /// Used to set up the topic difficulty level
 /// Model used @[ChooseDifficultyLevelWidget]
 class InterviewDifficultyLevelModel {
-  final String label;
+  final String level;
   final String description;
   final int questionsNumber;
 
   const InterviewDifficultyLevelModel({
-    required this.label,
+    required this.level,
     required this.description,
     required this.questionsNumber,
   });

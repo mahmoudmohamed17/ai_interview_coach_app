@@ -16,17 +16,17 @@ class ChooseDifficultyLevelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final difficultyLevels = const [
       InterviewDifficultyLevelModel(
-        label: 'Beginner',
+        level: 'Beginner',
         description: 'Basic concepts and fundamentals',
         questionsNumber: 8,
       ),
       InterviewDifficultyLevelModel(
-        label: 'Intermediate',
+        level: 'Intermediate',
         description: 'Practical application and problem solving',
         questionsNumber: 12,
       ),
       InterviewDifficultyLevelModel(
-        label: 'Advanced',
+        level: 'Advanced',
         description: 'Complex scenarios and best practices',
         questionsNumber: 15,
       ),

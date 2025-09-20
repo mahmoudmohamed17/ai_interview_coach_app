@@ -42,7 +42,7 @@ class _InterviewSetupViewBodyState extends State<InterviewSetupViewBody> {
         ),
         const SizedBox(height: 24),
         if (_topic != null && _level != null)
-          InterviewSummaryWidget(topic: _topic!, level: _level!),
+          InterviewSummaryWidget(topicModel: _topic!, levelModel: _level!),
         const SizedBox(height: 24),
       ],
     );

@@ -5,7 +5,8 @@ import 'package:ai_interview_coach_app/views/quiz_view/quiz_progress_indicator_w
 import 'package:flutter/material.dart';
 
 class ProgressBarAndQuestionsWidget extends StatefulWidget {
-  const ProgressBarAndQuestionsWidget({super.key});
+  const ProgressBarAndQuestionsWidget({super.key, required this.questions});
+  final List<QuestionModel> questions;
 
   @override
   State<ProgressBarAndQuestionsWidget> createState() =>

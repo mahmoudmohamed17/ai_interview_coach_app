@@ -31,7 +31,7 @@ class InterviewDifficultyLevelItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                model.label,
+                model.level,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: isActive
                       ? Theme.of(context).colorScheme.onSecondaryContainer

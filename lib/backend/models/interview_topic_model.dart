@@ -3,8 +3,8 @@ import 'package:ai_interview_coach_app/views/quiz_view/select_interview_topic_wi
 /// Used to set up a quiz topic with an icon
 /// Model used @[SelectInterviewTopicWidget]
 class InterviewTopicModel {
-  final String label;
+  final String topic;
   final String icon;
 
-  const InterviewTopicModel({required this.label, required this.icon});
+  const InterviewTopicModel({required this.topic, required this.icon});
 }

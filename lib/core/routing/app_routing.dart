@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
@@ -49,7 +50,10 @@ class AppRouting {
       ),
       GoRoute(
         path: Routes.quizView,
-        builder: (context, state) => const QuizView(),
+        builder: (context, state) {
+          final questions = state.extra as List<QuestionModel>;
+          return QuizView(questions: questions);
+        },
       ),
       GoRoute(
         path: Routes.interviewResultsView,

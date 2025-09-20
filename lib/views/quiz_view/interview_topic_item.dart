@@ -32,7 +32,7 @@ class InterviewTopicItem extends StatelessWidget {
             child: SizedBox(
               width: context.width,
               child: Text(
-                model.label,
+                model.topic,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(

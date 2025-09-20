@@ -18,32 +18,32 @@ class SelectInterviewTopicWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final interviewTopics = const [
       InterviewTopicModel(
-        label: 'Flutter Development',
+        topic: 'Flutter Development',
         icon: AppAssets.iconsFlutter,
       ),
       InterviewTopicModel(
-        label: 'React Development',
+        topic: 'React Development',
         icon: AppAssets.iconsReact,
       ),
       InterviewTopicModel(
-        label: 'Node.js Backend',
+        topic: 'Node.js Backend',
         icon: AppAssets.iconsNodejs,
       ),
       InterviewTopicModel(
-        label: 'Python Development',
+        topic: 'Python Development',
         icon: AppAssets.iconsPython,
       ),
-      InterviewTopicModel(label: 'Java Development', icon: AppAssets.iconsJava),
+      InterviewTopicModel(topic: 'Java Development', icon: AppAssets.iconsJava),
       InterviewTopicModel(
-        label: 'JavaScript Fundamentals',
+        topic: 'JavaScript Fundamentals',
         icon: AppAssets.iconsJs,
       ),
       InterviewTopicModel(
-        label: 'Databases Fundamentals',
+        topic: 'Databases Fundamentals',
         icon: AppAssets.iconsOracle,
       ),
       InterviewTopicModel(
-        label: 'Cyber Security',
+        topic: 'Cyber Security',
         icon: AppAssets.iconsCyberSecurity,
       ),
     ];
