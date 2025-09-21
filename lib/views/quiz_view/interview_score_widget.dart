@@ -32,7 +32,7 @@ class InterviewScoreWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            '82%',
+            '${feedback.score.toStringAsFixed(0)}%',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
               color: AppColors.blueIconColor,
@@ -41,7 +41,7 @@ class InterviewScoreWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Great job! Strong understanding demonstrated.',
+            feedback.overview,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: Theme.of(context).colorScheme.secondary,

@@ -5,6 +5,7 @@ import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_states.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/timer_cubit.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/quiz_view_body.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,16 @@ class QuizView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recentSessionsCubit = context.read<RecentSessionsCubit>();
+
     return BlocProvider(
       create: (context) => getIt.get<TimerCubit>(),
       child: BlocConsumer<QuizCubit, QuizStates>(
         listener: (context, state) {
           if (state is QuizSubmitted) {
+            // To store the current feedback to add the quiz session
+            recentSessionsCubit.currentFeedback = state.feedback;
+
             context.push(Routes.interviewResultsView, extra: state.feedback);
           }
           if (state is QuizFailed) {

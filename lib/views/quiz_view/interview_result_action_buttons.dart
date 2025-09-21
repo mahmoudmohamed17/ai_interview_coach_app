@@ -1,20 +1,25 @@
-import 'package:ai_interview_coach_app/core/routing/routes.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 
 class InterviewResultsActionButtons extends StatelessWidget {
   const InterviewResultsActionButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final recentSessionsCubit = context.read<RecentSessionsCubit>();
+
     return Row(
       spacing: 24,
       children: [
         Expanded(
           child: _buildButton(
             context,
-            onPressed: () => context.go(Routes.homeView),
+            onPressed: () async {
+              await recentSessionsCubit.addQuizSession();
+              
+            },
             label: 'Back to Home',
             icon: FontAwesomeIcons.house,
             backgrnColor: Theme.of(context).colorScheme.surface,

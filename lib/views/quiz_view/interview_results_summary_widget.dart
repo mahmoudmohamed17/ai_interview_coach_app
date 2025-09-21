@@ -1,5 +1,5 @@
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
-import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,7 +9,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quizCubit = context.read<QuizCubit>();
+    final recentSessionCubit = context.read<RecentSessionsCubit>();
 
     return Container(
       decoration: BoxDecoration(
@@ -43,9 +43,12 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
                 context,
                 label: 'Topic',
                 icon: FontAwesomeIcons.bookOpen,
-                labelValue: quizCubit.getTopic ?? '',
+                labelValue: recentSessionCubit.getCurrentTopic?.topic ?? '',
               ),
-              _buildDifficultyItem(context),
+              _buildDifficultyItem(
+                context,
+                difficultyLevel: recentSessionCubit.gerCurrentLevel?.level,
+              ),
             ],
           ),
 
@@ -58,14 +61,14 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
                 context,
                 label: 'Time Spent',
                 icon: FontAwesomeIcons.clock,
-                labelValue: quizCubit.getTimeSpent ?? '',
+                labelValue: recentSessionCubit.getTimeSpent ?? '',
               ),
               _buildSummaryItem(
                 context,
                 label: 'Questions Answered',
                 icon: FontAwesomeIcons.circleCheck,
                 labelValue:
-                    '${quizCubit.getAnsweredQuestions}/${quizCubit.getQuestionsCount}',
+                    '${recentSessionCubit.getAnsweredQuestions}/${recentSessionCubit.gerCurrentLevel!.questionsNumber}',
               ),
             ],
           ),
@@ -118,7 +121,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDifficultyItem(BuildContext context) {
+  Widget _buildDifficultyItem(BuildContext context, {String? difficultyLevel}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       spacing: 8,
@@ -148,7 +151,7 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(4),
           child: Text(
-            context.read<QuizCubit>().getDifficultyLevel ?? '',
+            difficultyLevel ?? '',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,

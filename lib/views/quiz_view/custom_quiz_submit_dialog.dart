@@ -97,19 +97,11 @@ class CustomQuizSubmitDialog extends StatelessWidget {
                                 ),
                               )
                               .toList();
-                          quizCubit.setAnsweredQuestions =
+                          recentSessionsCubit.answeredQuestions =
                               selectedAnswers.length;
-                          quizCubit.setTimeSpent = timerCubit.getElapsedTime();
+                          recentSessionsCubit.timeSpent = timerCubit
+                              .getElapsedTime();
                           await quizCubit.submitAnswers(answers: answers);
-                          await recentSessionsCubit.addQuizSession(
-                            topic: quizCubit.getTopic,
-                            score: quizCubit.feedbackModel!.score,
-                            totalQuestions: quizCubit.getQuestionsCount,
-                            answeredQuestions: quizCubit.getAnsweredQuestions,
-                            overview: quizCubit.feedbackModel!.overview,
-                            difficulty: quizCubit.getDifficultyLevel,
-                            timeSpent: timerCubit.getElapsedTime(),
-                          );
                         },
                         style: ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(

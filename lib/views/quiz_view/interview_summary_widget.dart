@@ -5,6 +5,7 @@ import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_states.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,6 +23,7 @@ class InterviewSummaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quizCubit = context.read<QuizCubit>();
+    final recentSessionsCubit = context.read<RecentSessionsCubit>();
 
     return Container(
       decoration: BoxDecoration(
@@ -42,10 +44,10 @@ class InterviewSummaryWidget extends StatelessWidget {
             width: context.width,
             child: CustomButton(
               onPressed: () async {
-                quizCubit.setTopic = topicModel.topic;
-                quizCubit.setDifficultyLevel = levelModel.level;
-                quizCubit.setQuestionsCount = levelModel.questionsNumber;
-                
+                // To used it when adding the recent section
+                recentSessionsCubit.currentTopic = topicModel;
+                recentSessionsCubit.currentLevel = levelModel;
+
                 await quizCubit.fetchQuestions(
                   topic: topicModel.topic,
                   questionsCount: levelModel.questionsNumber,

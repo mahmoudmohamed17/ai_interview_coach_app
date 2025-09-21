@@ -1,8 +1,11 @@
-import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
+import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
+import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
+import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
-import 'package:ai_interview_coach_app/backend/models/suggestion_model.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
+import 'package:ai_interview_coach_app/core/utilities/build_performance_models.dart';
+import 'package:ai_interview_coach_app/core/utilities/build_suggestions_models.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +19,32 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   final SupabaseAuthService supabaseAuthService;
 
   List<QuizSessionModel> _sessions = [];
+
+  // Used to store the current topic, level selected and also feedback for further operations,
+  // mean that those will be used at addQuizSession(), then will return to null after that
+  InterviewTopicModel? _currentTopic;
+  InterviewDifficultyLevelModel? _currentLevel;
+  FeedbackModel? _currentFeedback;
+  int? _answeredQuestions;
+  String? _timeSpent;
+  // To store data at [performance_breakdown] and [suggestions] tables;
+  String? _currentQuizId;
+
+  set currentTopic(InterviewTopicModel model) => _currentTopic = model;
+  InterviewTopicModel? get getCurrentTopic => _currentTopic;
+
+  set currentLevel(InterviewDifficultyLevelModel model) =>
+      _currentLevel = model;
+  InterviewDifficultyLevelModel? get gerCurrentLevel => _currentLevel;
+
+  set currentFeedback(FeedbackModel model) => _currentFeedback = model;
+  FeedbackModel? get getCurrentFeedback => _currentFeedback;
+
+  set answeredQuestions(int value) => _answeredQuestions = value;
+  int? get getAnsweredQuestions => _answeredQuestions;
+
+  set timeSpent(String value) => _timeSpent = value;
+  String? get getTimeSpent => _timeSpent;
 
   /// Call this when the app starts; to fetch the latest data
   Future<void> fetchSessions() async {
@@ -34,31 +63,24 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     }
   }
 
-  /// Adding a quiz session to the database and return it
-  Future<void> addQuizSession({
-    String? topic,
-    int? totalQuestions,
-    int? answeredQuestions,
-    double? score,
-    String? overview,
-    String? difficulty,
-    String? timeSpent,
-  }) async {
+  /// Adding a quiz session to the database and return it using the local models
+  Future<void> addQuizSession() async {
     // To prevent show the loading indicator when adding new item; as this's unnecessary
     emit(PracticeSessionsRefreshing(_sessions));
     try {
       final model = QuizSessionModel(
         userId: supabaseAuthService.currentUser!.id,
-        topic: topic,
-        totalQuestions: totalQuestions,
-        answeredQuestions: answeredQuestions,
-        score: score,
-        overview: overview,
-        difficulty: difficulty,
+        topic: _currentTopic?.topic,
+        totalQuestions: _currentLevel?.questionsNumber,
+        answeredQuestions: _answeredQuestions,
+        score: _currentFeedback?.score,
+        overview: _currentFeedback?.overview,
+        difficulty: _currentLevel?.level,
         createdAt: DateTime.now(),
-        timeSpent: timeSpent,
+        timeSpent: _timeSpent,
       );
       final result = await supabaseDatabaseService.addQuizSession(model);
+      _currentQuizId = result.id;
       _sessions.add(result);
       emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
@@ -66,12 +88,19 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     }
   }
 
-  Future<void> addPracticeSessionData({
-    required List<PerformanceBreackdownModel> performanceModels,
-    required List<SuggestionModel> suggestions,
-  }) async {
+  Future<void> addPracticeSessionData() async {
     emit(PracticeSessionLoading());
     try {
+      final performanceModels = buildPerformanceModels(
+        technicalKnowledge: _currentFeedback!.technicalKnowledge,
+        problemSolving: _currentFeedback!.problemSolving,
+        bestPractices: _currentFeedback!.bestPractices,
+        quizId: _currentQuizId!,
+      );
+      final suggestions = buildSuggestionsModels(
+        list: _currentFeedback!.suggestionsForImprovement,
+        quizId: _currentQuizId!,
+      );
       await supabaseDatabaseService.addPerformanceBreackdownItems(
         performanceModels,
       );

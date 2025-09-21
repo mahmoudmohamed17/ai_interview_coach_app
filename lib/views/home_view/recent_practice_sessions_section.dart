@@ -12,6 +12,12 @@ class RecentPracticeSessionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
+      buildWhen: (previous, current) =>
+          previous is PracticeSessionsInitial ||
+          current is PracticeSessionsFilled ||
+          current is PracticeSessionsRefreshing ||
+          current is PracticeSessionsError ||
+          current is PracticeSessionsLoading,
       builder: (context, state) {
         if (state is PracticeSessionsInitial) {
           return _buildEmptyState(context);

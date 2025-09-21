@@ -1,24 +1,26 @@
 import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 
-List<PerformanceBreackdownModel> buildPerformanceModels(
-  List<double> values,
-  String quizId,
-) {
+List<PerformanceBreackdownModel> buildPerformanceModels({
+  required double technicalKnowledge,
+  required double problemSolving,
+  required double bestPractices,
+  required String quizId,
+}) {
   final items = [
     PerformanceBreackdownModel(
       quizId: quizId,
       category: 'Technical Knowledge',
-      score: values[0],
+      score: technicalKnowledge,
     ),
     PerformanceBreackdownModel(
       quizId: quizId,
       category: 'Problem Solving',
-      score: values[1],
+      score: problemSolving,
     ),
     PerformanceBreackdownModel(
       quizId: quizId,
       category: 'Best Practices',
-      score: values[2],
+      score: bestPractices,
     ),
   ];
   return items;
