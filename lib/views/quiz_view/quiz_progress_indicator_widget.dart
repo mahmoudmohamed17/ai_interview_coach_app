@@ -23,14 +23,7 @@ class QuizProgressIndicatorWidget extends StatelessWidget {
               color: isActive
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.tertiaryContainer,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(index == 0 ? 4 : 0),
-                bottomLeft: Radius.circular(index == 0 ? 4 : 0),
-                topRight: Radius.circular(index == questionCount - 1 ? 4 : 0),
-                bottomRight: Radius.circular(
-                  index == questionCount - 1 ? 4 : 0,
-                ),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
           ),
         );

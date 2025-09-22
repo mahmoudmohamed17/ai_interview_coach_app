@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
@@ -15,6 +17,9 @@ class InterviewSetupView extends StatelessWidget {
     return BlocListener<QuizCubit, QuizStates>(
       listener: (context, state) {
         if (state is QuizLoaded) {
+          log(
+            'Interview questions: ${state.questions.map((item) => item.toJson())}',
+          );
           context.push(Routes.quizView, extra: state.questions);
         }
         if (state is QuizFailed) {

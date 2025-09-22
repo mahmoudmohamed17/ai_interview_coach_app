@@ -29,7 +29,7 @@ The questions have to be at {difficultyLevel} level.
       ...
     ]
   }
-**After my answer you HAVE to provide these statistics for me:
+**After my answer you HAVE to provide these statistics for me like this:
   {
     "results": {
       "score": 89.0,

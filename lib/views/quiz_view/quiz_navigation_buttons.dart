@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/cubits/timer_cubit.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/custom_quiz_icon_button.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/custom_quiz_submit_dialog.dart';
@@ -59,6 +61,7 @@ class QuizNavigationButtons extends StatelessWidget {
           onPressed: () async {
             if (currentIndex == totalQuestions - 1) {
               timerCubit.pauseTimer();
+              log('My answers: $selectedAnswers');
               showDialog(
                 context: context,
                 builder: (context) => CustomQuizSubmitDialog(

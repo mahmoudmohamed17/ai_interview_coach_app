@@ -66,8 +66,9 @@ class _ProgressBarAndQuestionsWidgetState
               itemBuilder: (context, index) => QuestionAndAnswersWidget(
                 questionModel: widget.questions[index],
                 remainingQuestions: widget.questions.length - (index + 1),
-                selectedAnswer: _selectedAnswers[index],
-                onAnswerSelected: (answer) => _onAnswerSelected(index, answer),
+                selectedAnswer: _selectedAnswers[index + 1],
+                onAnswerSelected: (answer) =>
+                    _onAnswerSelected(index + 1, answer),
               ),
             ),
           ),
