@@ -1,13 +1,13 @@
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
+import 'package:ai_interview_coach_app/core/widgets/custom_loading_indicator_dialog.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_results_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 
 class InterviewResultsView extends StatelessWidget {
   const InterviewResultsView({super.key, required this.feedback});
@@ -25,7 +25,7 @@ class InterviewResultsView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return LoadingOverlay(
+        return CustomLoadingIndicatorDialog(
           isLoading: state is PracticeSessionsRefreshing,
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
