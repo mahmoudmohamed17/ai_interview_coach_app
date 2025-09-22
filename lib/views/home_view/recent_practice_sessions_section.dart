@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_item.dart';
@@ -6,6 +7,7 @@ import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 class RecentPracticeSessionsSection extends StatelessWidget {
   const RecentPracticeSessionsSection({super.key});
@@ -62,7 +64,10 @@ class RecentPracticeSessionsSection extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => context.push(
+                        Routes.recentPracticeSessionsView,
+                        extra: sessions,
+                      ),
                       customBorder: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       ),

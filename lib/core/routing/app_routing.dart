@@ -1,5 +1,6 @@
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
+import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/backend/models/user_data_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
@@ -13,6 +14,7 @@ import 'package:ai_interview_coach_app/views/profile_view/profile_view.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_results_view.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_setup_view.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/quiz_view.dart';
+import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/recent_practice_sessions_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouting {
@@ -61,6 +63,13 @@ class AppRouting {
         builder: (context, state) {
           final feedback = state.extra as FeedbackModel;
           return InterviewResultsView(feedback: feedback);
+        },
+      ),
+      GoRoute(
+        path: Routes.recentPracticeSessionsView,
+        builder: (context, state) {
+          final sessions = state.extra as List<QuizSessionModel>;
+          return RecentPracticeSessionsView(sessions: sessions);
         },
       ),
     ],

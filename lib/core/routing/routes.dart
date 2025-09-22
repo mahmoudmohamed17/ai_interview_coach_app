@@ -7,4 +7,6 @@ class Routes {
   static const String interviewSetupView = '/interviewSetupView';
   static const String quizView = '/quizView';
   static const String interviewResultsView = '/interviewResultsView';
+  static const String recentPracticeSessionsView =
+      '/recentPracticeSessionsView';
 }
