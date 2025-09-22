@@ -17,10 +17,10 @@ class InterviewResultsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
-        if (state is PracticeSessionsFilled) {
+        if (state is PracticeSessionAdded) {
           context.go(Routes.homeView);
         }
-        if (state is PracticeSessionsFilled) {
+        if (state is PracticeSessionError) {
           showToast(context, title: 'Error saving the session data');
         }
       },

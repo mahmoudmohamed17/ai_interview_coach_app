@@ -5,6 +5,12 @@ List<SuggestionModel> buildSuggestionsModels({
   required String quizId,
 }) {
   return list
-      .map((item) => SuggestionModel(id: quizId, suggestion: item))
+      .map(
+        (item) => SuggestionModel(
+          quizId: quizId,
+          suggestion: item,
+          createdAt: DateTime.now(),
+        ),
+      )
       .toList();
 }

@@ -97,10 +97,12 @@ class CustomQuizSubmitDialog extends StatelessWidget {
                                 ),
                               )
                               .toList();
+                          // Store some values to help adding a quiz session
                           recentSessionsCubit.answeredQuestions =
                               selectedAnswers.length;
                           recentSessionsCubit.timeSpent = timerCubit
                               .getElapsedTime();
+
                           await quizCubit.submitAnswers(answers: answers);
                         },
                         style: ButtonStyle(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/backend/models/suggestion_model.dart';
@@ -14,6 +16,7 @@ class SupabaseDatabaseService {
         .insert(model.toJson())
         .select()
         .single();
+    log('Quiz sessions returned: $result');
     return QuizSessionModel.fromJson(result);
   }
 
@@ -46,7 +49,7 @@ class SupabaseDatabaseService {
   Future<void> addPerformanceBreackdownItems(
     List<PerformanceBreackdownModel> models,
   ) async {
-    final items = models.map((item) => item.toJson());
+    final items = models.map((item) => item.toJson()).toList();
     await _client.from('performance_breakdown').insert(items);
   }
 
@@ -65,7 +68,7 @@ class SupabaseDatabaseService {
 
   /// For [suggestions] table
   Future<void> addSuggestions(List<SuggestionModel> models) async {
-    final items = models.map((item) => item.toJson());
+    final items = models.map((item) => item.toJson()).toList();
     await _client.from('suggestions').insert(items);
   }
 

@@ -18,19 +18,24 @@ class SuggestionModel {
 
   factory SuggestionModel.fromJson(Map<String, dynamic> json) {
     return SuggestionModel(
-      createdAt: json['created_at'] as DateTime?,
+      createdAt: DateTime.parse(json['created_at'] as String),
       quizId: json['quiz_id'] as String?,
       suggestion: json['suggestion'] as String?,
       id: json['id'] as String?,
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'created_at': createdAt?.toIso8601String(),
-    'quiz_id': quizId,
-    'suggestion': suggestion,
-    'id': id,
-  };
+  Map<String, dynamic> toJson() {
+    final data = {
+      'created_at': createdAt?.toIso8601String(),
+      'quiz_id': quizId,
+      'suggestion': suggestion,
+    };
+    if (id != null) {
+      data['id'] = id;
+    }
+    return data;
+  }
 
   SuggestionModel copyWith({
     DateTime? createdAt,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
@@ -47,6 +49,10 @@ class InterviewSummaryWidget extends StatelessWidget {
                 // To used it when adding the recent section
                 recentSessionsCubit.currentTopic = topicModel;
                 recentSessionsCubit.currentLevel = levelModel;
+
+                log(
+                  'Current topic: ${recentSessionsCubit.getCurrentTopic?.topic}\n Curren level: ${recentSessionsCubit.gerCurrentLevel?.level}',
+                );
 
                 await quizCubit.fetchQuestions(
                   topic: topicModel.topic,

@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
+    final userStatsCubit = context.read<UserStatsCubit>();
 
     return Row(
       spacing: 24,
@@ -18,7 +20,8 @@ class InterviewResultsActionButtons extends StatelessWidget {
             context,
             onPressed: () async {
               await recentSessionsCubit.addQuizSession();
-              
+              await recentSessionsCubit.addPracticeSessionRelatedData();
+              await userStatsCubit.refreshStats();
             },
             label: 'Back to Home',
             icon: FontAwesomeIcons.house,

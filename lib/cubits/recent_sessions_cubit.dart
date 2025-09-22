@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
@@ -46,6 +48,9 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   set timeSpent(String value) => _timeSpent = value;
   String? get getTimeSpent => _timeSpent;
 
+  set currentQuizId(String value) => _currentQuizId = value;
+  String? get getCurrentQuizId => _currentQuizId;
+
   /// Call this when the app starts; to fetch the latest data
   Future<void> fetchSessions() async {
     emit(const PracticeSessionsLoading());
@@ -69,7 +74,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     emit(PracticeSessionsRefreshing(_sessions));
     try {
       final model = QuizSessionModel(
-        userId: supabaseAuthService.currentUser!.id,
+        userId: supabaseAuthService.currentUser?.id,
         topic: _currentTopic?.topic,
         totalQuestions: _currentLevel?.questionsNumber,
         answeredQuestions: _answeredQuestions,
@@ -80,15 +85,16 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         timeSpent: _timeSpent,
       );
       final result = await supabaseDatabaseService.addQuizSession(model);
-      _currentQuizId = result.id;
+      currentQuizId = result.id!;
       _sessions.add(result);
       emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
+      log('Error in adding quiz: ${e.toString()}');
       emit(PracticeSessionsError(message: e.toString()));
     }
   }
 
-  Future<void> addPracticeSessionData() async {
+  Future<void> addPracticeSessionRelatedData() async {
     emit(PracticeSessionLoading());
     try {
       final performanceModels = buildPerformanceModels(
@@ -107,6 +113,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
       await supabaseDatabaseService.addSuggestions(suggestions);
       emit(PracticeSessionAdded());
     } catch (e) {
+      log('Error in adding quiz related data: ${e.toString()}');
       emit(PracticeSessionError(message: e.toString()));
     }
   }

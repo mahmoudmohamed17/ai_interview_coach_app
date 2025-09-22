@@ -37,7 +37,7 @@ class QuizSessionModel {
     return QuizSessionModel(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
-      createdAt: json['created_at'] as DateTime?,
+      createdAt: DateTime.parse(json['created_at'] as String),
       timeSpent: json['time_spent'] as String?,
       topic: json['topic'] as String?,
       totalQuestions: json['total_questions'] as int?,
@@ -48,18 +48,25 @@ class QuizSessionModel {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'user_id': userId,
-    'created_at': createdAt?.toIso8601String(),
-    'time_spent': createdAt?.toIso8601String(),
-    'topic': topic,
-    'total_questions': totalQuestions,
-    'answered_questions': answeredQuestions,
-    'score': score,
-    'overview': overview,
-    'difficulty': difficulty,
-  };
+  Map<String, dynamic> toJson() {
+    final data = {
+      'user_id': userId,
+      'created_at': createdAt?.toIso8601String(),
+      'time_spent': timeSpent,
+      'topic': topic,
+      'total_questions': totalQuestions,
+      'answered_questions': answeredQuestions,
+      'score': score,
+      'overview': overview,
+      'difficulty': difficulty,
+    };
+    // Incase we add the quiz session not to store it as a null and causing
+    // issues with later operations
+    if (id != null) {
+      data['id'] = id;
+    }
+    return data;
+  }
 
   QuizSessionModel copyWith({
     String? id,
