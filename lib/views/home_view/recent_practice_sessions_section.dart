@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_item.dart';
+import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -50,34 +51,42 @@ class RecentPracticeSessionsSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       spacing: 16,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Recent Practice Sessions',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontWeight: FontWeight.w700,
+        RecentPracticeSessiosHeader(sessions: sessions),
+        sessions.length > 3
+            ? Column(
+                spacing: 16,
+                children: [
+                  ...sessions
+                      .sublist(0, 3)
+                      .map((item) => RecentPracticeItem(model: item)),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: () {},
+                      customBorder: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          'See all',
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                spacing: 16,
+                children: sessions
+                    .map((item) => RecentPracticeItem(model: item))
+                    .toList(),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-              ),
-              padding: const EdgeInsets.all(6.0),
-              child: Text(
-                '${sessions.length} This week',
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        ...sessions.map((item) => RecentPracticeItem(model: item)),
       ],
     );
   }

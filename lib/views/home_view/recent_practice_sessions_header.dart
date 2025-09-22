@@ -1,7 +1,10 @@
+import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/core/utilities/get_sessions_count_this_week.dart';
 import 'package:flutter/material.dart';
 
 class RecentPracticeSessiosHeader extends StatelessWidget {
-  const RecentPracticeSessiosHeader({super.key});
+  const RecentPracticeSessiosHeader({super.key, required this.sessions});
+  final List<QuizSessionModel> sessions;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class RecentPracticeSessiosHeader extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(6.0),
           child: Text(
-            '3 This week',
+            '${getSessionsCountThisWeek(sessions)} This week',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: Theme.of(context).colorScheme.onTertiaryContainer,
               fontWeight: FontWeight.w600,
