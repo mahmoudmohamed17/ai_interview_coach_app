@@ -16,7 +16,6 @@ class ProgressBarAndQuestionsWidget extends StatefulWidget {
 class _ProgressBarAndQuestionsWidgetState
     extends State<ProgressBarAndQuestionsWidget> {
   late PageController _pageController;
-  double _barPercentage = 0.0;
   int _currentIndex = 0;
   final Map<int, String> _selectedAnswers = {};
 
@@ -24,24 +23,16 @@ class _ProgressBarAndQuestionsWidgetState
   void initState() {
     super.initState();
     _pageController = PageController();
-    _updateProgress(0);
     _pageController.addListener(() {
       if (_pageController.hasClients && _pageController.page != null) {
         final newIndex = _pageController.page!.round();
         if (newIndex != _currentIndex) {
           setState(() {
             _currentIndex = newIndex;
-            _updateProgress(_currentIndex);
           });
         }
       }
     });
-  }
-
-  void _updateProgress(int questionIndex) {
-    final rawPrecentage = (questionIndex + 1) / widget.questions.length;
-    _barPercentage = (rawPrecentage * 10).floor() / 10;
-    _barPercentage = _barPercentage.clamp(0.0, 1.0);
   }
 
   void _onAnswerSelected(int questionIndex, String answer) {
@@ -63,7 +54,10 @@ class _ProgressBarAndQuestionsWidgetState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          QuizProgressIndicatorWidget(barPercentage: _barPercentage),
+          QuizProgressIndicatorWidget(
+            questionCount: widget.questions.length,
+            currentIndex: _currentIndex,
+          ),
           const SizedBox(height: 32),
           Expanded(
             child: PageView.builder(

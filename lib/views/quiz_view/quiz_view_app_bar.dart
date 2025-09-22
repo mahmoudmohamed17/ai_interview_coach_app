@@ -39,7 +39,7 @@ class QuizViewAppBar extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          const QuizTimerWigdet(),
+          // const QuizTimerWigdet(),
           const SizedBox(width: 8),
         ],
       ),

@@ -1,37 +1,40 @@
-import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class QuizProgressIndicatorWidget extends StatelessWidget {
-  const QuizProgressIndicatorWidget({super.key, required this.barPercentage});
-  final double barPercentage;
+  const QuizProgressIndicatorWidget({
+    super.key,
+    required this.questionCount,
+    required this.currentIndex,
+  });
+  final int questionCount;
+  final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          height: 4,
-          width: context.width,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.tertiaryContainer,
-            borderRadius: const BorderRadius.all(Radius.circular(24)),
-          ),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
+    return Row(
+      children: List.generate(questionCount, (index) {
+        final isActive = index <= currentIndex;
+        return Expanded(
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.ease,
             height: 4,
-            width: context.width * barPercentage,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.all(Radius.circular(24)),
+              color: isActive
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.tertiaryContainer,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(index == 0 ? 4 : 0),
+                bottomLeft: Radius.circular(index == 0 ? 4 : 0),
+                topRight: Radius.circular(index == questionCount - 1 ? 4 : 0),
+                bottomRight: Radius.circular(
+                  index == questionCount - 1 ? 4 : 0,
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        );
+      }),
     );
   }
 }

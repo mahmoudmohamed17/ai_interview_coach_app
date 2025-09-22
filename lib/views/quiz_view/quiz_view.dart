@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/core/di/setup_locator.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
@@ -32,7 +31,6 @@ class QuizView extends StatelessWidget {
             context.push(Routes.interviewResultsView, extra: state.feedback);
           }
           if (state is QuizFailed) {
-            log('Error: ${state.message}');
             showToast(context, title: 'Error submitting the answers');
           }
         },

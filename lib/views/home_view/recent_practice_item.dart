@@ -1,6 +1,7 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
+import 'package:ai_interview_coach_app/core/utilities/format_recent_session_item_date.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,7 +54,7 @@ class RecentPracticeItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Yesterday • ${model.totalQuestions} questions',
+                  '${formatRecentSessionItemDate(model.createdAt!)} • ${model.totalQuestions} questions',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
