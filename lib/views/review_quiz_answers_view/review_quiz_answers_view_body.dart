@@ -9,8 +9,6 @@ import 'package:flutter/widgets.dart';
 class ReviewQuizAnswersViewBody extends StatefulWidget {
   const ReviewQuizAnswersViewBody({super.key});
 
-  /// Only need to give this widget the current questions and answers :)
-
   @override
   State<ReviewQuizAnswersViewBody> createState() =>
       _ReviewQuizAnswersViewBodyState();

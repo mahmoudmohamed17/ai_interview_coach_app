@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 class ReviewQuizAnswersView extends StatelessWidget {
   const ReviewQuizAnswersView({super.key});
 
+  /// Only need to give this widget the current questions and answers :)
+  /// We would pass the data via app routing class
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
