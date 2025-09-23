@@ -79,6 +79,8 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         topic: _currentTopic?.topic,
         totalQuestions: _currentLevel?.questionsNumber,
         answeredQuestions: _answeredQuestions,
+        correctAnswers: _currentFeedback?.correctAnswers,
+        wrongAnswers: _currentFeedback?.wrongAnswers,
         score: _currentFeedback?.score,
         overview: _currentFeedback?.overview,
         difficulty: _currentLevel?.level,

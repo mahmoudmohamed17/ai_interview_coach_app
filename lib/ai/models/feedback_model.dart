@@ -1,6 +1,8 @@
 class FeedbackModel {
   final double score;
   final String overview;
+  final int correctAnswers;
+  final int wrongAnswers;
   final double technicalKnowledge;
   final double problemSolving;
   final double bestPractices;
@@ -9,6 +11,8 @@ class FeedbackModel {
   const FeedbackModel({
     required this.score,
     required this.overview,
+    required this.correctAnswers,
+    required this.wrongAnswers,
     required this.technicalKnowledge,
     required this.problemSolving,
     required this.bestPractices,
@@ -19,6 +23,8 @@ class FeedbackModel {
     return {
       'score': score,
       'overview': overview,
+      'correct_answers': correctAnswers,
+      'wrong_answers': wrongAnswers,
       'technical_knowledge': technicalKnowledge,
       'problem_solving': problemSolving,
       'best_practices': bestPractices,
@@ -30,6 +36,8 @@ class FeedbackModel {
     return FeedbackModel(
       score: json['results']['score']?.toDouble() ?? 0.0,
       overview: json['results']['overview'] ?? '',
+      correctAnswers: json['results']['correct_answers'] ?? 0,
+      wrongAnswers: json['results']['wrong_answers'] ?? 0,
       technicalKnowledge:
           json['performance_breakdown']['technical_knowledge']?.toDouble() ??
           0.0,
@@ -46,6 +54,8 @@ class FeedbackModel {
   FeedbackModel copyWith({
     double? score,
     String? overview,
+    int? correctAnswers,
+    int? wrongAnswers,
     double? technicalKnowledge,
     double? problemSolving,
     double? bestPractices,
@@ -54,6 +64,8 @@ class FeedbackModel {
     return FeedbackModel(
       score: score ?? this.score,
       overview: overview ?? this.overview,
+      correctAnswers: correctAnswers ?? this.correctAnswers,
+      wrongAnswers: wrongAnswers ?? this.wrongAnswers,
       technicalKnowledge: technicalKnowledge ?? this.technicalKnowledge,
       problemSolving: problemSolving ?? this.problemSolving,
       bestPractices: bestPractices ?? this.bestPractices,

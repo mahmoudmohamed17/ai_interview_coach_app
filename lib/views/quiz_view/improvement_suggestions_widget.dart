@@ -28,7 +28,21 @@ class ImprovementSuggestionsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          ...suggestions.map((item) => _buildItem(context, label: item)),
+          suggestions.isEmpty
+              ? Text(
+                  'You\'re already on Fire!😎',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 12,
+                  children: suggestions
+                      .map((item) => _buildItem(context, label: item))
+                      .toList(),
+                ),
         ],
       ),
     );
