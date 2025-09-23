@@ -11,6 +11,8 @@ class QuizSessionModel {
   final String? topic;
   final int? totalQuestions;
   final int? answeredQuestions;
+  final int? correctAnswers;
+  final int? wrongAnswers;
   final double? score;
   final String? overview;
   final String? difficulty;
@@ -23,6 +25,8 @@ class QuizSessionModel {
     this.topic,
     this.totalQuestions,
     this.answeredQuestions,
+    this.correctAnswers,
+    this.wrongAnswers,
     this.score,
     this.overview,
     this.difficulty,
@@ -30,7 +34,7 @@ class QuizSessionModel {
 
   @override
   String toString() {
-    return 'QuizSessionModel(id: $id, userId: $userId, createdAt: $createdAt, topic: $topic, totalQuestions: $totalQuestions, answeredQuestions: $answeredQuestions, score: $score, overview: $overview, difficulty: $difficulty)';
+    return 'QuizSessionModel(id: $id, userId: $userId, createdAt: $createdAt, timeSpent: $timeSpent, topic: $topic, totalQuestions: $totalQuestions, answeredQuestions: $answeredQuestions, correctAnswers: $correctAnswers, wrongAnswers: $wrongAnswers, score: $score, overview: $overview, difficulty: $difficulty)';
   }
 
   factory QuizSessionModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +46,8 @@ class QuizSessionModel {
       topic: json['topic'] as String?,
       totalQuestions: json['total_questions'] as int?,
       answeredQuestions: json['answered_questions'] as int?,
+      correctAnswers: json['correct_answers'] as int?,
+      wrongAnswers: json['wrong_answers'] as int?,
       score: (json['score'] as num?)?.toDouble(),
       overview: json['overview'] as String?,
       difficulty: json['difficulty'] as String?,
@@ -56,6 +62,8 @@ class QuizSessionModel {
       'topic': topic,
       'total_questions': totalQuestions,
       'answered_questions': answeredQuestions,
+      'correct_answers': correctAnswers,
+      'wrong_answers': wrongAnswers,
       'score': score,
       'overview': overview,
       'difficulty': difficulty,
@@ -76,6 +84,8 @@ class QuizSessionModel {
     String? topic,
     int? totalQuestions,
     int? answeredQuestions,
+    int? correctAnswers,
+    int? wrongAnswers,
     double? score,
     String? overview,
     String? difficulty,
@@ -88,6 +98,8 @@ class QuizSessionModel {
       topic: topic ?? this.topic,
       totalQuestions: totalQuestions ?? this.totalQuestions,
       answeredQuestions: answeredQuestions ?? this.answeredQuestions,
+      correctAnswers: correctAnswers ?? this.correctAnswers,
+      wrongAnswers: wrongAnswers ?? this.wrongAnswers,
       score: score ?? this.score,
       overview: overview ?? this.overview,
       difficulty: difficulty ?? this.difficulty,

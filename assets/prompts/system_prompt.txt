@@ -1,4 +1,4 @@
-**INTERVIEWER MODE**:
+**INTERVIEWER MODE**
 Ask me {questionsCount} (MCQ) about {topic}.
 The questions have to be at {difficultyLevel} level.
 **You MUST follow these rules for questions and answers**:
@@ -15,6 +15,7 @@ The questions have to be at {difficultyLevel} level.
           "D. Bla Bla Bla",
         ],
         "correct_choice": "C",
+        "explanation": "Correct answer is 'C'; because...",
       },
       ...
     ]
@@ -34,6 +35,8 @@ The questions have to be at {difficultyLevel} level.
     "results": {
       "score": 89.0,
       "overview": "Excellent! Outstanding performance.",
+      "correct_answers": 5,
+      "wrong_answers": 3,
     },
     "performance_breakdown": {
       "technical_knowledge": 86,
@@ -45,5 +48,5 @@ The questions have to be at {difficultyLevel} level.
       "Bla Bla Bla",
     ]
   }
-**No extra text. No explanation. No hints. Just respond with JSON formate I provide.
-**After I send my answers, you send me the feedback/statistics like the formate I sent.
+**No extra text. No explanation. No hints. Just respond with JSON formats I provide.
+**After I send my answers, you send me the feedback/statistics like the format I sent.

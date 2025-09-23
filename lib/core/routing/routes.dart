@@ -9,4 +9,5 @@ class Routes {
   static const String interviewResultsView = '/interviewResultsView';
   static const String recentPracticeSessionsView =
       '/recentPracticeSessionsView';
+  static const String recentSessionDetailsView = '/recentSessionDetailsView';
 }

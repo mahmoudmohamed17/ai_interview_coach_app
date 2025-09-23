@@ -29,7 +29,8 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   FeedbackModel? _currentFeedback;
   int? _answeredQuestions;
   String? _timeSpent;
-  // To store data at [performance_breakdown] and [suggestions] tables;
+
+  // Helps to store data at [performance_breakdown] and [suggestions] tables for a specific quiz session;
   String? _currentQuizId;
 
   set currentTopic(InterviewTopicModel model) => _currentTopic = model;
@@ -85,7 +86,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         timeSpent: _timeSpent,
       );
       final result = await supabaseDatabaseService.addQuizSession(model);
-      currentQuizId = result.id!;
+      currentQuizId = result.id!; // To use it in other operations
       _sessions.add(result);
       emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
