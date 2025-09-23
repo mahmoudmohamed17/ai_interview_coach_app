@@ -16,6 +16,7 @@ import 'package:ai_interview_coach_app/views/quiz_view/interview_setup_view.dart
 import 'package:ai_interview_coach_app/views/quiz_view/quiz_view.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/recent_practice_sessions_view.dart';
 import 'package:ai_interview_coach_app/views/recent_session_details_view/recent_session_details_view.dart';
+import 'package:ai_interview_coach_app/views/review_quiz_answers_view/review_quiz_answers_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouting {
@@ -78,6 +79,19 @@ class AppRouting {
         builder: (context, state) {
           final model = state.extra as QuizSessionModel;
           return RecentSessionDetailsView(model: model);
+        },
+      ),
+      GoRoute(
+        path: Routes.recentSessionDetailsView,
+        builder: (context, state) {
+          final model = state.extra as QuizSessionModel;
+          return RecentSessionDetailsView(model: model);
+        },
+      ),
+      GoRoute(
+        path: Routes.reviewQuizAnswersView,
+        builder: (context, state) {
+          return const ReviewQuizAnswersView();
         },
       ),
     ],

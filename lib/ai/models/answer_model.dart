@@ -22,3 +22,9 @@ class AnswerModel {
     );
   }
 }
+
+final dummyAnswers = const [
+  AnswerModel(questionId: 1, answer: 'D'),
+  AnswerModel(questionId: 1, answer: 'A'),
+  AnswerModel(questionId: 1, answer: 'A'),
+];

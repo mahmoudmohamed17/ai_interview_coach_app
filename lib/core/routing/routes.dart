@@ -10,4 +10,5 @@ class Routes {
   static const String recentPracticeSessionsView =
       '/recentPracticeSessionsView';
   static const String recentSessionDetailsView = '/recentSessionDetailsView';
+  static const String reviewQuizAnswersView = '/reviewQuizAnswersView';
 }

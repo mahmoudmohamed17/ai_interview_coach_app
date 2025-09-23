@@ -57,3 +57,27 @@ class QuestionModel {
     return 'QuestionModel{id: $id, question: $question, choices: $choices, correctChoice: $correctChoice, explanation: $explanation}';
   }
 }
+
+List<QuestionModel> dummyQuestions = const [
+  QuestionModel(
+    id: 1,
+    question: "What is the capital of France?",
+    choices: ["A. London", "B. Berlin", "C. Paris", "D. Madrid"],
+    correctChoice: "C",
+    explanation: "Paris is the capital and largest city of France.",
+  ),
+  QuestionModel(
+    id: 2,
+    question: "Which programming language is Flutter built with?",
+    choices: ["A. Java", "B. Dart", "C. Python", "D. JavaScript"],
+    correctChoice: "B",
+    explanation: "Flutter uses Dart as its primary programming language.",
+  ),
+  QuestionModel(
+    id: 3,
+    question: "What year was the first iPhone released?",
+    choices: ["A. 2005", "B. 2006", "C. 2007", "D. 2008"],
+    correctChoice: "C",
+    explanation: "The first iPhone was released by Apple in 2007.",
+  ),
+];
