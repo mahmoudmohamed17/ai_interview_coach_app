@@ -1,17 +1,28 @@
+import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
+import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/views/review_quiz_answers_view/review_quiz_answers_view_body.dart';
 import 'package:flutter/material.dart';
 
 class ReviewQuizAnswersView extends StatelessWidget {
-  const ReviewQuizAnswersView({super.key});
+  const ReviewQuizAnswersView({
+    super.key,
+    required this.questions,
+    required this.answers,
+  });
 
-  /// Only need to give this widget the current questions and answers :)
-  /// We would pass the data via app routing class
+  final List<QuestionModel> questions;
+  final List<AnswerModel> answers;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: const SafeArea(child: ReviewQuizAnswersViewBody()),
+      body: SafeArea(
+        child: ReviewQuizAnswersViewBody(
+          questions: questions,
+          answers: answers,
+        ),
+      ),
     );
   }
 }

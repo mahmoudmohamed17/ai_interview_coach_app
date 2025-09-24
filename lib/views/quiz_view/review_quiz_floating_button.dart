@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
+import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/floating_button_dialog_clipper.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class ReviewQuizFloatingButton extends StatefulWidget {
-  const ReviewQuizFloatingButton({super.key});
+  const ReviewQuizFloatingButton({
+    super.key,
+    required this.questions,
+    required this.answers,
+  });
+  final List<QuestionModel> questions;
+  final List<AnswerModel> answers;
 
   @override
   State<ReviewQuizFloatingButton> createState() =>
@@ -122,7 +130,10 @@ class _ReviewQuizFloatingButtonState extends State<ReviewQuizFloatingButton>
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
                     onPressed: () {
-                      context.push(Routes.reviewQuizAnswersView);
+                      context.push(
+                        Routes.reviewQuizAnswersView,
+                        extra: [widget.questions, widget.answers],
+                      );
                       if (_showTooltip) {
                         _tooltipController.reverse();
                         setState(() => _showTooltip = false);
