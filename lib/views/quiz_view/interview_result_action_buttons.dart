@@ -20,7 +20,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
             context,
             onPressed: () async {
               await recentSessionsCubit.addQuizSession();
-              await recentSessionsCubit.addPracticeSessionRelatedData();
+              await recentSessionsCubit.addQuizSessionRelatedData();
               await userStatsCubit.refreshStats();
               if (context.mounted) {}
             },
@@ -36,7 +36,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
             context,
             onPressed: () async {
               await recentSessionsCubit.addQuizSession();
-              await recentSessionsCubit.addPracticeSessionRelatedData();
+              await recentSessionsCubit.addQuizSessionRelatedData();
               recentSessionsCubit.createNewInterview();
               await userStatsCubit.refreshStats();
             },

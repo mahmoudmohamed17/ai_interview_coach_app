@@ -1,8 +1,9 @@
 import 'dart:developer';
-
+import 'package:ai_interview_coach_app/views/home_view/home_view.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
+import 'package:ai_interview_coach_app/views/recent_session_details_view/recent_session_details_view.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_auth_service.dart';
 import 'package:ai_interview_coach_app/backend/services/supabase_database_service.dart';
@@ -52,7 +53,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   set currentQuizId(String value) => _currentQuizId = value;
   String? get getCurrentQuizId => _currentQuizId;
 
-  /// Call this when the app starts; to fetch the latest data
+  /// Call this when the app starts; to fetch the latest sessions data
   Future<void> fetchSessions() async {
     emit(const PracticeSessionsLoading());
     try {
@@ -97,7 +98,8 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     }
   }
 
-  Future<void> addPracticeSessionRelatedData() async {
+  /// Adding performance breakdown items and suggestions related to the current quiz session
+  Future<void> addQuizSessionRelatedData() async {
     emit(PracticeSessionsRefreshing(_sessions));
     try {
       final performanceModels = buildPerformanceModels(
@@ -105,36 +107,101 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         problemSolving: _currentFeedback!.problemSolving,
         bestPractices: _currentFeedback!.bestPractices,
         quizId: _currentQuizId!,
+        userId: supabaseAuthService.currentUser!.id,
       );
       final suggestions = buildSuggestionsModels(
         list: _currentFeedback!.suggestionsForImprovement,
         quizId: _currentQuizId!,
+        userId: supabaseAuthService.currentUser!.id,
       );
-      await supabaseDatabaseService.addPerformanceBreackdownItems(
-        performanceModels,
-      );
-      await supabaseDatabaseService.addSuggestions(suggestions);
+      await supabaseDatabaseService.addPerformanceItems(performanceModels);
+      await supabaseDatabaseService.addQuizSuggestions(suggestions);
       emit(PracticeSessionAdded());
     } catch (e) {
-      log('Error in adding quiz related data: ${e.toString()}');
       emit(PracticeSessionError(message: e.toString()));
     }
   }
 
+  /// Only used for indicates whether to go home or start a new quiz
   void createNewInterview() => emit(const PracticeSessionsNavigating());
 
+  /// To get the data related to a specific quiz session.
+  /// This called when navigating to [RecentSessionDetailsView]
   Future<void> getPracticeSessionData(String quizId) async {
     emit(PracticeSessionLoading());
     try {
       final performanceModel = await supabaseDatabaseService
-          .getPerformanceBreakdownItems(quizId);
-      final suggestions = await supabaseDatabaseService.getSuggestions(quizId);
+          .getPerformanceItems(quizId);
+      final suggestions = await supabaseDatabaseService.getQuizSuggestions(
+        quizId,
+      );
       emit(
         PracticeSessionLoaded(
           performanceModel: performanceModel,
           suggestions: suggestions,
         ),
       );
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
+    }
+  }
+
+  /// Deleting a quiz session and update the sessions list at [HomeView]
+  Future<void> deleteQuizSession(String quizId) async {
+    emit(PracticeSessionsRefreshing(_sessions));
+    try {
+      final items = await supabaseDatabaseService.deleteQuizSession(
+        quizId,
+        supabaseAuthService.currentUser!.id,
+      );
+      _sessions = items;
+      emit(
+        _sessions.isEmpty
+            ? const PracticeSessionsInitial()
+            : PracticeSessionsFilled(currentSessions: items),
+      );
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
+    }
+  }
+
+  /// Deleting all data related to a quiz session
+  Future<void> deleteQuizSessionRelatedData(String quizId) async {
+    emit(const PracticeSessionsLoading());
+    try {
+      await supabaseDatabaseService.deleteQuizPerformanceItems(quizId);
+      await supabaseDatabaseService.deleteQuizSuggestions(quizId);
+      emit(PracticeSessionDeleted());
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
+    }
+  }
+
+  /// Deleting all quiz sessions for the current user
+  Future<void> deleteAllUserSessions() async {
+    emit(PracticeSessionsRefreshing(_sessions));
+    try {
+      await supabaseDatabaseService.deleteUserSessions(
+        supabaseAuthService.currentUser!.id,
+      );
+      _sessions = [];
+      emit(const PracticeSessionsInitial());
+    } catch (e) {
+      emit(PracticeSessionError(message: e.toString()));
+    }
+  }
+
+  /// Deleting all data related to all quiz sessions for the current user
+  Future<void> deleteAllUserSessionsRelatedData() async {
+    emit(const PracticeSessionsLoading());
+    try {
+      await supabaseDatabaseService.deleteUserPerformanceItems(
+        supabaseAuthService.currentUser!.id,
+      );
+      await supabaseDatabaseService.deleteUserSessions(
+        supabaseAuthService.currentUser!.id,
+      );
+      emit(PracticeSessionDeleted());
     } catch (e) {
       emit(PracticeSessionError(message: e.toString()));
     }

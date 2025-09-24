@@ -3,17 +3,19 @@ class SuggestionModel {
   final String? quizId;
   final String? suggestion;
   final String? id;
+  final String? userId;
 
   const SuggestionModel({
     this.createdAt,
     this.quizId,
     this.suggestion,
     this.id,
+    this.userId,
   });
 
   @override
   String toString() {
-    return 'SuggestionModel(createdAt: $createdAt, quizId: $quizId, suggestion: $suggestion, id: $id)';
+    return 'SuggestionModel(createdAt: $createdAt, quizId: $quizId, suggestion: $suggestion, id: $id, userId: $userId)';
   }
 
   factory SuggestionModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class SuggestionModel {
       quizId: json['quiz_id'] as String?,
       suggestion: json['suggestion'] as String?,
       id: json['id'] as String?,
+      userId: json['user_id'] as String?,
     );
   }
 
@@ -30,6 +33,7 @@ class SuggestionModel {
       'created_at': createdAt?.toIso8601String(),
       'quiz_id': quizId,
       'suggestion': suggestion,
+      'user_id': userId,
     };
     if (id != null) {
       data['id'] = id;
@@ -42,12 +46,14 @@ class SuggestionModel {
     String? quizId,
     String? suggestion,
     String? id,
+    String? userId,
   }) {
     return SuggestionModel(
       createdAt: createdAt ?? this.createdAt,
       quizId: quizId ?? this.quizId,
       suggestion: suggestion ?? this.suggestion,
       id: id ?? this.id,
+      userId: userId ?? this.userId,
     );
   }
 }

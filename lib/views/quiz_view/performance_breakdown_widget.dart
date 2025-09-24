@@ -12,15 +12,15 @@ class PerformanceBreakdownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      PerformanceBreackdownModel(
+      PerformanceBreakdownModel(
         category: 'Technical Knowledge',
         score: feedback.technicalKnowledge,
       ),
-      PerformanceBreackdownModel(
+      PerformanceBreakdownModel(
         category: 'Problem Solving',
         score: feedback.problemSolving,
       ),
-      PerformanceBreackdownModel(
+      PerformanceBreakdownModel(
         category: 'Best Practices',
         score: feedback.bestPractices,
       ),

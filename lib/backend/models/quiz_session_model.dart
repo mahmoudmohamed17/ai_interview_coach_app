@@ -68,11 +68,13 @@ class QuizSessionModel {
       'overview': overview,
       'difficulty': difficulty,
     };
+    
     // Incase we add the quiz session not to store it as a null and causing
     // issues with later operations
     if (id != null) {
       data['id'] = id;
     }
+
     return data;
   }
 

@@ -23,7 +23,7 @@ final class PracticeSessionsFilled extends RecentSessionsState {
 final class PracticeSessionLoading extends RecentSessionsState {}
 
 final class PracticeSessionLoaded extends RecentSessionsState {
-  final List<PerformanceBreackdownModel> performanceModel;
+  final List<PerformanceBreakdownModel> performanceModel;
   final List<SuggestionModel> suggestions;
 
   PracticeSessionLoaded({
@@ -33,6 +33,8 @@ final class PracticeSessionLoaded extends RecentSessionsState {
 }
 
 final class PracticeSessionAdded extends RecentSessionsState {}
+
+final class PracticeSessionDeleted extends RecentSessionsState {}
 
 final class PracticeSessionError extends RecentSessionsState {
   final String message;
