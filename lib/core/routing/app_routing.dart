@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
@@ -91,7 +92,10 @@ class AppRouting {
       GoRoute(
         path: Routes.reviewQuizAnswersView,
         builder: (context, state) {
-          return const ReviewQuizAnswersView();
+          final args = state.extra as List;
+          final questions = args.first as List<QuestionModel>;
+          final answers = args.last as List<AnswerModel>;
+          return ReviewQuizAnswersView(questions: questions, answers: answers);
         },
       ),
     ],

@@ -7,7 +7,14 @@ import 'package:ai_interview_coach_app/views/review_quiz_answers_view/solved_que
 import 'package:flutter/widgets.dart';
 
 class ReviewQuizAnswersViewBody extends StatefulWidget {
-  const ReviewQuizAnswersViewBody({super.key});
+  const ReviewQuizAnswersViewBody({
+    super.key,
+    required this.questions,
+    required this.answers,
+  });
+
+  final List<QuestionModel> questions;
+  final List<AnswerModel> answers;
 
   @override
   State<ReviewQuizAnswersViewBody> createState() =>
@@ -44,7 +51,7 @@ class _ReviewQuizAnswersViewBodyState extends State<ReviewQuizAnswersViewBody> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: QuizProgressIndicatorWidget(
-            questionCount: dummyQuestions.length,
+            questionCount: widget.questions.length,
             currentIndex: _currentIndex,
           ),
         ),
@@ -54,11 +61,11 @@ class _ReviewQuizAnswersViewBodyState extends State<ReviewQuizAnswersViewBody> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: PageView.builder(
               controller: _pageController,
-              itemCount: dummyQuestions.length,
+              itemCount: widget.questions.length,
               itemBuilder: (context, index) => SolvedQuestionWithAnswers(
-                questionModel: dummyQuestions[index],
-                answerModel: dummyAnswers[index],
-                remainingQuestions: dummyQuestions.length - index - 1,
+                questionModel: widget.questions[index],
+                answerModel: widget.answers[index],
+                remainingQuestions: widget.questions.length - index - 1,
               ),
             ),
           ),
@@ -69,7 +76,7 @@ class _ReviewQuizAnswersViewBodyState extends State<ReviewQuizAnswersViewBody> {
           child: QuestionsNavigationButtonsWidget(
             pageController: _pageController,
             currentIndex: _currentIndex,
-            totalQuestions: dummyQuestions.length,
+            totalQuestions: widget.questions.length,
           ),
         ),
         const SizedBox(height: 48),
