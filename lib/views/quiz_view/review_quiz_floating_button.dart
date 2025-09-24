@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/floating_button_dialog_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -58,7 +59,7 @@ class _ReviewQuizFloatingButtonState extends State<ReviewQuizFloatingButton>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _tooltipController.forward();
-        Future.delayed(const Duration(seconds: 3), () {
+        Future.delayed(const Duration(milliseconds: 2500), () {
           if (mounted) {
             _tooltipController.reverse();
           }
@@ -75,8 +76,8 @@ class _ReviewQuizFloatingButtonState extends State<ReviewQuizFloatingButton>
   }
 
   void _updatePosition(Offset delta, BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final padding = MediaQuery.of(context).padding;
+    final size = MediaQuery.sizeOf(context);
+    final padding = MediaQuery.paddingOf(context);
 
     setState(() {
       double newX = position.dx + delta.dx;
@@ -131,27 +132,53 @@ class _ReviewQuizFloatingButtonState extends State<ReviewQuizFloatingButton>
                 ),
                 if (_showTooltip)
                   Positioned(
-                    top: -40,
-                    left: -20,
+                    top: -50,
+                    left: -15,
                     child: FadeTransition(
                       opacity: _tooltipFade,
-                      child: Material(
-                        elevation: 2,
-                        borderRadius: BorderRadius.circular(12),
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.tertiaryContainer,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                              child: Text(
+                                "Review your Answers!",
+                                style: Theme.of(context).textTheme.labelLarge
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                              ),
+                            ),
                           ),
-                          child: Text(
-                            "Review your Answers!",
-                            style: Theme.of(context).textTheme.labelLarge
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 36),
+                            child: ClipPath(
+                              clipper: FloatingButtonDialogClipper(),
+                              child: Container(
+                                height: 12,
+                                width: 12,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.tertiaryContainer,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
