@@ -98,7 +98,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   }
 
   Future<void> addPracticeSessionRelatedData() async {
-    emit(PracticeSessionLoading());
+    emit(PracticeSessionsRefreshing(_sessions));
     try {
       final performanceModels = buildPerformanceModels(
         technicalKnowledge: _currentFeedback!.technicalKnowledge,
@@ -120,6 +120,8 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
       emit(PracticeSessionError(message: e.toString()));
     }
   }
+
+  void createNewInterview() => emit(const PracticeSessionsNavigating());
 
   Future<void> getPracticeSessionData(String quizId) async {
     emit(PracticeSessionLoading());

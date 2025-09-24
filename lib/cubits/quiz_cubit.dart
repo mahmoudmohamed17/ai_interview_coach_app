@@ -61,6 +61,7 @@ class QuizCubit extends Cubit<QuizStates> {
         } else {
           return AnswerModel(
             questionId: question.id,
+            answer: '',
             status: AnswerStatus.skipped,
           );
         }

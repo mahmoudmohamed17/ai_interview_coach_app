@@ -1,3 +1,4 @@
+import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,7 +22,7 @@ class InterviewSteupViewAppBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            onPressed: () => context.pop(),
+            onPressed: () => context.go(Routes.homeView),
             padding: EdgeInsets.zero,
             icon: const Icon(Icons.arrow_back),
           ),

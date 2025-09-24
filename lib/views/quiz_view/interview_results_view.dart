@@ -26,13 +26,18 @@ class InterviewResultsView extends StatelessWidget {
     );
     // Also to check the answers list to try find which question is skipped
     log(
-      'Answers Question IDs: ${quizCubit.getSessionAnswers?.map((e) => e.questionId).toList()}',
+      'Answers Question choice: ${quizCubit.getSessionAnswers?.map((e) => e.answer).toList()}',
     );
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
         if (state is PracticeSessionAdded) {
           context.go(Routes.homeView);
         }
+
+        if (state is PracticeSessionsNavigating) {
+          context.go(Routes.interviewSetupView);
+        }
+
         if (state is PracticeSessionError) {
           showToast(context, title: 'Error saving the session data');
         }

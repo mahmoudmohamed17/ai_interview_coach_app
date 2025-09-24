@@ -23,7 +23,7 @@ class ReviewQuizFloatingButton extends StatefulWidget {
 
 class _ReviewQuizFloatingButtonState extends State<ReviewQuizFloatingButton>
     with TickerProviderStateMixin {
-  Offset position = const Offset(40, 200);
+  Offset position = const Offset(40, 250);
 
   late AnimationController _controller;
   late Animation<Offset> _bounceAnimation;

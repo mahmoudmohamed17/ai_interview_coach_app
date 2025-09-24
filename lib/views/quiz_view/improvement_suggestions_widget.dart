@@ -29,11 +29,13 @@ class ImprovementSuggestionsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           suggestions.isEmpty
-              ? Text(
-                  'You\'re already on Fire!😎',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
+              ? Align(
+                  child: Text(
+                    'You\'re already on Fire!😎',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 )
               : Column(

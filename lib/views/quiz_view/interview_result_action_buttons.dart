@@ -22,6 +22,7 @@ class InterviewResultsActionButtons extends StatelessWidget {
               await recentSessionsCubit.addQuizSession();
               await recentSessionsCubit.addPracticeSessionRelatedData();
               await userStatsCubit.refreshStats();
+              if (context.mounted) {}
             },
             label: 'Back to Home',
             icon: FontAwesomeIcons.house,
@@ -33,7 +34,12 @@ class InterviewResultsActionButtons extends StatelessWidget {
         Expanded(
           child: _buildButton(
             context,
-            onPressed: () {},
+            onPressed: () async {
+              await recentSessionsCubit.addQuizSession();
+              await recentSessionsCubit.addPracticeSessionRelatedData();
+              recentSessionsCubit.createNewInterview();
+              await userStatsCubit.refreshStats();
+            },
             label: 'Start New Interview',
             backgrnColor: Theme.of(context).colorScheme.primary,
             labelColor: Theme.of(context).colorScheme.onPrimary,

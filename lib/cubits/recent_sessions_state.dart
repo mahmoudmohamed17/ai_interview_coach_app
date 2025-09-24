@@ -51,3 +51,7 @@ class PracticeSessionsRefreshing extends RecentSessionsState {
 
   const PracticeSessionsRefreshing(this.currentSessions);
 }
+
+class PracticeSessionsNavigating extends RecentSessionsState {
+  const PracticeSessionsNavigating();
+}
