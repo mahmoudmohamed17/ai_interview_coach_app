@@ -70,7 +70,7 @@ class _ReviewQuizAnswersViewBodyState extends State<ReviewQuizAnswersViewBody> {
             ),
           ),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: QuestionsNavigationButtonsWidget(
@@ -79,7 +79,7 @@ class _ReviewQuizAnswersViewBodyState extends State<ReviewQuizAnswersViewBody> {
             totalQuestions: widget.questions.length,
           ),
         ),
-        const SizedBox(height: 48),
+        const SizedBox(height: 24),
       ],
     );
   }

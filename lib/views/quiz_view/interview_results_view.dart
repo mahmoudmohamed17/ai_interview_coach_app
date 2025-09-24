@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_loading_indicator_dialog.dart';
+import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/interview_results_view_body.dart';
+import 'package:ai_interview_coach_app/views/quiz_view/review_quiz_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +19,15 @@ class InterviewResultsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quizCubit = context.read<QuizCubit>();
+    // To test which question is answered or even skipped
+    log(
+      'Questions IDs: ${quizCubit.getSessionQuestions?.map((e) => e.id).toList()}',
+    );
+    // Also to check the answers list to try find which question is skipped
+    log(
+      'Answers Question IDs: ${quizCubit.getSessionAnswers?.map((e) => e.questionId).toList()}',
+    );
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
         if (state is PracticeSessionAdded) {
@@ -27,9 +40,19 @@ class InterviewResultsView extends StatelessWidget {
       builder: (context, state) {
         return CustomLoadingIndicatorDialog(
           isLoading: state is PracticeSessionsRefreshing,
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            body: SafeArea(child: InterviewResultsViewBody(feedback: feedback)),
+          child: Stack(
+            children: [
+              Scaffold(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                body: SafeArea(
+                  child: InterviewResultsViewBody(feedback: feedback),
+                ),
+              ),
+              ReviewQuizFloatingButton(
+                questions: quizCubit.getSessionQuestions!,
+                answers: quizCubit.getSessionAnswers!,
+              ),
+            ],
           ),
         );
       },

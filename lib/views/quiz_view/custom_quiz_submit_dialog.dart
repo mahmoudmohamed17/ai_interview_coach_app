@@ -1,4 +1,3 @@
-import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_states.dart';
@@ -89,21 +88,15 @@ class CustomQuizSubmitDialog extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () async {
-                          final answers = selectedAnswers.entries
-                              .map(
-                                (item) => AnswerModel(
-                                  questionId: item.key,
-                                  answer: item.value,
-                                ),
-                              )
-                              .toList();
                           // Store some values to help adding a quiz session
                           recentSessionsCubit.answeredQuestions =
                               selectedAnswers.length;
                           recentSessionsCubit.timeSpent = timerCubit
                               .getElapsedTime();
 
-                          await quizCubit.submitAnswers(answers: answers);
+                          await quizCubit.submitAnswers(
+                            answers: selectedAnswers,
+                          );
                         },
                         style: ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(

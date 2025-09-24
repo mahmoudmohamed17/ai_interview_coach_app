@@ -19,7 +19,6 @@ class HomeViewBody extends StatelessWidget {
           child: WelcomeSection(),
         ),
         SizedBox(height: 24),
-        SizedBox(height: 24),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: AdvantagesSection(),
