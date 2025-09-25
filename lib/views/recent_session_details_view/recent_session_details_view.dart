@@ -3,13 +3,11 @@ import 'package:ai_interview_coach_app/views/recent_session_details_view/recent_
 import 'package:flutter/material.dart';
 
 class RecentSessionDetailsView extends StatelessWidget {
-  final QuizSessionModel model;
-
   const RecentSessionDetailsView({super.key, required this.model});
+  final QuizSessionModel model;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: RecentSessionDetailsViewBody(model: model),

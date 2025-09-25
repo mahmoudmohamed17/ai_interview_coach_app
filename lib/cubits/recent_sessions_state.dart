@@ -32,10 +32,6 @@ final class PracticeSessionLoaded extends RecentSessionsState {
   });
 }
 
-final class PracticeSessionAdded extends RecentSessionsState {}
-
-final class PracticeSessionDeleted extends RecentSessionsState {}
-
 final class PracticeSessionError extends RecentSessionsState {
   final String message;
 

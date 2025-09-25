@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:toastification/toastification.dart';
 
 class QuizView extends StatelessWidget {
   const QuizView({super.key, required this.questions});
@@ -31,7 +32,11 @@ class QuizView extends StatelessWidget {
             context.push(Routes.interviewResultsView, extra: state.feedback);
           }
           if (state is QuizFailed) {
-            showToast(context, title: 'Error submitting the answers');
+            showToast(
+              context,
+              title: 'Error submitting the answers',
+              type: ToastificationType.error,
+            );
           }
         },
         builder: (context, state) {

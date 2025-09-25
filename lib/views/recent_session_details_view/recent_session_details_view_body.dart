@@ -4,6 +4,7 @@ import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:ai_interview_coach_app/views/recent_session_details_view/recent_sessions_details_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class RecentSessionDetailsViewBody extends StatelessWidget {
   const RecentSessionDetailsViewBody({super.key, required this.model});
@@ -15,12 +16,12 @@ class RecentSessionDetailsViewBody extends StatelessWidget {
 
     return ListView(
       children: [
-        const RecentSessionsDetailsAppBar(),
+        RecentSessionsDetailsAppBar(quizId: model.id!),
         const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            spacing: 8,
+            spacing: 12,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -37,12 +38,21 @@ class RecentSessionDetailsViewBody extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              Text(
-                "${model.score!.round()}% Score",
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w600,
+              CircularPercentIndicator(
+                radius: 60.0,
+                percent: model.score!.round() / 100,
+                lineWidth: 8,
+                center: Text(
+                  "${model.score!.round()}%",
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
+                circularStrokeCap: CircularStrokeCap.round,
+                progressColor: color,
+                animation: true,
+                animationDuration: 1000,
               ),
               Chip(
                 label: Text(

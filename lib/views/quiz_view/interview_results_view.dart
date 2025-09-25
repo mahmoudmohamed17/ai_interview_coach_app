@@ -12,6 +12,7 @@ import 'package:ai_interview_coach_app/views/quiz_view/review_quiz_floating_butt
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 class InterviewResultsView extends StatelessWidget {
   const InterviewResultsView({super.key, required this.feedback});
@@ -30,7 +31,7 @@ class InterviewResultsView extends StatelessWidget {
     );
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
-        if (state is PracticeSessionAdded) {
+        if (state is PracticeSessionsFilled) {
           context.go(Routes.homeView);
         }
 
@@ -39,7 +40,11 @@ class InterviewResultsView extends StatelessWidget {
         }
 
         if (state is PracticeSessionError) {
-          showToast(context, title: 'Error saving the session data');
+          showToast(
+            context,
+            title: 'Error saving the session data',
+            type: ToastificationType.error,
+          );
         }
       },
       builder: (context, state) {

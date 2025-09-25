@@ -71,8 +71,7 @@ class AppRouting {
       GoRoute(
         path: Routes.recentPracticeSessionsView,
         builder: (context, state) {
-          final sessions = state.extra as List<QuizSessionModel>;
-          return RecentPracticeSessionsView(sessions: sessions);
+          return const RecentPracticeSessionsView();
         },
       ),
       GoRoute(

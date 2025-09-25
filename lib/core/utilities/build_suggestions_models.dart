@@ -11,6 +11,7 @@ List<SuggestionModel> buildSuggestionsModels({
           quizId: quizId,
           suggestion: item,
           createdAt: DateTime.now(),
+          userId: userId,
         ),
       )
       .toList();

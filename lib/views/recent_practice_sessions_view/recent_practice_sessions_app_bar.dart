@@ -1,4 +1,8 @@
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/custom_deletion_confirm_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class RecentPracticeSessionsAppBar extends StatelessWidget {
@@ -6,6 +10,8 @@ class RecentPracticeSessionsAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recentSessionsCubit = context.read<RecentSessionsCubit>();
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -33,6 +39,21 @@ class RecentPracticeSessionsAppBar extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+          const Spacer(),
+          IconButton(
+            onPressed: () => showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => CustomDeletionConfirmDialog(
+                label: 'Are you sure to delete all your sessions?',
+                onDelete: () async {
+                  await recentSessionsCubit.deleteAllUserSessions();
+                },
+              ),
+            ),
+            icon: const Icon(FontAwesomeIcons.solidTrashCan, size: 20),
+          ),
+          const SizedBox(width: 8),
         ],
       ),
     );

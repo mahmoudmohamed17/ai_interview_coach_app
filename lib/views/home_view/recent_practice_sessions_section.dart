@@ -14,16 +14,7 @@ class RecentPracticeSessionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
-      listenWhen: (previous, current) =>
-          current is PracticeSessionAdded ||
-          current is PracticeSessionDeleted ||
-          current is PracticeSessionsNavigating,
-      listener: (context, state) {
-        if (state is PracticeSessionAdded) {}
-        if (state is PracticeSessionDeleted) {}
-        if (state is PracticeSessionsNavigating) {}
-      },
+    return BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
       buildWhen: (previous, current) =>
           current is PracticeSessionsInitial ||
           current is PracticeSessionsFilled ||
@@ -39,10 +30,8 @@ class RecentPracticeSessionsSection extends StatelessWidget {
           return _buildFilledState(context, sessions: state.currentSessions);
         } else if (state is PracticeSessionsError) {
           return _buildErrorState(context);
-        } else if (state is PracticeSessionsLoading) {
-          return _buildLoadingState(context);
         } else {
-          return _buildEmptyState(context);
+          return _buildLoadingState(context);
         }
       },
     );
@@ -75,10 +64,8 @@ class RecentPracticeSessionsSection extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
-                      onTap: () => context.push(
-                        Routes.recentPracticeSessionsView,
-                        extra: sessions,
-                      ),
+                      onTap: () =>
+                          context.push(Routes.recentPracticeSessionsView),
                       customBorder: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       ),

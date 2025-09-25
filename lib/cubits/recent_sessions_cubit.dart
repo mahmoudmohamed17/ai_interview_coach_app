@@ -116,7 +116,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
       );
       await supabaseDatabaseService.addPerformanceItems(performanceModels);
       await supabaseDatabaseService.addQuizSuggestions(suggestions);
-      emit(PracticeSessionAdded());
+      emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
       emit(PracticeSessionError(message: e.toString()));
     }
@@ -146,7 +146,7 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     }
   }
 
-  /// Deleting a quiz session and update the sessions list at [HomeView]
+  /// Deleting a quiz session with it's related data and update the sessions list at [HomeView]
   Future<void> deleteQuizSession(String quizId) async {
     emit(PracticeSessionsRefreshing(_sessions));
     try {
@@ -154,6 +154,8 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         quizId,
         supabaseAuthService.currentUser!.id,
       );
+      await supabaseDatabaseService.deleteQuizPerformanceItems(quizId);
+      await supabaseDatabaseService.deleteQuizSuggestions(quizId);
       _sessions = items;
       emit(
         _sessions.isEmpty
@@ -165,43 +167,21 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
     }
   }
 
-  /// Deleting all data related to a quiz session
-  Future<void> deleteQuizSessionRelatedData(String quizId) async {
-    emit(const PracticeSessionsLoading());
-    try {
-      await supabaseDatabaseService.deleteQuizPerformanceItems(quizId);
-      await supabaseDatabaseService.deleteQuizSuggestions(quizId);
-      emit(PracticeSessionDeleted());
-    } catch (e) {
-      emit(PracticeSessionError(message: e.toString()));
-    }
-  }
-
-  /// Deleting all quiz sessions for the current user
+  /// Deleting all quiz sessions with it's related data for the current user
   Future<void> deleteAllUserSessions() async {
     emit(PracticeSessionsRefreshing(_sessions));
     try {
       await supabaseDatabaseService.deleteUserSessions(
         supabaseAuthService.currentUser!.id,
       );
-      _sessions = [];
-      emit(const PracticeSessionsInitial());
-    } catch (e) {
-      emit(PracticeSessionError(message: e.toString()));
-    }
-  }
-
-  /// Deleting all data related to all quiz sessions for the current user
-  Future<void> deleteAllUserSessionsRelatedData() async {
-    emit(const PracticeSessionsLoading());
-    try {
       await supabaseDatabaseService.deleteUserPerformanceItems(
         supabaseAuthService.currentUser!.id,
       );
       await supabaseDatabaseService.deleteUserSessions(
         supabaseAuthService.currentUser!.id,
       );
-      emit(PracticeSessionDeleted());
+      _sessions = [];
+      emit(const PracticeSessionsInitial());
     } catch (e) {
       emit(PracticeSessionError(message: e.toString()));
     }

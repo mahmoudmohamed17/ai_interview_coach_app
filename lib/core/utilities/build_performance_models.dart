@@ -13,18 +13,21 @@ List<PerformanceBreakdownModel> buildPerformanceModels({
       category: 'Technical Knowledge',
       score: technicalKnowledge,
       createdAt: DateTime.now(),
+      userId: userId,
     ),
     PerformanceBreakdownModel(
       quizId: quizId,
       category: 'Problem Solving',
       score: problemSolving,
       createdAt: DateTime.now(),
+      userId: userId,
     ),
     PerformanceBreakdownModel(
       quizId: quizId,
       category: 'Best Practices',
       score: bestPractices,
       createdAt: DateTime.now(),
+      userId: userId,
     ),
   ];
   return items;
