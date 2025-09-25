@@ -29,5 +29,5 @@ void setupLocator() {
     () => UserStatsCubit(getIt(), getIt()),
   );
   getIt.registerLazySingleton<QuizCubit>(() => QuizCubit(getIt()));
-  getIt.registerLazySingleton<TimerCubit>(() => TimerCubit());
+  getIt.registerFactory<TimerCubit>(() => TimerCubit());
 }

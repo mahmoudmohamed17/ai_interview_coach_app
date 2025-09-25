@@ -7,11 +7,13 @@ int getSessionsCountThisWeek(List<QuizSessionModel> sessions) {
   final now = DateTime.now();
   // Suppose that the week starts on Monday and ends on Sunday
   final beginningOfWeek = now.subtract(Duration(days: now.weekday - 1));
+
   final startOfWeek = DateTime(
     beginningOfWeek.year,
     beginningOfWeek.month,
     beginningOfWeek.day,
   );
+
   final endOfWeek = startOfWeek.add(const Duration(days: 7));
 
   final count = sessions.where((session) {

@@ -64,6 +64,7 @@ class QuizNavigationButtons extends StatelessWidget {
               log('My answers: $selectedAnswers');
               showDialog(
                 context: context,
+                barrierDismissible: false,
                 builder: (context) => CustomQuizSubmitDialog(
                   timerCubit: timerCubit,
                   selectedAnswers: selectedAnswers,

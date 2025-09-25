@@ -14,18 +14,22 @@ class RecentPracticeSessionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
+    return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
+      listenWhen: (previous, current) =>
+          current is PracticeSessionAdded ||
+          current is PracticeSessionDeleted ||
+          current is PracticeSessionsNavigating,
+      listener: (context, state) {
+        if (state is PracticeSessionAdded) {}
+        if (state is PracticeSessionDeleted) {}
+        if (state is PracticeSessionsNavigating) {}
+      },
       buildWhen: (previous, current) =>
-          (previous is PracticeSessionsInitial ||
-              previous is PracticeSessionsFilled ||
-              previous is PracticeSessionsRefreshing ||
-              previous is PracticeSessionsError ||
-              previous is PracticeSessionsLoading) &&
-          (current is PracticeSessionsInitial ||
-              current is PracticeSessionsFilled ||
-              current is PracticeSessionsRefreshing ||
-              current is PracticeSessionsError ||
-              current is PracticeSessionsLoading),
+          current is PracticeSessionsInitial ||
+          current is PracticeSessionsFilled ||
+          current is PracticeSessionsRefreshing ||
+          current is PracticeSessionsError ||
+          current is PracticeSessionsLoading,
       builder: (context, state) {
         if (state is PracticeSessionsInitial) {
           return _buildEmptyState(context);
@@ -35,8 +39,10 @@ class RecentPracticeSessionsSection extends StatelessWidget {
           return _buildFilledState(context, sessions: state.currentSessions);
         } else if (state is PracticeSessionsError) {
           return _buildErrorState(context);
-        } else {
+        } else if (state is PracticeSessionsLoading) {
           return _buildLoadingState(context);
+        } else {
+          return _buildEmptyState(context);
         }
       },
     );

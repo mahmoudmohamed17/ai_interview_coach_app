@@ -80,4 +80,10 @@ class QuizCubit extends Cubit<QuizStates> {
   void clearChat() {
     geminiService.clearChat();
   }
+
+  /// To reset the stored questions and answers when starting a new quiz
+  void resetQuizModels() {
+    _sessionQuestions = null;
+    _sessionAnswers = null;
+  }
 }

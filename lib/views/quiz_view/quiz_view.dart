@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/core/di/setup_locator.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
@@ -23,14 +21,12 @@ class QuizView extends StatelessWidget {
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
 
     return BlocProvider(
-      create: (context) => getIt.get<TimerCubit>(),
+      create: (context) => getIt.get<TimerCubit>()..startTimer(),
       child: BlocConsumer<QuizCubit, QuizStates>(
         listener: (context, state) {
           if (state is QuizSubmitted) {
             // To store the current feedback to add the quiz session
             recentSessionsCubit.currentFeedback = state.feedback;
-
-            log('Quiz feedback: ${state.feedback.toJson()}');
 
             context.push(Routes.interviewResultsView, extra: state.feedback);
           }

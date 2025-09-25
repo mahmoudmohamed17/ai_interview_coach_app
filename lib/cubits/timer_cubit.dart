@@ -3,14 +3,12 @@ import 'package:ai_interview_coach_app/cubits/timer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimerCubit extends Cubit<TimerState> {
-  TimerCubit() : super(TimerState(elapsedTime: '0:00', isRunning: false)) {
-    _startTimer();
-  }
+  TimerCubit() : super(TimerState(elapsedTime: '0:00', isRunning: false));
 
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
 
-  void _startTimer() {
+  void startTimer() {
     if (!state.isRunning) {
       _stopwatch.start();
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -67,6 +65,7 @@ class TimerCubit extends Cubit<TimerState> {
   @override
   Future<void> close() async {
     _stopwatch.stop();
+    _stopwatch.reset();
     _timer?.cancel();
     super.close();
   }

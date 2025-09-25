@@ -22,7 +22,6 @@ class InterviewResultsActionButtons extends StatelessWidget {
               await recentSessionsCubit.addQuizSession();
               await recentSessionsCubit.addQuizSessionRelatedData();
               await userStatsCubit.refreshStats();
-              if (context.mounted) {}
             },
             label: 'Back to Home',
             icon: FontAwesomeIcons.house,
