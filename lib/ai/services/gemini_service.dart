@@ -1,58 +1,61 @@
-import 'dart:developer';
-import 'package:ai_interview_coach_app/ai/config/gemini_service_config.dart';
+import 'package:ai_interview_coach_app/ai/config/ai_service_config.dart';
+import 'package:ai_interview_coach_app/ai/error/failure.dart';
 import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
+import 'package:ai_interview_coach_app/ai/models/content_model/content_model.dart';
+import 'package:ai_interview_coach_app/ai/models/content_model/part.dart';
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/ai/models/question_model.dart';
 import 'package:ai_interview_coach_app/ai/models/quiz_config_model.dart';
 import 'package:ai_interview_coach_app/ai/utilities/clean_bot_response.dart';
+import 'package:ai_interview_coach_app/backend/services/dio_service.dart';
 import 'package:ai_interview_coach_app/core/secret/app_secret.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:dartz/dartz.dart';
 
 class GeminiService {
-  final _client = Gemini.instance;
+  GeminiService(this.dioService);
 
-  List<Content> chat = [];
+  final DioService dioService;
 
-  static void init() => Gemini.init(apiKey: AppSecret.geminiApiKey);
+  List<ContentModel> chat = [];
 
-  Future<List<QuestionModel>> getQuestions({
+  Future<Either<List<QuestionModel>, Failure>> getQuestions({
     required QuizConfigModel quizConfigModel,
   }) async {
     try {
-      if (chat.isEmpty) {
-        final systemPrompt = await GeminiServiceConfig.systemPrompt(
-          topic: quizConfigModel.topic,
-          questionsCount: quizConfigModel.questionsCount,
-          difficultyLevel: quizConfigModel.difficultyLevel,
-        );
-        chat.addAll([
-          Content(parts: [Part.text(systemPrompt)], role: 'user'),
-          Content(
-            parts: [Part.text(GeminiServiceConfig.modelPredefinedAnswer)],
-            role: 'model',
-          ),
-        ]);
-      }
+      final systemPrompt = await AIServiceConfig.systemPrompt(
+        topic: quizConfigModel.topic,
+        questionsCount: quizConfigModel.questionsCount,
+        difficultyLevel: quizConfigModel.difficultyLevel,
+      );
 
-      final botResponse = await _client.chat(chat);
+      chat.add(
+        ContentModel(
+          parts: [Part(text: systemPrompt)],
+          role: 'user',
+        ),
+      );
 
-      if (botResponse?.content != null) {
-        chat.add(botResponse!.content!);
-        final result = cleanBotResponse(botResponse.output!);
-        final questions = (result['questions'] as List)
-            .map((item) => QuestionModel.fromJson(item))
-            .toList();
-        return questions;
-      } else {
-        return [];
-      }
+      final data =
+          (await dioService.post(
+                AppSecret.geminiApiUrl,
+                data: {"contents": chat.toString()},
+                headers: {"X-goog-api-key": AppSecret.geminiApiKey},
+              ))
+              as Map<String, dynamic>;
+
+      final result = extractReponseData(data);
+
+      final questions = (result['questions'] as List)
+          .map((item) => QuestionModel.fromJson(item))
+          .toList();
+
+      return left(questions);
     } catch (e) {
-      log('Error: ${e.toString()}');
-      return [];
+      return right(Failure(message: e.toString()));
     }
   }
 
-  Future<FeedbackModel> submitAnswers({
+  Future<Either<FeedbackModel, Failure>> submitAnswers({
     required List<AnswerModel> answers,
   }) async {
     try {
@@ -61,21 +64,37 @@ class GeminiService {
       };
 
       chat.add(
-        Content(parts: [Part.text(anwersJson.toString())], role: 'user'),
+        ContentModel(
+          parts: [Part(text: anwersJson.toString())],
+          role: 'user',
+        ),
       );
 
-      final botResponse = await _client.chat(chat);
+      final data =
+          (await dioService.post(
+                AppSecret.geminiApiUrl,
+                data: {"contents": chat.toString()},
+                headers: {"X-goog-api-key": AppSecret.geminiApiKey},
+              ))
+              as Map<String, dynamic>;
 
-      if (botResponse?.content != null) {
-        chat.add(botResponse!.content!);
-        return FeedbackModel.fromJson(cleanBotResponse(botResponse.output!));
-      } else {
-        return FeedbackModel.fromJson({});
-      }
+      final result = extractReponseData(data);
+
+      return left(FeedbackModel.fromJson(result));
     } catch (e) {
-      log('Error: ${e.toString()}');
-      return FeedbackModel.fromJson({});
+      return right(Failure(message: e.toString()));
     }
+  }
+
+  Map<String, dynamic> extractReponseData(Map<String, dynamic> data) {
+    final response = data['candidates'][0]['content'] as Map<String, dynamic>;
+
+    final botResponse = ContentModel.fromMap(response);
+
+    chat.add(botResponse);
+
+    final result = cleanBotResponse(botResponse.parts![0].text!);
+    return result;
   }
 
   void clearChat() {

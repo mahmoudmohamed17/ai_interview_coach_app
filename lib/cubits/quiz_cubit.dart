@@ -28,62 +28,65 @@ class QuizCubit extends Cubit<QuizStates> {
     required String difficultyLevel,
   }) async {
     emit(const QuizLoading());
-    try {
-      final model = QuizConfigModel(
-        topic: topic,
-        questionsCount: questionsCount,
-        difficultyLevel: difficultyLevel,
-      );
-      final questions = await geminiService.getQuestions(
-        quizConfigModel: model,
-      );
-      sessionQuestions = questions;
-      emit(QuizLoaded(questions: questions));
-    } catch (e) {
-      emit(QuizFailed(message: e.toString()));
-    }
+
+    final model = QuizConfigModel(
+      topic: topic,
+      questionsCount: questionsCount,
+      difficultyLevel: difficultyLevel,
+    );
+
+    final result = await geminiService.getQuestions(quizConfigModel: model);
+
+    result.fold(
+      (questions) {
+        sessionQuestions = questions;
+        emit(QuizLoaded(questions: questions));
+      },
+      (failure) {
+        emit(QuizFailed(message: failure.message));
+      },
+    );
   }
 
   Future<void> submitAnswers({required Map<int, String> answers}) async {
     emit(const QuizLoading());
-    try {
-      // We make the userAnswers list the same length of the questions to make it easy
-      // when reviewing the questions and not depend on null and index checking
-      final questions = _sessionQuestions;
-      final userAnswers = questions!.map((question) {
-        final answer = answers[question.id];
-        if (answer != null) {
-          return AnswerModel(
-            questionId: question.id,
-            answer: answer,
-            status: AnswerStatus.answered,
-          );
-        } else {
-          return AnswerModel(
-            questionId: question.id,
-            answer: '',
-            status: AnswerStatus.skipped,
-          );
-        }
-      }).toList();
+    
+    // We make the userAnswers list the same length of the questions to make it easy
+    // when reviewing the questions and not depend on null and index checking
+    final questions = _sessionQuestions;
+    final userAnswers = questions!.map((question) {
+      final answer = answers[question.id];
+      if (answer != null) {
+        return AnswerModel(
+          questionId: question.id,
+          answer: answer,
+          status: AnswerStatus.answered,
+        );
+      } else {
+        return AnswerModel(
+          questionId: question.id,
+          answer: '',
+          status: AnswerStatus.skipped,
+        );
+      }
+    }).toList();
 
-      sessionAnswers = userAnswers;
+    sessionAnswers = userAnswers;
 
-      final feedback = await geminiService.submitAnswers(answers: userAnswers);
-      clearChat();
-      emit(QuizSubmitted(feedback: feedback));
-    } catch (e) {
-      emit(QuizFailed(message: e.toString()));
-    }
+    final result = await geminiService.submitAnswers(answers: userAnswers);
+
+    result.fold(
+      (feedback) {
+        clearChat();
+        emit(QuizSubmitted(feedback: feedback));
+      },
+      (failure) {
+        emit(QuizFailed(message: failure.message));
+      },
+    );
   }
 
   void clearChat() {
     geminiService.clearChat();
-  }
-
-  /// To reset the stored questions and answers when starting a new quiz
-  void resetQuizModels() {
-    _sessionQuestions = null;
-    _sessionAnswers = null;
   }
 }

@@ -30,6 +30,7 @@ The questions have to be at {difficultyLevel} level.
       ...
     ]
   }
+  NOTE: Some answers may be empty like this '', so count it as a wrong answer.
 **After my answer you HAVE to provide these statistics for me like this:
   {
     "results": {

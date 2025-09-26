@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart' show rootBundle;
 
-class GeminiServiceConfig {
+class AIServiceConfig {
   static Future<String> systemPrompt({
     required String topic,
     required int questionsCount,
@@ -14,7 +14,4 @@ class GeminiServiceConfig {
         .replaceAll('{questionsCount}', questionsCount.toString())
         .replaceAll('{difficultyLevel}', difficultyLevel);
   }
-
-  static final modelPredefinedAnswer =
-      'I understand. I am ready to conduct your Flutter interview.';
 }

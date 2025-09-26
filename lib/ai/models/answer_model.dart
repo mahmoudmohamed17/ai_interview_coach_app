@@ -1,6 +1,5 @@
 import 'package:ai_interview_coach_app/ai/services/gemini_service.dart';
 
-
 /// This class used to get the current question answer and pass it to the [GeminiService]
 /// We use an enum class to make it easy to specify which question is answered or skipped
 
