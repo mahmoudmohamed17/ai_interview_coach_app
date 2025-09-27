@@ -34,7 +34,7 @@ class QuizView extends StatelessWidget {
           if (state is QuizFailed) {
             showToast(
               context,
-              title: 'Error submitting the answers',
+              title: 'Error submitting the answers, leave and try again later',
               type: ToastificationType.error,
             );
           }

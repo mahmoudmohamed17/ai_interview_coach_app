@@ -43,6 +43,7 @@ class QuizCubit extends Cubit<QuizStates> {
         emit(QuizLoaded(questions: questions));
       },
       (failure) {
+        clearChat();
         emit(QuizFailed(message: failure.message));
       },
     );
@@ -50,7 +51,7 @@ class QuizCubit extends Cubit<QuizStates> {
 
   Future<void> submitAnswers({required Map<int, String> answers}) async {
     emit(const QuizLoading());
-    
+
     // We make the userAnswers list the same length of the questions to make it easy
     // when reviewing the questions and not depend on null and index checking
     final questions = _sessionQuestions;

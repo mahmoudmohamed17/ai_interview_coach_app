@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:ai_interview_coach_app/ai/config/ai_service_config.dart';
 import 'package:ai_interview_coach_app/ai/error/failure.dart';
 import 'package:ai_interview_coach_app/ai/models/answer_model.dart';
@@ -28,17 +29,23 @@ class GeminiService {
         difficultyLevel: quizConfigModel.difficultyLevel,
       );
 
-      chat.add(
+      chat.addAll([
         ContentModel(
           parts: [Part(text: systemPrompt)],
           role: 'user',
         ),
-      );
+        const ContentModel(
+          parts: [Part(text: 'Send')],
+          role: 'user',
+        ),
+      ]);
+
+      log('The chat: ${chat.map((item) => item.toJson()).toList()}');
 
       final data =
           (await dioService.post(
                 AppSecret.geminiApiUrl,
-                data: {"contents": chat.toString()},
+                data: {"contents": chat.map((item) => item.toJson()).toList()},
                 headers: {"X-goog-api-key": AppSecret.geminiApiKey},
               ))
               as Map<String, dynamic>;
@@ -73,7 +80,7 @@ class GeminiService {
       final data =
           (await dioService.post(
                 AppSecret.geminiApiUrl,
-                data: {"contents": chat.toString()},
+                data: {"contents": chat.map((item) => item.toJson()).toList()},
                 headers: {"X-goog-api-key": AppSecret.geminiApiKey},
               ))
               as Map<String, dynamic>;
@@ -89,7 +96,7 @@ class GeminiService {
   Map<String, dynamic> extractReponseData(Map<String, dynamic> data) {
     final response = data['candidates'][0]['content'] as Map<String, dynamic>;
 
-    final botResponse = ContentModel.fromMap(response);
+    final botResponse = ContentModel.fromJson(response);
 
     chat.add(botResponse);
 
