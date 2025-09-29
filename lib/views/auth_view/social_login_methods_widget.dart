@@ -1,5 +1,6 @@
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/views/auth_view/social_auth_button.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 class SocailLoginMethodsWidget extends StatelessWidget {
@@ -7,39 +8,41 @@ class SocailLoginMethodsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 16,
-      children: [
-        SizedBox(
-          width: double.infinity,
-          child: SocialAuthButton(
-            onPressed: () {},
-            text: 'Continue with Google',
-            imgIcon: AppAssets.iconsGoogle,
-            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+    return FadeInUp(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 16,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: SocialAuthButton(
+              onPressed: () {},
+              text: 'Continue with Google',
+              imgIcon: AppAssets.iconsGoogle,
+              textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              backgrnColor: Theme.of(context).colorScheme.surface,
+              borderColor: Theme.of(context).colorScheme.outline,
+              borderRadius: 12,
             ),
-            backgrnColor: Theme.of(context).colorScheme.surface,
-            borderColor: Theme.of(context).colorScheme.outline,
-            borderRadius: 12,
           ),
-        ),
-        SizedBox(
-          width: double.infinity,
-          child: SocialAuthButton(
-            onPressed: () {},
-            text: 'Continue with Facebook',
-            imgIcon: AppAssets.iconsFacebook,
-            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+          SizedBox(
+            width: double.infinity,
+            child: SocialAuthButton(
+              onPressed: () {},
+              text: 'Continue with Facebook',
+              imgIcon: AppAssets.iconsFacebook,
+              textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              backgrnColor: Theme.of(context).colorScheme.surface,
+              borderColor: Theme.of(context).colorScheme.outline,
+              borderRadius: 12,
             ),
-            backgrnColor: Theme.of(context).colorScheme.surface,
-            borderColor: Theme.of(context).colorScheme.outline,
-            borderRadius: 12,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

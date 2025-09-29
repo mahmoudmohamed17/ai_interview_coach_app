@@ -1,9 +1,12 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
+import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/expanded_practice_session_item.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/recent_practice_sessions_app_bar.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -69,11 +72,13 @@ class RecentPracticeSessionsView extends StatelessWidget {
   }
 
   Widget _buildFilledState(List<QuizSessionModel> sessions) {
-    return Column(
-      spacing: 16,
-      children: sessions
-          .map((model) => ExpandedPracticeSessionItem(model: model))
-          .toList(),
+    return FadeInLeft(
+      child: Column(
+        spacing: 16,
+        children: sessions
+            .map((model) => ExpandedPracticeSessionItem(model: model))
+            .toList(),
+      ),
     );
   }
 
@@ -92,17 +97,22 @@ class RecentPracticeSessionsView extends StatelessWidget {
   }
 
   Widget _buildEmptyState(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 64),
-        Text(
-          'You don\'t have any recent practices yet',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
+    return FadeIn(
+      duration: const Duration(milliseconds: 800),
+      child: Column(
+        children: [
+          const SizedBox(height: 72),
+          Image.asset(AppAssets.imagesSadBot, height: context.height * 0.20),
+          const SizedBox(height: 24),
+          Text(
+            'You don\'t have any recent practices yet!',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

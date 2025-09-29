@@ -7,6 +7,7 @@ import 'package:ai_interview_coach_app/views/auth_view/or_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_with_label.dart';
 import 'package:ai_interview_coach_app/views/auth_view/social_login_methods_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/text_form_field_with_label.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -48,34 +49,42 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Sign in to your account',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w500,
+          FadeInLeft(
+            child: Text(
+              'Sign in to your account',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Enter your email and password to log in',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-              fontWeight: FontWeight.w400,
+          FadeInLeft(
+            child: Text(
+              'Enter your email and password to log in',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
           const SizedBox(height: 24),
-          TextFormFieldWithLabel(
-            controller: _emailController,
-            label: 'Email',
-            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
+          FadeInRight(
+            child: TextFormFieldWithLabel(
+              controller: _emailController,
+              label: 'Email',
+              labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              hintText: 'Type your email',
             ),
-            hintText: 'Type your email',
           ),
           const SizedBox(height: 16),
-          PasswordTextFormFieldWithLabel(
-            label: 'Password',
-            controller: _passwordController,
+          FadeInRight(
+            child: PasswordTextFormFieldWithLabel(
+              label: 'Password',
+              controller: _passwordController,
+            ),
           ),
           const SizedBox(height: 16),
           const Align(
@@ -83,49 +92,55 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             child: ForgotPasswordButton(),
           ),
           const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: CustomButton(
-              /// Change this later
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  await cubit.logIn(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  );
-                  setState(() {
-                    _autovalidateMode = AutovalidateMode.disabled;
-                  });
-                } else {
-                  setState(() {
-                    _autovalidateMode = AutovalidateMode.always;
-                  });
-                }
-              },
-              backgrnColor: Theme.of(context).colorScheme.primary,
-              borderRadius: 12,
-              child: BlocBuilder<AuthCubit, AuthState>(
-                builder: (context, state) {
-                  if (state is AuthLoading) {
-                    return SpinKitThreeBounce(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      size: 20,
-                      duration: const Duration(milliseconds: 500),
+          FadeIn(
+            duration: const Duration(milliseconds: 800),
+            child: SizedBox(
+              width: double.infinity,
+              child: CustomButton(
+                /// Change this later
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    await cubit.logIn(
+                      email: _emailController.text,
+                      password: _passwordController.text,
                     );
+                    setState(() {
+                      _autovalidateMode = AutovalidateMode.disabled;
+                    });
                   } else {
-                    return Text(
-                      'Log In',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    );
+                    setState(() {
+                      _autovalidateMode = AutovalidateMode.always;
+                    });
                   }
                 },
+                backgrnColor: Theme.of(context).colorScheme.primary,
+                borderRadius: 12,
+                child: BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return SpinKitThreeBounce(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        size: 20,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    } else {
+                      return Text(
+                        'Log In',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ),
           const SizedBox(height: 24),
-          const OrWidget(),
+          FadeIn(
+            duration: const Duration(milliseconds: 800),
+            child: const OrWidget(),
+          ),
           const SizedBox(height: 24),
           const SocailLoginMethodsWidget(),
           const SizedBox(height: 64),

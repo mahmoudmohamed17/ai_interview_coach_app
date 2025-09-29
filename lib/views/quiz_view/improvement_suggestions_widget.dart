@@ -43,6 +43,7 @@ class ImprovementSuggestionsWidget extends StatelessWidget {
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     spacing: 12,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: suggestions
                         .map((item) => _buildItem(context, label: item))
                         .toList(),

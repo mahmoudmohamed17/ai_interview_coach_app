@@ -38,45 +38,55 @@ class CustomLogoutDialog extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  spacing: 16,
                   children: [
-                    TextButton(
-                      onPressed: () async {
-                        await cubit.logOut();
-                      },
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                          AppColors.redBtnColor,
-                        ),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () async {
+                          await cubit.logOut();
+                        },
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            AppColors.redBtnColor,
+                          ),
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      child: Text(
-                        'Log out',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                        child: Text(
+                          'Log out',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () => context.pop(),
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                          AppColors.greenIconColor,
-                        ),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => context.pop(),
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            Theme.of(context).colorScheme.primary,
+                          ),
+                          shape: const WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      child: Text(
-                        'Cancel',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                        child: Text(
+                          'Cancel',
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                        ),
                       ),
                     ),
                   ],

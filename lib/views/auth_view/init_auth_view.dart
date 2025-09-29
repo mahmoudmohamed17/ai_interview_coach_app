@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,42 +20,54 @@ class InitAuthView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(AppAssets.imagesLogo, height: context.width * 0.50),
+              FadeIn(
+                duration: const Duration(milliseconds: 800),
+                child: Image.asset(
+                  AppAssets.imagesLogo,
+                  height: context.width * 0.50,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text(
-                'Welcome to NovaPrep',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onSurface,
+              FadeInLeft(
+                child: Text(
+                  'Welcome to NovaPrep',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ),
               const SizedBox(height: 48),
-              SizedBox(
-                width: double.infinity,
-                child: CustomButton(
-                  onPressed: () => context.push(Routes.loginView),
-                  backgrnColor: Theme.of(context).colorScheme.primary,
-                  child: Text(
-                    'Log in',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
+              FadeInRight(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                    onPressed: () => context.push(Routes.loginView),
+                    backgrnColor: Theme.of(context).colorScheme.primary,
+                    child: Text(
+                      'Log in',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: CustomButton(
-                  onPressed: () => context.push(Routes.signupView),
-                  borderColor: Theme.of(context).colorScheme.primary,
-                  child: Text(
-                    'Sign up',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onPrimaryFixedVariant,
+              FadeInRight(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                    onPressed: () => context.push(Routes.signupView),
+                    borderColor: Theme.of(context).colorScheme.primary,
+                    child: Text(
+                      'Sign up',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimaryFixedVariant,
+                      ),
                     ),
                   ),
                 ),

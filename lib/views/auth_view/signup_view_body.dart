@@ -10,6 +10,7 @@ import 'package:ai_interview_coach_app/views/auth_view/password_text_form_field_
 import 'package:ai_interview_coach_app/views/auth_view/phone_number_widget.dart';
 import 'package:ai_interview_coach_app/views/auth_view/signup_view_body_label.dart';
 import 'package:ai_interview_coach_app/views/auth_view/text_form_field_with_label.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -48,7 +49,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AuthCubit>();
+    final authCubit = context.read<AuthCubit>();
+
     return Form(
       key: _formKey,
       autovalidateMode: _autovalidateMode,
@@ -77,7 +79,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             controller: _confirmPasswordController,
           ),
           const SizedBox(height: 24),
-          _buildRegisterButton(context, cubit),
+          _buildRegisterButton(context, authCubit),
           const SizedBox(height: 32),
           const AlreadyHaveAnAccountWidget(),
         ],
@@ -86,72 +88,83 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   }
 
   Widget _buildProfilePicturePicker() {
-    return Align(
-      child: ImagePickingWidget(
-        onTap: (value) => setState(() => _profilePicture = value),
+    return FadeIn(
+      duration: const Duration(milliseconds: 800),
+      child: Align(
+        child: ImagePickingWidget(
+          onTap: (value) => setState(() => _profilePicture = value),
+        ),
       ),
     );
   }
 
   Widget _buildFullNameField(BuildContext context) {
-    return TextFormFieldWithLabel(
-      controller: _fullNameController,
-      label: 'Full name',
-      labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-        color: Theme.of(context).colorScheme.secondary,
+    return FadeInLeft(
+      child: TextFormFieldWithLabel(
+        controller: _fullNameController,
+        label: 'Full name',
+        labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        hintText: 'Type your full name',
       ),
-      hintText: 'Type your full name',
     );
   }
 
   Widget _buildEmailField(BuildContext context) {
-    return TextFormFieldWithLabel(
-      controller: _emailController,
-      label: 'Email',
-      labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-        color: Theme.of(context).colorScheme.secondary,
+    return FadeInRight(
+      child: TextFormFieldWithLabel(
+        controller: _emailController,
+        label: 'Email',
+        labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        hintText: 'Type your email',
       ),
-      hintText: 'Type your email',
     );
   }
 
   Widget _buildPhoneNumberField() {
-    return PhoneNumberWidget(
-      onCompleted: (code, phoneNumber) {
-        setState(() {
-          _countryCode = code;
-          _phoneNumber = phoneNumber;
-        });
-      },
+    return FadeInLeft(
+      child: PhoneNumberWidget(
+        onCompleted: (code, phoneNumber) {
+          setState(() {
+            _countryCode = code;
+            _phoneNumber = phoneNumber;
+          });
+        },
+      ),
     );
   }
 
   Widget _buildRegisterButton(BuildContext context, AuthCubit cubit) {
-    return SizedBox(
-      width: double.infinity,
-      child: CustomButton(
-        onPressed: () async {
-          await _handleSignup(context, cubit);
-        },
-        backgrnColor: Theme.of(context).colorScheme.primary,
-        borderRadius: 12,
-        child: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            if (state is AuthLoading) {
-              return SpinKitThreeBounce(
-                color: Theme.of(context).colorScheme.onPrimary,
-                size: 20,
-                duration: const Duration(milliseconds: 500),
-              );
-            } else {
-              return Text(
-                'Register',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-              );
-            }
+    return FadeInUp(
+      child: SizedBox(
+        width: double.infinity,
+        child: CustomButton(
+          onPressed: () async {
+            await _handleSignup(context, cubit);
           },
+          backgrnColor: Theme.of(context).colorScheme.primary,
+          borderRadius: 12,
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return SpinKitThreeBounce(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 20,
+                  duration: const Duration(milliseconds: 500),
+                );
+              } else {
+                return Text(
+                  'Register',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

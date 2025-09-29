@@ -1,5 +1,7 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
+import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
+import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_item.dart';
@@ -16,6 +18,7 @@ class RecentPracticeSessionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeIn(
+      duration: const Duration(milliseconds: 800),
       child: BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
         buildWhen: (previous, current) =>
             current is PracticeSessionsInitial ||
@@ -155,8 +158,9 @@ class RecentPracticeSessionsSection extends StatelessWidget {
             ),
           ],
         ),
+        Image.asset(AppAssets.imagesSadBot, height: context.height * 0.12),
         Text(
-          'You don\'t have any recent practices yet',
+          'You don\'t have any recent practices yet!',
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
           ),

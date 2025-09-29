@@ -12,7 +12,7 @@ class StatisticsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInDown(
+    return FadeInUp(
       child: BlocBuilder<UserStatsCubit, UserStatsState>(
         builder: (context, state) {
           if (state is UserStatsFilled) {
