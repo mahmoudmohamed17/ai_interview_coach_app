@@ -1,6 +1,8 @@
+import 'package:ai_interview_coach_app/core/constants/app_constants.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/handle_user_profile_picture.dart';
+import 'package:ai_interview_coach_app/core/utilities/shared_prefs.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
@@ -20,8 +22,10 @@ class ProfileView extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoggedOut) {
-          context.go('/');
           showToast(context, title: 'Logged out successfully!');
+          context.go('/');
+          // To indicate that there's no user is authenticated for this device
+          SharedPrefs.setBool(isUserAuthenticated, false);
         }
 
         if (state is AuthError) {

@@ -12,10 +12,10 @@ The questions have to be at {difficultyLevel} level.
           "A. Bla Bla Bla",
           "B. Bla Bla Bla",
           "C. Bla Bla Bla",
-          "D. Bla Bla Bla",
+          "D. Bla Bla Bla"
         ],
         "correct_choice": "C",
-        "explanation": "Correct answer is 'C'; because...",
+        "explanation": "Correct answer is 'C'; because..."
       },
       ...
     ]
@@ -25,7 +25,7 @@ The questions have to be at {difficultyLevel} level.
     "answers": [
       {
         "question_id": 1,
-        "answer": "A",
+        "answer": "A"
       },
       ...
     ]
@@ -37,16 +37,16 @@ The questions have to be at {difficultyLevel} level.
       "score": 89.0,
       "overview": "Excellent! Outstanding performance.",
       "correct_answers": 5,
-      "wrong_answers": 3,
+      "wrong_answers": 3
     },
     "performance_breakdown": {
       "technical_knowledge": 86,
       "problem_solving": 78,
-      "best_practices": 82,
+      "best_practices": 82
     },
     "suggestions_for_improvement": [
       "Bla Bla Bla",
-      "Bla Bla Bla",
+      "Bla Bla Bla"
     ]
   }
 **No extra text. No explanation. No hints. Just respond with JSON formats I provide.

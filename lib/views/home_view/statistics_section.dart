@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/backend/models/statistics_item_model.dart
 import 'package:ai_interview_coach_app/core/utilities/build_statistics_items_list.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_state.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,20 +12,22 @@ class StatisticsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserStatsCubit, UserStatsState>(
-      builder: (context, state) {
-        if (state is UserStatsFilled) {
-          final items = buildStatisticsItemsList(state.statsModel);
-          return _buildFilledState(context, items: items);
-        } else if (state is UserStatsRefershing) {
-          final items = buildStatisticsItemsList(state.statsModel);
-          return _buildFilledState(context, items: items);
-        } else if (state is UserStatsError) {
-          return _buildErrorState(context);
-        } else {
-          return _buildLoadingState(context);
-        }
-      },
+    return FadeInDown(
+      child: BlocBuilder<UserStatsCubit, UserStatsState>(
+        builder: (context, state) {
+          if (state is UserStatsFilled) {
+            final items = buildStatisticsItemsList(state.statsModel);
+            return _buildFilledState(context, items: items);
+          } else if (state is UserStatsRefershing) {
+            final items = buildStatisticsItemsList(state.statsModel);
+            return _buildFilledState(context, items: items);
+          } else if (state is UserStatsError) {
+            return _buildErrorState(context);
+          } else {
+            return _buildLoadingState(context);
+          }
+        },
+      ),
     );
   }
 

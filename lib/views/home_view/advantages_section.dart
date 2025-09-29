@@ -1,6 +1,7 @@
 import 'package:ai_interview_coach_app/backend/models/advantage_item_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/views/home_view/advantage_item.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -33,10 +34,12 @@ class AdvantagesSection extends StatelessWidget {
       ),
     ];
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 16,
-      children: items.map((item) => AdvantageItem(model: item)).toList(),
+    return FadeInLeft(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 16,
+        children: items.map((item) => AdvantageItem(model: item)).toList(),
+      ),
     );
   }
 }

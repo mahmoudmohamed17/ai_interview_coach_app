@@ -4,6 +4,8 @@ import 'package:ai_interview_coach_app/core/utilities/shared_prefs.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/auth_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/auth_state.dart';
+import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:ai_interview_coach_app/views/auth_view/login_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +17,15 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recentSessionsCubit = context.read<RecentSessionsCubit>();
+    final userStatsCubit = context.read<UserStatsCubit>();
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoggedIn) {
+          // To fetch the user current sessions & stats after logging in
+          recentSessionsCubit.fetchSessions();
+          userStatsCubit.fetchStats();
           showToast(
             context,
             title: 'Logged in successfully!',
@@ -26,6 +34,7 @@ class LoginView extends StatelessWidget {
           SharedPrefs.setBool(isUserAuthenticated, true);
           context.go(Routes.homeView);
         }
+
         if (state is AuthError) {
           showToast(
             context,

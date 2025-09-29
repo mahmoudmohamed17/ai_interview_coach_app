@@ -4,6 +4,7 @@ import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_item.dart';
 import 'package:ai_interview_coach_app/views/home_view/recent_practice_sessions_header.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,26 +15,28 @@ class RecentPracticeSessionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
-      buildWhen: (previous, current) =>
-          current is PracticeSessionsInitial ||
-          current is PracticeSessionsFilled ||
-          current is PracticeSessionsRefreshing ||
-          current is PracticeSessionsError ||
-          current is PracticeSessionsLoading,
-      builder: (context, state) {
-        if (state is PracticeSessionsInitial) {
-          return _buildEmptyState(context);
-        } else if (state is PracticeSessionsFilled) {
-          return _buildFilledState(context, sessions: state.currentSessions);
-        } else if (state is PracticeSessionsRefreshing) {
-          return _buildFilledState(context, sessions: state.currentSessions);
-        } else if (state is PracticeSessionsError) {
-          return _buildErrorState(context);
-        } else {
-          return _buildLoadingState(context);
-        }
-      },
+    return FadeIn(
+      child: BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
+        buildWhen: (previous, current) =>
+            current is PracticeSessionsInitial ||
+            current is PracticeSessionsFilled ||
+            current is PracticeSessionsRefreshing ||
+            current is PracticeSessionsError ||
+            current is PracticeSessionsLoading,
+        builder: (context, state) {
+          if (state is PracticeSessionsInitial) {
+            return _buildEmptyState(context);
+          } else if (state is PracticeSessionsFilled) {
+            return _buildFilledState(context, sessions: state.currentSessions);
+          } else if (state is PracticeSessionsRefreshing) {
+            return _buildFilledState(context, sessions: state.currentSessions);
+          } else if (state is PracticeSessionsError) {
+            return _buildErrorState(context);
+          } else {
+            return _buildLoadingState(context);
+          }
+        },
+      ),
     );
   }
 
