@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ai_interview_coach_app/backend/models/interview_difficulty_level_model.dart';
 import 'package:ai_interview_coach_app/backend/models/interview_topic_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
@@ -8,6 +6,7 @@ import 'package:ai_interview_coach_app/core/widgets/custom_button.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/quiz_states.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,62 +26,60 @@ class InterviewSummaryWidget extends StatelessWidget {
     final quizCubit = context.read<QuizCubit>();
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 18,
-        children: [
-          _buildHeader(context),
-          _buildTopic(context),
-          _buildQuestionsNoAndDifficultyLevel(context),
-          SizedBox(
-            width: context.width,
-            child: CustomButton(
-              onPressed: () async {
-                // To used it when adding the recent section
-                recentSessionsCubit.currentTopic = topicModel;
-                recentSessionsCubit.currentLevel = levelModel;
+    return FadeInUp(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 18,
+          children: [
+            _buildHeader(context),
+            _buildTopic(context),
+            _buildQuestionsNoAndDifficultyLevel(context),
+            SizedBox(
+              width: context.width,
+              child: CustomButton(
+                onPressed: () async {
+                  // Saving current topic and level for a further procedures
+                  recentSessionsCubit.currentTopic = topicModel;
+                  recentSessionsCubit.currentLevel = levelModel;
 
-                log(
-                  'Current topic: ${recentSessionsCubit.getCurrentTopic?.topic}\n Curren level: ${recentSessionsCubit.gerCurrentLevel?.level}',
-                );
-
-                await quizCubit.fetchQuestions(
-                  topic: topicModel.topic,
-                  questionsCount: levelModel.questionsNumber,
-                  difficultyLevel: levelModel.level,
-                );
-              },
-              backgrnColor: Theme.of(context).colorScheme.primary,
-              borderRadius: 12,
-              child: BlocBuilder<QuizCubit, QuizStates>(
-                builder: (context, state) {
-                  if (state is QuizLoading) {
-                    return SpinKitThreeBounce(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      size: 20,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  } else {
-                    return Text(
-                      'Start Interview',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    );
-                  }
+                  await quizCubit.fetchQuestions(
+                    topic: topicModel.topic,
+                    questionsCount: levelModel.questionsNumber,
+                    difficultyLevel: levelModel.level,
+                  );
                 },
+                backgrnColor: Theme.of(context).colorScheme.primary,
+                borderRadius: 12,
+                child: BlocBuilder<QuizCubit, QuizStates>(
+                  builder: (context, state) {
+                    if (state is QuizLoading) {
+                      return SpinKitThreeBounce(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        size: 20,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    } else {
+                      return Text(
+                        'Start Interview',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

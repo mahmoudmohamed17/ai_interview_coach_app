@@ -10,6 +10,7 @@ import 'package:ai_interview_coach_app/cubits/auth_state.dart';
 import 'package:ai_interview_coach_app/views/profile_view/custom_logout_dialog.dart';
 import 'package:ai_interview_coach_app/views/profile_view/profile_view_app_bar.dart';
 import 'package:ai_interview_coach_app/views/profile_view/user_personal_info_widget.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -42,32 +43,39 @@ class ProfileView extends StatelessWidget {
               children: [
                 ProfileViewAppBar(userModel: cubit.userModel!),
                 const SizedBox(height: 16),
-                CircleAvatar(
-                  radius: 72,
-                  backgroundImage: handleUserProfilePicture(
-                    cubit.userModel!.profilePicture,
+                FadeIn(
+                  duration: const Duration(milliseconds: 800),
+                  child: CircleAvatar(
+                    radius: 72,
+                    backgroundImage: handleUserProfilePicture(
+                      cubit.userModel!.profilePicture,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
                 UserPersonalInfoWidget(authCubit: cubit),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: SizedBox(
-                    width: context.width,
-                    child: CustomButton(
-                      onPressed: () => showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => const CustomLogoutDialog(),
-                      ),
-                      borderRadius: 12,
-                      backgrnColor: AppColors.redBtnColor,
-                      child: Text(
-                        'Log out',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                FadeIn(
+                  duration: const Duration(milliseconds: 800),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: SizedBox(
+                      width: context.width,
+                      child: CustomButton(
+                        onPressed: () => showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => const CustomLogoutDialog(),
+                        ),
+                        borderRadius: 12,
+                        backgrnColor: AppColors.redBtnColor,
+                        child: Text(
+                          'Log out',
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                       ),
                     ),

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,44 +9,46 @@ class ImprovementSuggestionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
-      ),
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12,
-        children: [
-          Text(
-            'Suggestions for Improvement',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+    return FadeInUp(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
+        ),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            Text(
+              'Suggestions for Improvement',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          suggestions.isEmpty
-              ? Align(
-                  child: Text(
-                    'You\'re already on Fire!😎',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
+            const SizedBox(height: 4),
+            suggestions.isEmpty
+                ? Align(
+                    child: Text(
+                      'You\'re already on Fire!😎',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 12,
+                    children: suggestions
+                        .map((item) => _buildItem(context, label: item))
+                        .toList(),
                   ),
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 12,
-                  children: suggestions
-                      .map((item) => _buildItem(context, label: item))
-                      .toList(),
-                ),
-        ],
+          ],
+        ),
       ),
     );
   }

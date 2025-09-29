@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/backend/models/performance_breackdown_model.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 class PerformanceBreakdownWidget extends StatelessWidget {
@@ -26,35 +27,37 @@ class PerformanceBreakdownWidget extends StatelessWidget {
       ),
     ];
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
-      ),
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12,
-        children: [
-          Text(
-            'Performance Breakdown',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
+    return FadeInLeft(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
+        ),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            Text(
+              'Performance Breakdown',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          const SizedBox(height: 2),
-          ...items.map(
-            (item) => _buildPerformanceItem(
-              context,
-              category: item.category!,
-              score: item.score!,
+            const SizedBox(height: 2),
+            ...items.map(
+              (item) => _buildPerformanceItem(
+                context,
+                category: item.category!,
+                score: item.score!,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

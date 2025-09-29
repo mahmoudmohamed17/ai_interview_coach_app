@@ -1,5 +1,6 @@
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,39 +13,42 @@ class InterviewResultsActionButtons extends StatelessWidget {
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
     final userStatsCubit = context.read<UserStatsCubit>();
 
-    return Row(
-      spacing: 24,
-      children: [
-        Expanded(
-          child: _buildButton(
-            context,
-            onPressed: () async {
-              await recentSessionsCubit.addQuizSession();
-              await recentSessionsCubit.addQuizSessionRelatedData();
-              await userStatsCubit.refreshStats();
-            },
-            label: 'Back to Home',
-            icon: FontAwesomeIcons.house,
-            backgrnColor: Theme.of(context).colorScheme.surface,
-            labelColor: Theme.of(context).colorScheme.onSurface,
-            borderColor: Theme.of(context).colorScheme.outline,
+    return FadeIn(
+      duration: const Duration(milliseconds: 800),
+      child: Row(
+        spacing: 24,
+        children: [
+          Expanded(
+            child: _buildButton(
+              context,
+              onPressed: () async {
+                await recentSessionsCubit.addQuizSession();
+                await recentSessionsCubit.addQuizSessionRelatedData();
+                await userStatsCubit.refreshStats();
+              },
+              label: 'Back to Home',
+              icon: FontAwesomeIcons.house,
+              backgrnColor: Theme.of(context).colorScheme.surface,
+              labelColor: Theme.of(context).colorScheme.onSurface,
+              borderColor: Theme.of(context).colorScheme.outline,
+            ),
           ),
-        ),
-        Expanded(
-          child: _buildButton(
-            context,
-            onPressed: () async {
-              await recentSessionsCubit.addQuizSession();
-              await recentSessionsCubit.addQuizSessionRelatedData();
-              recentSessionsCubit.createNewInterview();
-              await userStatsCubit.refreshStats();
-            },
-            label: 'Start New Interview',
-            backgrnColor: Theme.of(context).colorScheme.primary,
-            labelColor: Theme.of(context).colorScheme.onPrimary,
+          Expanded(
+            child: _buildButton(
+              context,
+              onPressed: () async {
+                await recentSessionsCubit.addQuizSession();
+                await recentSessionsCubit.addQuizSessionRelatedData();
+                recentSessionsCubit.createNewInterview();
+                await userStatsCubit.refreshStats();
+              },
+              label: 'Start New Interview',
+              backgrnColor: Theme.of(context).colorScheme.primary,
+              labelColor: Theme.of(context).colorScheme.onPrimary,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

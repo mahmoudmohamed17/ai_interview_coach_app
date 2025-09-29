@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ai_interview_coach_app/core/utilities/handle_user_profile_picture.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,36 +39,39 @@ class _EditableUserProfilePictureState
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        CircleAvatar(
-          radius: 75,
-          backgroundImage: _imageFile == null
-              ? handleUserProfilePicture(widget.userPicture)
-              : FileImage(_imageFile!),
-          backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: _pickImage,
-              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+    return FadeIn(
+      duration: const Duration(milliseconds: 800),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          CircleAvatar(
+            radius: 75,
+            backgroundImage: _imageFile == null
+                ? handleUserProfilePicture(widget.userPicture)
+                : FileImage(_imageFile!),
+            backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+          ),
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: _pickImage,
+                overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(FontAwesomeIcons.pen, size: 16),
                 ),
-                padding: const EdgeInsets.all(10),
-                child: const Icon(FontAwesomeIcons.pen, size: 16),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

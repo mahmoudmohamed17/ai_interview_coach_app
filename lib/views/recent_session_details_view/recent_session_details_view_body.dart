@@ -2,6 +2,7 @@ import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
 import 'package:ai_interview_coach_app/core/utilities/generate_color.dart';
 import 'package:ai_interview_coach_app/views/recent_session_details_view/recent_sessions_details_app_bar.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -21,27 +22,31 @@ class RecentSessionDetailsViewBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            spacing: 12,
+            spacing: 16,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                model.topic ?? "Unknown Topic",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.w400,
+              FadeInLeft(
+                child: Text(
+                  model.topic ?? "Unknown Topic",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-              Text(
-                DateFormat("EEEE, d MMM y • h:mm a").format(model.createdAt!),
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
+              FadeInRight(
+                child: Text(
+                  DateFormat("EEEE, d MMM y • h:mm a").format(model.createdAt!),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ),
               CircularPercentIndicator(
                 radius: 60.0,
                 percent: model.score!.round() / 100,
-                lineWidth: 8,
+                lineWidth: 6,
                 center: Text(
                   "${model.score!.round()}%",
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -70,43 +75,42 @@ class RecentSessionDetailsViewBody extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 16),
-
         // Stats Grid
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-
-          children: [
-            _statCard(
-              context,
-              label: "Total Questions",
-              value: "${model.totalQuestions}",
-              color: AppColors.greenIconColor,
-            ),
-            _statCard(
-              context,
-              label: "Correct",
-              value: "${model.correctAnswers}",
-              color: AppColors.purpleTextColor,
-            ),
-            _statCard(
-              context,
-              label: "Wrong",
-              value: "${model.wrongAnswers}",
-              color: AppColors.blueIconColor,
-            ),
-            _statCard(
-              context,
-              label: "Duration",
-              value: "${model.timeSpent}",
-              color: AppColors.orangeIconColor,
-            ),
-          ],
+        FadeInUp(
+          child: GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(48),
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            children: [
+              _statCard(
+                context,
+                label: "Total Questions",
+                value: "${model.totalQuestions}",
+                color: AppColors.greenIconColor,
+              ),
+              _statCard(
+                context,
+                label: "Correct",
+                value: "${model.correctAnswers}",
+                color: AppColors.purpleTextColor,
+              ),
+              _statCard(
+                context,
+                label: "Wrong",
+                value: "${model.wrongAnswers}",
+                color: AppColors.blueIconColor,
+              ),
+              _statCard(
+                context,
+                label: "Duration",
+                value: "${model.timeSpent}",
+                color: AppColors.orangeIconColor,
+              ),
+            ],
+          ),
         ),
       ],
     );

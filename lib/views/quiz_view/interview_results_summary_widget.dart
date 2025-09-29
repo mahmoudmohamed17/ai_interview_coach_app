@@ -1,5 +1,6 @@
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,68 +12,70 @@ class InterviewResultsSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final recentSessionCubit = context.read<RecentSessionsCubit>();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
-      ),
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12,
-        children: [
-          /// Header
-          Text(
-            'Interview Summary',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
+    return FadeInRight(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
+        ),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            /// Header
+            Text(
+              'Interview Summary',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-
-          const SizedBox(height: 2),
-
-          /// Topic and Difficulty
-          Row(
-            spacing: 52,
-            children: [
-              _buildSummaryItem(
-                context,
-                label: 'Topic',
-                icon: FontAwesomeIcons.bookOpen,
-                labelValue: recentSessionCubit.getCurrentTopic?.topic ?? '',
-              ),
-              _buildDifficultyItem(
-                context,
-                difficultyLevel: recentSessionCubit.gerCurrentLevel?.level,
-              ),
-            ],
-          ),
-
-          /// Time spent and Questions answered
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: 52,
-            children: [
-              _buildSummaryItem(
-                context,
-                label: 'Time Spent',
-                icon: FontAwesomeIcons.clock,
-                labelValue: recentSessionCubit.getTimeSpent ?? '',
-              ),
-              _buildSummaryItem(
-                context,
-                label: 'Questions Answered',
-                icon: FontAwesomeIcons.circleCheck,
-                labelValue:
-                    '${recentSessionCubit.getAnsweredQuestions}/${recentSessionCubit.gerCurrentLevel!.questionsNumber}',
-              ),
-            ],
-          ),
-        ],
+      
+            const SizedBox(height: 2),
+      
+            /// Topic and Difficulty
+            Row(
+              spacing: 52,
+              children: [
+                _buildSummaryItem(
+                  context,
+                  label: 'Topic',
+                  icon: FontAwesomeIcons.bookOpen,
+                  labelValue: recentSessionCubit.getCurrentTopic?.topic ?? '',
+                ),
+                _buildDifficultyItem(
+                  context,
+                  difficultyLevel: recentSessionCubit.gerCurrentLevel?.level,
+                ),
+              ],
+            ),
+      
+            /// Time spent and Questions answered
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 52,
+              children: [
+                _buildSummaryItem(
+                  context,
+                  label: 'Time Spent',
+                  icon: FontAwesomeIcons.clock,
+                  labelValue: recentSessionCubit.getTimeSpent ?? '',
+                ),
+                _buildSummaryItem(
+                  context,
+                  label: 'Questions Answered',
+                  icon: FontAwesomeIcons.circleCheck,
+                  labelValue:
+                      '${recentSessionCubit.getAnsweredQuestions}/${recentSessionCubit.gerCurrentLevel!.questionsNumber}',
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

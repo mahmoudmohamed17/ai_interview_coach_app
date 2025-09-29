@@ -8,6 +8,7 @@ import 'package:ai_interview_coach_app/views/profile_view/edit_user_bio_widget.d
 import 'package:ai_interview_coach_app/views/profile_view/edit_user_field_with_label.dart';
 import 'package:ai_interview_coach_app/views/profile_view/editable_user_phone_number_widget.dart';
 import 'package:ai_interview_coach_app/views/profile_view/editable_user_profile_picture.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -42,77 +43,86 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
           }),
         ),
         const SizedBox(height: 32),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: EditUserBioWidget(
-            initialValue: widget.userModel.bio,
-            onChanged: (value) => setState(() {
-              _bio = value;
-            }),
+        FadeInRight(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: EditUserBioWidget(
+              initialValue: widget.userModel.bio,
+              onChanged: (value) => setState(() {
+                _bio = value;
+              }),
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: EditUserFieldWithLabel(
-            initialValue: widget.userModel.fullName,
-            label: 'Full name',
-            hintText: 'Edit your name',
-            onChanged: (value) => setState(() {
-              _fullName = value;
-            }),
+        FadeInLeft(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: EditUserFieldWithLabel(
+              initialValue: widget.userModel.fullName,
+              label: 'Full name',
+              hintText: 'Edit your name',
+              onChanged: (value) => setState(() {
+                _fullName = value;
+              }),
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: EditableUserPhoneNumberWidget(
-            onNumberChanged: (value) => setState(() {
-              _phoneNumber = value;
-            }),
-            onCodeChanged: (value) => setState(() {
-              _countryCode = value;
-            }),
-            phoneNumber: widget.userModel.phoneNumber,
-            countryCode: widget.userModel.countryCode,
+        FadeInRight(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: EditableUserPhoneNumberWidget(
+              onNumberChanged: (value) => setState(() {
+                _phoneNumber = value;
+              }),
+              onCodeChanged: (value) => setState(() {
+                _countryCode = value;
+              }),
+              phoneNumber: widget.userModel.phoneNumber,
+              countryCode: widget.userModel.countryCode,
+            ),
           ),
         ),
         const SizedBox(height: 64),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SizedBox(
-            width: context.width,
-            child: CustomButton(
-              onPressed: () async {
-                await cubit.updateUser(
-                  userDataModel: widget.userModel.copyWith(
-                    fullName: _fullName,
-                    profilePicture: _profilePicture,
-                    bio: _bio,
-                    phoneNumber: _phoneNumber,
-                    countryCode: _countryCode,
-                  ),
-                );
-              },
-              backgrnColor: Theme.of(context).colorScheme.primary,
-              borderRadius: 32,
-              child: BlocBuilder<AuthCubit, AuthState>(
-                builder: (context, state) {
-                  if (state is AuthLoading) {
-                    return SpinKitThreeBounce(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      size: 20,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  } else {
-                    return Text(
-                      'Update',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    );
-                  }
+        FadeIn(
+          duration: const Duration(milliseconds: 800),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: SizedBox(
+              width: context.width,
+              child: CustomButton(
+                onPressed: () async {
+                  await cubit.updateUser(
+                    userDataModel: widget.userModel.copyWith(
+                      fullName: _fullName,
+                      profilePicture: _profilePicture,
+                      bio: _bio,
+                      phoneNumber: _phoneNumber,
+                      countryCode: _countryCode,
+                    ),
+                  );
                 },
+                backgrnColor: Theme.of(context).colorScheme.primary,
+                borderRadius: 32,
+                child: BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return SpinKitThreeBounce(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        size: 20,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    } else {
+                      return Text(
+                        'Update',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ),
