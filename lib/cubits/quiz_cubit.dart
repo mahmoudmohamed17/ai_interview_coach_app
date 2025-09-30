@@ -11,7 +11,7 @@ class QuizCubit extends Cubit<QuizStates> {
 
   final GeminiService geminiService;
 
-  // Used to store the current session questions and answers
+  // Used to save the current session's questions and answers
   List<QuestionModel>? _sessionQuestions;
   List<AnswerModel>? _sessionAnswers;
 
@@ -22,7 +22,7 @@ class QuizCubit extends Cubit<QuizStates> {
       _sessionQuestions = questions;
   set sessionAnswers(List<AnswerModel> answers) => _sessionAnswers = answers;
 
-  Future<void> fetchQuestions({
+  Future<void> getQuestions({
     required String topic,
     required int questionsCount,
     required String difficultyLevel,
@@ -53,7 +53,7 @@ class QuizCubit extends Cubit<QuizStates> {
     emit(const QuizLoading());
 
     // We make the userAnswers list the same length of the questions to make it easy
-    // when reviewing the questions and not depend on null and index checking
+    // when reviewing the questions so we don't depend on null and index checking
     final questions = _sessionQuestions;
     final userAnswers = questions!.map((question) {
       final answer = answers[question.id];
@@ -66,7 +66,6 @@ class QuizCubit extends Cubit<QuizStates> {
       } else {
         return AnswerModel(
           questionId: question.id,
-          answer: '',
           status: AnswerStatus.skipped,
         );
       }

@@ -158,7 +158,7 @@ class RecentPracticeSessionsSection extends StatelessWidget {
             ),
           ],
         ),
-        Image.asset(AppAssets.imagesSadBot, height: context.height * 0.12),
+        Image.asset(AppAssets.imagesSadBot, height: context.height * 0.10),
         Text(
           'You don\'t have any recent practices yet!',
           style: Theme.of(context).textTheme.labelLarge?.copyWith(

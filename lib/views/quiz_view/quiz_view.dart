@@ -31,6 +31,7 @@ class QuizView extends StatelessWidget {
 
             context.push(Routes.interviewResultsView, extra: state.feedback);
           }
+
           if (state is QuizFailed) {
             showToast(
               context,

@@ -45,7 +45,9 @@ class SolvedQuestionWithAnswers extends StatelessWidget {
                 ? questionModel.correctChoice
                 : answerModel.answer!,
           ),
-          if (!isSkipped && answerModel.answer! != questionModel.correctChoice)
+          if ((!isSkipped &&
+                  answerModel.answer! != questionModel.correctChoice) ||
+              isSkipped)
             AnswerExplanationWidget(explanation: questionModel.explanation),
         ],
       ),

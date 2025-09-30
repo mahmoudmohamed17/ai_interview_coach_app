@@ -26,6 +26,7 @@ class RecentPracticeSessionsView extends StatelessWidget {
             title: 'All sessions have beed deleted successfully!',
           );
         }
+
         if (state is PracticeSessionError) {
           showToast(
             context,
@@ -40,13 +41,17 @@ class RecentPracticeSessionsView extends StatelessWidget {
           current is PracticeSessionsRefreshing ||
           current is PracticeSessionsLoading,
       builder: (context, state) {
+       final List<QuizSessionModel> items = state is PracticeSessionsFilled
+            ? state.currentSessions
+            : [];
+        
         return LoadingOverlay(
           isLoading: state is PracticeSessionsRefreshing,
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
             body: ListView(
               children: [
-                const RecentPracticeSessionsAppBar(),
+                RecentPracticeSessionsAppBar(items: items),
                 const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),

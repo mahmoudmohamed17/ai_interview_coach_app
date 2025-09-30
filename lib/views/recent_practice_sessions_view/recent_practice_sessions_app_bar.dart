@@ -1,5 +1,7 @@
+import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/custom_deletion_confirm_dialog.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class RecentPracticeSessionsAppBar extends StatelessWidget {
-  const RecentPracticeSessionsAppBar({super.key});
+  const RecentPracticeSessionsAppBar({super.key, required this.items});
+
+  final List<QuizSessionModel> items;
 
   @override
   Widget build(BuildContext context) {
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
+    final userStatsCubit = context.read<UserStatsCubit>();
 
     return FadeIn(
       duration: const Duration(milliseconds: 800),
@@ -44,19 +49,21 @@ class RecentPracticeSessionsAppBar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () => showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => CustomDeletionConfirmDialog(
-                  label: 'Are you sure to delete all your sessions?',
-                  onDelete: () async {
-                    await recentSessionsCubit.deleteAllUserSessions();
-                  },
+            if (items.isNotEmpty)
+              IconButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => CustomDeletionConfirmDialog(
+                    label: 'Are you sure to delete all your sessions?',
+                    onDelete: () async {
+                      await recentSessionsCubit.deleteAllUserSessions();
+                      await userStatsCubit.refreshStats();
+                    },
+                  ),
                 ),
+                icon: const Icon(FontAwesomeIcons.solidTrashCan, size: 20),
               ),
-              icon: const Icon(FontAwesomeIcons.solidTrashCan, size: 20),
-            ),
             const SizedBox(width: 8),
           ],
         ),

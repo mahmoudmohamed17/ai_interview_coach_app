@@ -14,22 +14,35 @@ class CustomDeletionConfirmDialog extends StatelessWidget {
     super.key,
     required this.label,
     required this.onDelete,
+    this.isForSingleItem = false,
   });
+
   final String label;
   final Future<void> Function() onDelete;
+  final bool isForSingleItem;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
         if (state is PracticeSessionsInitial ||
-            state is PracticeSessionsFilled) {
+            state is PracticeSessionsFilled && isForSingleItem) {
           context.go(Routes.recentPracticeSessionsView);
           showToast(context, title: 'Session deleted successfully!');
         }
-        if (state is PracticeSessionsError) {
+
+        if (state is PracticeSessionsInitial ||
+            state is PracticeSessionsFilled && !isForSingleItem) {
+          context.pop();
+        }
+
+        if (state is PracticeSessionsError && isForSingleItem) {
           context.pop();
           showToast(context, title: 'Erro while deleting the session');
+        }
+
+        if (state is PracticeSessionsError && !isForSingleItem) {
+          context.pop();
         }
       },
       builder: (context, state) {

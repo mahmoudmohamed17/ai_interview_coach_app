@@ -1,8 +1,10 @@
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/theme/app_colors.dart';
+import 'package:ai_interview_coach_app/cubits/timer_cubit.dart';
 import 'package:ai_interview_coach_app/views/quiz_view/quiz_timer_wigdet.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +13,8 @@ class QuizViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timerCubit = context.read<TimerCubit>();
+
     return FadeIn(
       duration: const Duration(milliseconds: 800),
       child: Container(
@@ -28,10 +32,14 @@ class QuizViewAppBar extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => showDialog(
-                context: context,
-                builder: (context) => _buildAlertDialog(context),
-              ),
+              onPressed: () {
+                timerCubit.pauseTimer();
+                showDialog(
+                  context: context,
+                  builder: (context) =>
+                      _buildAlertDialog(context, timer: timerCubit),
+                );
+              },
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.arrow_back),
             ),
@@ -50,7 +58,7 @@ class QuizViewAppBar extends StatelessWidget {
     );
   }
 
-  Widget _buildAlertDialog(BuildContext context) {
+  Widget _buildAlertDialog(BuildContext context, {required TimerCubit timer}) {
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       icon: const CircleAvatar(
@@ -96,7 +104,10 @@ class QuizViewAppBar extends StatelessWidget {
               ),
               Expanded(
                 child: TextButton(
-                  onPressed: () => context.pop(),
+                  onPressed: () {
+                    timer.resumeTimer();
+                    context.pop();
+                  },
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(
                       Theme.of(context).colorScheme.primary,

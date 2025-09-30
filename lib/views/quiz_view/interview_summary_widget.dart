@@ -50,7 +50,7 @@ class InterviewSummaryWidget extends StatelessWidget {
                   recentSessionsCubit.currentTopic = topicModel;
                   recentSessionsCubit.currentLevel = levelModel;
 
-                  await quizCubit.fetchQuestions(
+                  await quizCubit.getQuestions(
                     topic: topicModel.topic,
                     questionsCount: levelModel.questionsNumber,
                     difficultyLevel: levelModel.level,

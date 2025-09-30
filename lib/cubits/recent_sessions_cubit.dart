@@ -34,6 +34,12 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   // Helps to store data at [performance_breakdown] and [suggestions] tables for a specific quiz session;
   String? _currentQuizId;
 
+  // To indicate which path to navigate to after saving the current session's data
+  String? _nextPath;
+
+  set nextPath(String path) => _nextPath = path;
+  String? get getNextPath => _nextPath;
+
   set currentTopic(InterviewTopicModel model) => _currentTopic = model;
   InterviewTopicModel? get getCurrentTopic => _currentTopic;
 
@@ -71,9 +77,10 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
   }
 
   /// Adding a quiz session to the database and return it using the local models
-  Future<void> addQuizSession() async {
+  Future<void> addQuizSessionWithRelatedData({required String path}) async {
     // To prevent show the loading indicator when adding new item; as this's unnecessary
     emit(PracticeSessionsRefreshing(_sessions));
+    nextPath = path;
     try {
       final model = QuizSessionModel(
         userId: supabaseAuthService.currentUser?.id,
@@ -88,20 +95,10 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         createdAt: DateTime.now(),
         timeSpent: _timeSpent,
       );
-      final result = await supabaseDatabaseService.addQuizSession(model);
-      currentQuizId = result.id!; // To use it in other operations
-      _sessions.add(result);
-      emit(PracticeSessionsFilled(currentSessions: _sessions));
-    } catch (e) {
-      log('Error in adding quiz: ${e.toString()}');
-      emit(PracticeSessionsError(message: e.toString()));
-    }
-  }
 
-  /// Adding performance breakdown items and suggestions related to the current quiz session
-  Future<void> addQuizSessionRelatedData() async {
-    emit(PracticeSessionsRefreshing(_sessions));
-    try {
+      final result = await supabaseDatabaseService.addQuizSession(model);
+      currentQuizId = result.id!;
+
       final performanceModels = buildPerformanceModels(
         technicalKnowledge: _currentFeedback!.technicalKnowledge,
         problemSolving: _currentFeedback!.problemSolving,
@@ -114,16 +111,18 @@ class RecentSessionsCubit extends Cubit<RecentSessionsState> {
         quizId: _currentQuizId!,
         userId: supabaseAuthService.currentUser!.id,
       );
+
       await supabaseDatabaseService.addPerformanceItems(performanceModels);
       await supabaseDatabaseService.addQuizSuggestions(suggestions);
+
+      _sessions.add(result);
+
       emit(PracticeSessionsFilled(currentSessions: _sessions));
     } catch (e) {
-      emit(PracticeSessionError(message: e.toString()));
+      log('Error in adding quiz: ${e.toString()}');
+      emit(PracticeSessionsError(message: e.toString()));
     }
   }
-
-  /// Only used for indicates whether to go home or start a new quiz
-  void createNewInterview() => emit(const PracticeSessionsNavigating());
 
   /// To get the data related to a specific quiz session.
   /// This called when navigating to [RecentSessionDetailsView]

@@ -1,7 +1,7 @@
 **INTERVIEWER MODE**
 Ask me {questionsCount} (MCQ) about {topic}.
-The questions have to be at {difficultyLevel} level.
-**You MUST follow these rules for questions and answers**:
+The questions have to be at the {difficultyLevel} level.
+**You must follow these rules for questions and answers**:
 *Questions formate will be like this:
   {
     "questions": [
@@ -30,7 +30,8 @@ The questions have to be at {difficultyLevel} level.
       ...
     ]
   }
-  NOTE: Some answers may be empty like this '', so count it as a wrong answer.
+  *NOTE: Some answers may be skipped by the user so it's value would be null, then
+  you must count it as a WRONG ANSWER.
 **After my answer you HAVE to provide these statistics for me like this:
   {
     "results": {

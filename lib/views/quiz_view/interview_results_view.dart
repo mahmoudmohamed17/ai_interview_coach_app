@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ai_interview_coach_app/ai/models/feedback_model.dart';
 import 'package:ai_interview_coach_app/core/routing/routes.dart';
 import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
@@ -31,12 +30,16 @@ class InterviewResultsView extends StatelessWidget {
     );
     return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
       listener: (context, state) {
-        if (state is PracticeSessionsFilled) {
+        final nextPath = context.read<RecentSessionsCubit>().getNextPath;
+
+        if (state is PracticeSessionsFilled && nextPath == 'home') {
           context.go(Routes.homeView);
+          showToast(context, title: 'Session saved successfully!');
         }
 
-        if (state is PracticeSessionsNavigating) {
+        if (state is PracticeSessionsFilled && nextPath == 'new-quiz') {
           context.go(Routes.interviewSetupView);
+          showToast(context, title: 'Session saved successfully!');
         }
 
         if (state is PracticeSessionError) {

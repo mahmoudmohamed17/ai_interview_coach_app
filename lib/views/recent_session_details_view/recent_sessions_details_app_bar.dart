@@ -1,4 +1,5 @@
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
+import 'package:ai_interview_coach_app/cubits/user_stats_cubit.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/custom_deletion_confirm_dialog.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class RecentSessionsDetailsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recentSessionsCubit = context.read<RecentSessionsCubit>();
+    final userStatsCubit = context.read<UserStatsCubit>();
 
     return FadeIn(
       duration: const Duration(milliseconds: 800),
@@ -52,7 +54,9 @@ class RecentSessionsDetailsAppBar extends StatelessWidget {
                   label: 'Are you sure to delete this session?',
                   onDelete: () async {
                     await recentSessionsCubit.deleteQuizSession(quizId);
+                    await userStatsCubit.refreshStats();
                   },
+                  isForSingleItem: true,
                 ),
               ),
               icon: const Icon(FontAwesomeIcons.solidTrashCan, size: 20),

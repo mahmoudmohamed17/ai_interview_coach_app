@@ -22,8 +22,9 @@ class InterviewResultsActionButtons extends StatelessWidget {
             child: _buildButton(
               context,
               onPressed: () async {
-                await recentSessionsCubit.addQuizSession();
-                await recentSessionsCubit.addQuizSessionRelatedData();
+                await recentSessionsCubit.addQuizSessionWithRelatedData(
+                  path: 'home',
+                );
                 await userStatsCubit.refreshStats();
               },
               label: 'Back to Home',
@@ -37,9 +38,9 @@ class InterviewResultsActionButtons extends StatelessWidget {
             child: _buildButton(
               context,
               onPressed: () async {
-                await recentSessionsCubit.addQuizSession();
-                await recentSessionsCubit.addQuizSessionRelatedData();
-                recentSessionsCubit.createNewInterview();
+                await recentSessionsCubit.addQuizSessionWithRelatedData(
+                  path: 'new-quiz',
+                );
                 await userStatsCubit.refreshStats();
               },
               label: 'Start New Interview',
