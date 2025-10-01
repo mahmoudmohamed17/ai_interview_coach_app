@@ -60,6 +60,7 @@ class RecentPracticeSessionsAppBar extends StatelessWidget {
                       await recentSessionsCubit.deleteAllUserSessions();
                       await userStatsCubit.refreshStats();
                     },
+                    isForSingleItem: false,
                   ),
                 ),
                 icon: const Icon(FontAwesomeIcons.solidTrashCan, size: 20),

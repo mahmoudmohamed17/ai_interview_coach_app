@@ -14,10 +14,28 @@ class InterviewSetupViewBody extends StatefulWidget {
 }
 
 class _InterviewSetupViewBodyState extends State<InterviewSetupViewBody> {
-  InterviewTopicModel? _topic;
-  InterviewDifficultyLevelModel? _level;
-  int _topicIndex = -1;
-  int _levelIndex = -1;
+  late InterviewTopicModel? _topic;
+  late InterviewDifficultyLevelModel? _level;
+  late int _topicIndex;
+  late int _levelIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _topic = null;
+    _level = null;
+    _topicIndex = -1;
+    _levelIndex = -1;
+  }
+
+  @override
+  void dispose() {
+    _topic = null;
+    _level = null;
+    _topicIndex = -1;
+    _levelIndex = -1;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

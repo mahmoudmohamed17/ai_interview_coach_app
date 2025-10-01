@@ -6,6 +6,7 @@ import 'package:ai_interview_coach_app/views/quiz_view/interview_setup_view_body
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 class InterviewSetupView extends StatelessWidget {
   const InterviewSetupView({super.key});
@@ -21,6 +22,7 @@ class InterviewSetupView extends StatelessWidget {
           showToast(
             context,
             title: 'Error prepearing the interview, try again later',
+            type: ToastificationType.error,
           );
         }
       },
