@@ -2,7 +2,9 @@
 class AppAssets {
   AppAssets._();
   
-  static const String iconsCyberSecurity = "assets/icons/cyber_security.png";
+  static const String iconsAngular = "assets/icons/angular.png";
+
+  static const String iconsCSharp = "assets/icons/c_sharp.png";
 
   static const String iconsEgypt = "assets/icons/egypt.png";
 
@@ -19,6 +21,8 @@ class AppAssets {
   static const String iconsNodejs = "assets/icons/nodejs.png";
 
   static const String iconsOracle = "assets/icons/oracle.png";
+
+  static const String iconsPhp = "assets/icons/php.png";
 
   static const String iconsPython = "assets/icons/python.png";
 

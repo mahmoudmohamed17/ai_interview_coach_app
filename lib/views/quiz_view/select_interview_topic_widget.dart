@@ -43,9 +43,14 @@ class SelectInterviewTopicWidget extends StatelessWidget {
         topic: 'Databases Fundamentals',
         icon: AppAssets.iconsOracle,
       ),
+      InterviewTopicModel(topic: 'PHP Fundamentals', icon: AppAssets.iconsPhp),
       InterviewTopicModel(
-        topic: 'Cyber Security',
-        icon: AppAssets.iconsCyberSecurity,
+        topic: 'Angular Development',
+        icon: AppAssets.iconsAngular,
+      ),
+      InterviewTopicModel(
+        topic: 'C# Fundamentals',
+        icon: AppAssets.iconsCSharp,
       ),
     ];
 

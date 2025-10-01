@@ -1,54 +1,68 @@
-**INTERVIEWER MODE**
-Ask me {questionsCount} (MCQ) about {topic}.
-The questions have to be at the {difficultyLevel} level.
-**You must follow these rules for questions and answers**:
-*Questions formate will be like this:
-  {
-    "questions": [
-      {
-        "id": 1,
-        "question": "What is Flutter setState()?",
-        "choices": [
-          "A. Bla Bla Bla",
-          "B. Bla Bla Bla",
-          "C. Bla Bla Bla",
-          "D. Bla Bla Bla"
-        ],
-        "correct_choice": "C",
-        "explanation": "Correct answer is 'C'; because..."
-      },
-      ...
-    ]
-  }
-*My answers formate will be like this:
-  {
-    "answers": [
-      {
-        "question_id": 1,
-        "answer": "A"
-      },
-      ...
-    ]
-  }
-  *NOTE: Some answers may be skipped by the user so it's value would be null, then
-  you must count it as a WRONG ANSWER.
-**After my answer you HAVE to provide these statistics for me like this:
-  {
-    "results": {
-      "score": 89.0,
-      "overview": "Excellent! Outstanding performance.",
-      "correct_answers": 5,
-      "wrong_answers": 3
+**INTERVIEWER MODE**  
+Ask me {questionsCount} (MCQ) about {topic}.  
+The questions have to be at the {difficultyLevel} level.  
+
+**You must follow these rules for questions and answers**:  
+
+*Questions format will be like this:*  
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Flutter setState()?",
+      "choices": [
+        "A. Bla Bla Bla",
+        "B. Bla Bla Bla",
+        "C. Bla Bla Bla",
+        "D. Bla Bla Bla"
+      ],
+      "correct_choice": "C",
+      "explanation": "Correct answer is 'C'; because..."
     },
-    "performance_breakdown": {
-      "technical_knowledge": 86,
-      "problem_solving": 78,
-      "best_practices": 82
+    ...
+  ]
+}  
+
+*My answers format will be like this:*  
+{
+  "answers": [
+    {
+      "question_id": 1,
+      "answer": "A"
     },
-    "suggestions_for_improvement": [
-      "Bla Bla Bla",
-      "Bla Bla Bla"
-    ]
-  }
-**No extra text. No explanation. No hints. Just respond with JSON formats I provide.
-**After I send my answers, you send me the feedback/statistics like the format I sent.
+    ...
+  ]
+}  
+
+*NOTE: Some answers may be skipped by the user so its value would be null, then you must count it as a WRONG ANSWER.*  
+
+**RULES FOR EVALUATION**  
+- For each question:  
+  - If the answer matches `correct_choice`, count it as CORRECT.  
+  - If the answer is null OR does not match `correct_choice`, count it as WRONG.  
+- WRONG answers = (Skipped answers + Incorrect answers).  
+- Score = (correct_answers / total_questions) * 100.  
+- You must calculate based on ALL questions, not only the answered ones.  
+- Do NOT stop at the first wrong answer; evaluate ALL answers.  
+
+**After my answer you HAVE to provide these statistics for me like this:**  
+{
+  "results": {
+    "score": 89.0,
+    "overview": "Excellent! Outstanding performance.",
+    "correct_answers": 5,
+    "wrong_answers": 3
+  },
+  "performance_breakdown": {
+    "technical_knowledge": 86,
+    "problem_solving": 78,
+    "best_practices": 82
+  },
+  "suggestions_for_improvement": [
+    "Bla Bla Bla",
+    "Bla Bla Bla"
+  ]
+}  
+
+**No extra text. No explanation. No hints. Just respond with JSON formats I provide.**  
+**After I send my answers, you send me the feedback/statistics like the format I sent.**

@@ -27,13 +27,17 @@ class CustomDeletionConfirmDialog extends StatelessWidget {
       listener: (context, state) {
         if (state is PracticeSessionsInitial ||
             state is PracticeSessionsFilled && isForSingleItem) {
-          context.go(Routes.recentPracticeSessionsView);
+          context.go(Routes.homeView);
           showToast(context, title: 'Session deleted successfully!');
         }
 
         if (state is PracticeSessionsInitial ||
             state is PracticeSessionsFilled && !isForSingleItem) {
           context.pop();
+          showToast(
+            context,
+            title: 'All sessions have beed deleted successfully!',
+          );
         }
 
         if (state is PracticeSessionsError && isForSingleItem) {
@@ -43,6 +47,7 @@ class CustomDeletionConfirmDialog extends StatelessWidget {
 
         if (state is PracticeSessionsError && !isForSingleItem) {
           context.pop();
+          showToast(context, title: 'Erro while deleting the sessions');
         }
       },
       builder: (context, state) {

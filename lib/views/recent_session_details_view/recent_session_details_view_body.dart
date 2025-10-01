@@ -99,7 +99,7 @@ class RecentSessionDetailsViewBody extends StatelessWidget {
               ),
               _statCard(
                 context,
-                label: "Wrong",
+                label: "Wrong/Skipped",
                 value: "${model.wrongAnswers}",
                 color: AppColors.blueIconColor,
               ),

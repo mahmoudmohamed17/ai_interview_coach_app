@@ -1,7 +1,6 @@
 import 'package:ai_interview_coach_app/backend/models/quiz_session_model.dart';
 import 'package:ai_interview_coach_app/core/constants/app_assets.dart';
 import 'package:ai_interview_coach_app/core/utilities/context_extension.dart';
-import 'package:ai_interview_coach_app/core/utilities/show_toast.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_cubit.dart';
 import 'package:ai_interview_coach_app/cubits/recent_sessions_state.dart';
 import 'package:ai_interview_coach_app/views/recent_practice_sessions_view/expanded_practice_session_item.dart';
@@ -11,40 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:toastification/toastification.dart';
 
 class RecentPracticeSessionsView extends StatelessWidget {
   const RecentPracticeSessionsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RecentSessionsCubit, RecentSessionsState>(
-      listener: (context, state) {
-        if (state is PracticeSessionsInitial) {
-          showToast(
-            context,
-            title: 'All sessions have beed deleted successfully!',
-          );
-        }
-
-        if (state is PracticeSessionError) {
-          showToast(
-            context,
-            title: 'Error while removing the sessions',
-            type: ToastificationType.error,
-          );
-        }
-      },
+    return BlocBuilder<RecentSessionsCubit, RecentSessionsState>(
       buildWhen: (previous, current) =>
           current is PracticeSessionsInitial ||
           current is PracticeSessionsFilled ||
           current is PracticeSessionsRefreshing ||
           current is PracticeSessionsLoading,
       builder: (context, state) {
-       final List<QuizSessionModel> items = state is PracticeSessionsFilled
+        final List<QuizSessionModel> items = state is PracticeSessionsFilled
             ? state.currentSessions
             : [];
-        
+
         return LoadingOverlay(
           isLoading: state is PracticeSessionsRefreshing,
           child: Scaffold(
