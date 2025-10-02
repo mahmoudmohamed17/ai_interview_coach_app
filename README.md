@@ -18,6 +18,12 @@
 
 NovaPrep is a comprehensive mobile application designed to help developers ace their technical interviews. Powered by Google's Gemini AI, the app generates intelligent, contextually relevant interview questions across multiple programming domains and difficulty levels, providing instant feedback and detailed performance analytics.
 
+<div align="center">
+
+[![Live Demo on LinkedIn](https://img.shields.io/badge/Watch%20Live%20Demo-LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/mahmoud-mohamed-3b7088247_flutter-mobile-dart-activity-7379357740139356160-Gwiq?utm_source=share&utm_medium=member_android&rcm=ACoAAD0OsDsBqjAWxIyfTEg7DKjzWpFom5bCkyQ)
+
+</div>
+
 ## ✨ Features
 
 ### 🎯 Targeted Practice
@@ -56,12 +62,12 @@ NovaPrep is a comprehensive mobile application designed to help developers ace t
 ### Main Features
 | Home Dashboard | Interview Setup | Question Interface |
 |:---:|:---:|:---:|
-| ![Home](assets/ReadMe/pic4.jpg) | ![Setup](assets/ReadMe/pic9.jpg) | ![Question](assets/ReadMe/pic10.jpg) |
+| ![Home](assets/ReadMe/pic4.jpg) | ![Setup](assets/ReadMe/pic5.jpg) | ![Question](assets/ReadMe/pic6.jpg) |
 
 ### Results & Profile
 | Interview Results | Performance Breakdown | User Profile |
 |:---:|:---:|:---:|
-| ![Results](assets/ReadMe/pic13.jpg) | ![Review](assets/ReadMe/pic14.jpg) | ![Profile](assets/ReadMe/pic6.jpg) |
+| ![Results](assets/ReadMe/pic7.jpg) | ![Review](assets/ReadMe/pic8.jpg) | ![Profile](assets/ReadMe/pic9.jpg) |
 
 </div>
 
@@ -167,10 +173,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
